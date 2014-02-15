@@ -27,6 +27,7 @@ public class StartPage extends JFrame {
         joinButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                dispose();
                 new PlayerScreen();
             }
         });
