@@ -103,4 +103,8 @@ public class PlayerScreen extends JFrame {
         hintToUser.setFont(new Font("Times new Roman", Font.PLAIN, 30));
         centerPanel.add(hintToUser);
     }
+
+    public static void main(String[] args) {
+        new PlayerScreen().setVisible(true);
+    }
 }

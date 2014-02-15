@@ -1,15 +1,14 @@
-package com.tw.manalit;
+package com.tw.unoProject.view;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class ServerScreen extends JFrame {
     private JPanel serverPanel;
-    private JLabel pile;
+    private JLabel pileCard;
     private JPanel playersPanel;
     private JTextArea status;
     private JScrollPane log;
-    private JTextArea textArea;
     private JPanel currentStatusPanel;
     private JTable logTable;
 
@@ -20,7 +19,8 @@ public class ServerScreen extends JFrame {
     private void generateUI() {
         createServerPanel();
         setContentPane(serverPanel);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         createPlayerPanel();
         createCurrentStatusPanel();
@@ -44,16 +44,14 @@ public class ServerScreen extends JFrame {
     }
 
     private void createPile() {
-        pile = new JLabel("RED : 2");
-        pile.setBounds(80, 100, 100, 100);
-        pile.setForeground(Color.RED);
-        pile.setFont(new Font("serif", Font.BOLD, 28));
+        pileCard = new JLabel("RED : 2");
+        pileCard.setBounds(80, 100, 100, 100);
+        pileCard.setForeground(Color.RED);
+        pileCard.setFont(new Font("serif", Font.BOLD, 28));
     }
 
     private void createLog() {
-        textArea = new JTextArea();
         createTable();
-        textArea.setEditable(true);
         log = new JScrollPane(logTable);
         log.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         log.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -70,7 +68,6 @@ public class ServerScreen extends JFrame {
             logTable.setBorder(BorderFactory.createLineBorder(Color.black));
             logTable.setFont(new Font("serif", Font.BOLD, 20));
             logTable.setRowHeight(40);
-//            panel.add(logTable);
     }
     private void createStatus() {
         status = new JTextArea();
@@ -82,7 +79,7 @@ public class ServerScreen extends JFrame {
     private void addToCurrentStatusPanel() {
         createPile();
         createStatus();
-        currentStatusPanel.add(pile);
+        currentStatusPanel.add(pileCard);
         currentStatusPanel.add(status);
     }
 

@@ -12,7 +12,7 @@ public class StartPage extends JFrame {
     private JLabel nameLabel;
 
     public StartPage(){
-        super("JOIN");
+        super("JOIN UNO");
         joinMasterPanel = new JPanel();
         setContentPane(joinMasterPanel);
         setupForMasterPanel();
@@ -31,14 +31,15 @@ public class StartPage extends JFrame {
     private void setupForMasterPanel() {
         joinMasterPanel.setLayout(null);
         joinMasterPanel.setBackground(Color.cyan);
-        setSize(500, 400);
+        setSize(600, 400);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
     private void addJoinButton() {
         joinButton = new JButton("Join");
-        joinButton.setBounds(120, 190, 150, 50);
+        joinButton.setFont(new Font("Times new Roman", Font.BOLD, 25));
+        joinButton.setBounds(190, 190, 150, 50);
     }
 
     private void addComponentsToMasterPanel() {
@@ -52,18 +53,22 @@ public class StartPage extends JFrame {
 
     private void addLabels() {
         labelGameMaster = new JLabel("Game Master");
+        labelGameMaster.setFont(new Font("Times new Roman", Font.PLAIN, 25));
         labelGameMaster.setBounds(30, 20, 200, 50);
 
         nameLabel = new JLabel("Player Name");
+        nameLabel.setFont(new Font("Times new Roman", Font.PLAIN, 25));
         nameLabel.setBounds(30,90,200,50);
     }
 
     private void addTextFields() {
         gameMaster = new JTextField();
-        gameMaster.setBounds(120, 20, 290, 50);
+        gameMaster.setFont(new Font("Times new Roman", Font.BOLD, 25));
+        gameMaster.setBounds(190, 20, 290, 50);
 
         playerName = new JTextField();
-        playerName.setBounds(120, 90, 290, 50);
+        playerName.setFont(new Font("Times new Roman", Font.BOLD, 25));
+        playerName.setBounds(190, 90, 290, 50);
     }
 
     public static void main(String[] args) {
