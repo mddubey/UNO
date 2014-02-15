@@ -2,6 +2,8 @@ package com.tw.unoProject.view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class StartPage extends JFrame {
     private JPanel joinMasterPanel;
@@ -25,6 +27,12 @@ public class StartPage extends JFrame {
         addJoinButton();
 
         addComponentsToMasterPanel();
+        joinButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new PlayerScreen();
+            }
+        });
 
     }
 

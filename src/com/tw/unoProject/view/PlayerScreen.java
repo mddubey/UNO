@@ -18,6 +18,7 @@ public class PlayerScreen extends JFrame {
     public PlayerScreen() {
         super("UNO");
         generateUI();
+        setVisible(true);
     }
 
     private void generateUI() {
@@ -104,7 +105,4 @@ public class PlayerScreen extends JFrame {
         centerPanel.add(hintToUser);
     }
 
-    public static void main(String[] args) {
-        new PlayerScreen().setVisible(true);
-    }
 }
