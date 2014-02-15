@@ -3,7 +3,7 @@ package com.tw.unoProject.view;
 import javax.swing.*;
 
 public class ColorChooser {
-    public String chhoseColor() {
+    public String choseColor() {
         String[] possibleValues = { "RED", "BLUE", "YELLOW","GREEN" };
         String selectedValue = (String) JOptionPane.showInputDialog(null,
                 "Choose color", "COLOR",
@@ -13,6 +13,6 @@ public class ColorChooser {
     }
 
     public static void main(String[] args) {
-        System.out.println(new ColorChooser().chhoseColor());
+        System.out.println(new ColorChooser().choseColor());
     }
 }

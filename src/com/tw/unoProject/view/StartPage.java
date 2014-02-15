@@ -15,10 +15,7 @@ public class StartPage extends JFrame {
 
     public StartPage(){
         super("JOIN UNO");
-        joinMasterPanel = new JPanel();
-        setContentPane(joinMasterPanel);
-        setupForMasterPanel();
-
+        setupForFrame();
 
         addLabels();
 
@@ -34,9 +31,12 @@ public class StartPage extends JFrame {
             }
         });
 
+        setVisible(true);
     }
 
-    private void setupForMasterPanel() {
+    private void setupForFrame() {
+        joinMasterPanel = new JPanel();
+        setContentPane(joinMasterPanel);
         joinMasterPanel.setLayout(null);
         joinMasterPanel.setBackground(Color.cyan);
         setSize(600, 400);
@@ -56,7 +56,6 @@ public class StartPage extends JFrame {
         joinMasterPanel.add(gameMaster);
         joinMasterPanel.add(nameLabel);
         joinMasterPanel.add(playerName);
-        setVisible(true);
     }
 
     private void addLabels() {

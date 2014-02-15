@@ -13,7 +13,6 @@ public class PlayerScreen extends JFrame {
     private JLabel openPile;
     private JTextArea hintToUser;
     private JPanel playerCardsPanel;
-    private List<JButton> myCards;
 
     public PlayerScreen() {
         super("UNO");

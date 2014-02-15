@@ -91,13 +91,13 @@ public class ServerScreen extends JFrame {
     }
 
     public void addToPanel(){
-        addToPlayyersPanel();
+        addToPlayersPanel();
         serverPanel.add(playersPanel);
         serverPanel.add(currentStatusPanel);
         serverPanel.add(log);
     }
 
-    private void addToPlayyersPanel() {
+    private void addToPlayersPanel() {
         for (int i = 0; i < 5; i++) {
             JLabel player = new JLabel(String.valueOf(i+1));
             player.setFont(new Font("serif",Font.BOLD,25));

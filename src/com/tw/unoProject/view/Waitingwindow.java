@@ -3,12 +3,12 @@ package com.tw.unoProject.view;
 import javax.swing.*;
 import java.awt.*;
 
-public class Waitingwindow extends JFrame{
+public class WaitingWindow extends JFrame{
     private JPanel windowPanel;
     private JPanel displayPanel;
-    private JLabel displayMesssage ;
+    private JLabel message;
 
-    public Waitingwindow() {
+    public WaitingWindow() {
         super("Waiting Window");
         windowPanel = new JPanel();
         setContentPane(windowPanel);
@@ -33,14 +33,14 @@ public class Waitingwindow extends JFrame{
 
     public void addLabel(){
         displayPanel.setLayout(null);
-        displayMesssage = new JLabel("Waiting for the Connection to be established....",JLabel.CENTER);
-        displayMesssage.setFont(new Font("serif",Font.BOLD,20));
-        displayMesssage.setBounds(25, 25, 400, 25);
-        displayPanel.add(displayMesssage);
+        message = new JLabel("Waiting for the Connection to be established....",JLabel.CENTER);
+        message.setFont(new Font("serif", Font.BOLD, 20));
+        message.setBounds(25, 25, 400, 25);
+        displayPanel.add(message);
     }
 
     public static void main(String[] args) {
-        Waitingwindow waitWindow = new Waitingwindow();
+        WaitingWindow waitWindow = new WaitingWindow();
         waitWindow.setVisible(true);
     }
 }
