@@ -5,12 +5,13 @@ import java.awt.*;
 
 public class ServerScreen extends JFrame {
     private JPanel serverPanel;
-    private JLabel pileCard;
+    private JLabel openPile;
     private JPanel playersPanel;
     private JTextArea status;
     private JScrollPane log;
     private JPanel currentStatusPanel;
     private JTable logTable;
+    private JPanel cardPanel;
 
     public ServerScreen(){
         generateUI();
@@ -44,10 +45,16 @@ public class ServerScreen extends JFrame {
     }
 
     private void createPile() {
-        pileCard = new JLabel("RED : 2");
-        pileCard.setBounds(80, 100, 100, 100);
-        pileCard.setForeground(Color.RED);
-        pileCard.setFont(new Font("serif", Font.BOLD, 28));
+        cardPanel = new JPanel();
+        cardPanel.setLayout(null);
+        cardPanel.setBounds(50,120 , 100, 50);
+        cardPanel.setBackground(Color.cyan);
+        currentStatusPanel.add(cardPanel);
+        openPile = new JLabel("1");
+        openPile.setFont(new Font("Times new Roman", Font.BOLD, 30));
+        openPile.setForeground(Color.black);
+        openPile.setBounds(20, 5, 100, 30);
+        cardPanel.add(openPile);
     }
 
     private void createLog() {
@@ -79,7 +86,7 @@ public class ServerScreen extends JFrame {
     private void addToCurrentStatusPanel() {
         createPile();
         createStatus();
-        currentStatusPanel.add(pileCard);
+        currentStatusPanel.add(cardPanel);
         currentStatusPanel.add(status);
     }
 
