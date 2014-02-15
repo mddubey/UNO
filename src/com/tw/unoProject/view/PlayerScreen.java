@@ -13,6 +13,8 @@ public class PlayerScreen extends JFrame {
     private JLabel openPile;
     private JTextArea hintToUser;
     private JPanel playerCardsPanel;
+    private JTable logTable;
+    private JScrollPane log;
 
     public PlayerScreen() {
         super("UNO");
@@ -32,6 +34,7 @@ public class PlayerScreen extends JFrame {
         showCurrentHint();
 
         addPlayerCardsPanel();
+        createLog();
     }
 
     private void addPlayerCardsPanel() {
@@ -103,5 +106,24 @@ public class PlayerScreen extends JFrame {
         hintToUser.setFont(new Font("Times new Roman", Font.PLAIN, 30));
         centerPanel.add(hintToUser);
     }
-
+    private void createLog() {
+        createTable();
+        log = new JScrollPane(logTable);
+        log.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        log.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        log.setBounds(800, 10, 200, 600);
+        masterPanel.add(log);
+    }
+    private void createTable(){
+        Object ColumnName[] = {"NAME","CARD"};
+        Object data[][] = { {"Samiksha","RED : 2"},{"Manali","RED : 2"},
+                {"Guru","RED : 2"},{"MD","RED : 2"},{"Kashish","RED : 2"}};
+        logTable = new JTable(data,ColumnName);
+        logTable.setBounds(40, 120, 520, 200);
+        logTable.setLayout(new GridLayout(5, 3));
+        logTable.setBackground(Color.lightGray);
+        logTable.setBorder(BorderFactory.createLineBorder(Color.black));
+        logTable.setFont(new Font("serif", Font.BOLD, 20));
+        logTable.setRowHeight(40);
+    }
 }
