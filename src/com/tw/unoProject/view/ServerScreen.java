@@ -65,8 +65,8 @@ public class ServerScreen extends JFrame {
         log.setBounds(550, 10, 200, 600);
     }
     private void createTable(){
-            Object ColumnName[] = {"NAME","CARD"};
-            Object data[][] = { {"Samiksha","RED : 2"},{"Manali","RED : 2"},
+            String ColumnName[] = {"NAME","CARD"};
+            String data[][] = { {"Samiksha","RED : 2"},{"Manali","RED : 2"},
                     {"Guru","RED : 2"},{"MD","RED : 2"},{"Kashish","RED : 2"}};
             logTable = new JTable(data,ColumnName);
             logTable.setBounds(40, 120, 520, 200);
@@ -76,6 +76,7 @@ public class ServerScreen extends JFrame {
             logTable.setFont(new Font("serif", Font.BOLD, 20));
             logTable.setRowHeight(40);
     }
+
     private void createStatus() {
         status = new JTextArea();
         status.setEnabled(false);

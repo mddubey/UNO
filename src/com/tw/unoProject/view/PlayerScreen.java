@@ -2,7 +2,6 @@ package com.tw.unoProject.view;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.List;
 
 public class PlayerScreen extends JFrame {
     private JPanel masterPanel;
@@ -15,6 +14,7 @@ public class PlayerScreen extends JFrame {
     private JPanel playerCardsPanel;
     private JTable logTable;
     private JScrollPane log;
+    private JButton UNOButton;
 
     public PlayerScreen() {
         super("UNO");
@@ -35,14 +35,9 @@ public class PlayerScreen extends JFrame {
 
         addPlayerCardsPanel();
         createLog();
-    }
-
-    private void addPlayerCardsPanel() {
-        playerCardsPanel = new JPanel();
-        playerCardsPanel.setLayout(new GridLayout());
-        playerCardsPanel.setBackground(Color.white);
-        playerCardsPanel.setBounds(20,600,700,100);
-        masterPanel.add(playerCardsPanel);
+        UNOButton = new JButton("UNO");
+        UNOButton.setBounds(680, 600, 70, 50);
+        masterPanel.add(UNOButton);
     }
 
     private void setJFrame() {
@@ -89,7 +84,7 @@ public class PlayerScreen extends JFrame {
         cardPanel.setBounds(200, 15, 150, 50);
         cardPanel.setBackground(Color.cyan);
         centerPanel.add(cardPanel);
-        openPile = new JLabel("1");
+        openPile = new JLabel("1", JLabel.CENTER);
         openPile.setFont(new Font("Times new Roman", Font.BOLD, 30));
         openPile.setForeground(Color.black);
         openPile.setBounds(20, 5, 100, 30);
@@ -106,24 +101,34 @@ public class PlayerScreen extends JFrame {
         hintToUser.setFont(new Font("Times new Roman", Font.PLAIN, 30));
         centerPanel.add(hintToUser);
     }
+
     private void createLog() {
         createTable();
         log = new JScrollPane(logTable);
         log.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         log.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        log.setBounds(800, 10, 200, 600);
+        log.setBounds(770, 10, 300, 720);
         masterPanel.add(log);
     }
-    private void createTable(){
-        Object ColumnName[] = {"NAME","CARD"};
-        Object data[][] = { {"Samiksha","RED : 2"},{"Manali","RED : 2"},
-                {"Guru","RED : 2"},{"MD","RED : 2"},{"Kashish","RED : 2"}};
-        logTable = new JTable(data,ColumnName);
+
+    private void createTable() {
+        Object ColumnName[] = {"NAME", "CARD"};
+        Object data[][] = {{"Samiksha", "RED : 2"}, {"Manali", "RED : 2"},
+                {"Guru", "RED : 2"}, {"MD", "RED : 2"}, {"Kashish", "RED : 2"}};
+        logTable = new JTable(data, ColumnName);
         logTable.setBounds(40, 120, 520, 200);
         logTable.setLayout(new GridLayout(5, 3));
         logTable.setBackground(Color.lightGray);
         logTable.setBorder(BorderFactory.createLineBorder(Color.black));
         logTable.setFont(new Font("serif", Font.BOLD, 20));
         logTable.setRowHeight(40);
+    }
+
+    private void addPlayerCardsPanel() {
+        playerCardsPanel = new JPanel();
+        playerCardsPanel.setLayout(new GridLayout());
+        playerCardsPanel.setBackground(Color.white);
+        playerCardsPanel.setBounds(20, 600, 650, 100);
+        masterPanel.add(playerCardsPanel);
     }
 }
