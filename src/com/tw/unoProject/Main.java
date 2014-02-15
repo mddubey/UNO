@@ -1,9 +1,11 @@
 
 package com.tw.unoProject;
 
+import com.tw.unoProject.view.PlayerScreen;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello, World!");
+        new PlayerScreen().setVisible(true);
     }
 }
                 
