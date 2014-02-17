@@ -8,6 +8,8 @@ import com.tw.unoProject.view.ServerScreen;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Collections;
+import java.util.List;
 
 public class UNOFactory {
     public ServerSocket createServerSocket() {
@@ -26,7 +28,6 @@ public class UNOFactory {
             throw new RuntimeException("not able to accept the client");
         }
     }
-
     public Socket createClientSocket(String serverAddress) {
         try {
             return new Socket(serverAddress, 9090);
@@ -46,4 +47,9 @@ public class UNOFactory {
     public ServerScreen showServerScreen(int numOfPacks, int numOfPlayers) {
         return new ServerScreen(numOfPacks,numOfPlayers);
     }
+    public List shuffleCards(List cards) {
+        Collections.shuffle(cards);
+        return cards;
+    }
+
 }

@@ -83,7 +83,4 @@ public class GameServer extends JFrame {
         players.setBounds(190, 90, 290, 50);
     }
 
-//    public static void main(String[] args) {
-//        GameServer startPage = new GameServer();
-//    }
 }

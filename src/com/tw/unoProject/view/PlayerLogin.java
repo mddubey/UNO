@@ -64,6 +64,7 @@ public class PlayerLogin extends JFrame {
         joinMasterPanel.add(gameMaster);
         joinMasterPanel.add(nameLabel);
         joinMasterPanel.add(playerName);
+
     }
 
     private void addLabels() {

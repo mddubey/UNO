@@ -14,14 +14,15 @@ public class ServerScreen extends JFrame {
     private JLabel openPile;
     private JPanel playersPanel;
     private JTextArea status;
-    private JScrollPane log;
+
     private JPanel currentStatusPanel;
-    private JTable logTable;
+
     private JPanel cardPanel;
     private JButton quit;
     private List<JLabel> imageLable;
     private int numOfPlayers;
     private int numOfPacks;
+    LogDisplay log = new LogDisplay();
 
     public ServerScreen(int numOfPlayers,int numOfPacks) {
         this.numOfPlayers = numOfPlayers;
@@ -39,7 +40,7 @@ public class ServerScreen extends JFrame {
         createPlayerPanel();
         createCurrentStatusPanel();
         addToCurrentStatusPanel();
-        createLog();
+        log.createLog(530,10,250,730);
         addToPanel();
         setVisible(true);
     }
@@ -72,26 +73,7 @@ public class ServerScreen extends JFrame {
         cardPanel.add(openPile);
     }
 
-    private void createLog() {
-        createTable();
-        log = new JScrollPane(logTable);
-        log.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        log.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        log.setBounds(530, 10, 250, 730);
-    }
 
-    private void createTable() {
-        String ColumnName[] = {"NAME", "CARD"};
-        String data[][] = {{"Samiksha", "RED : 2"}, {"Manali", "RED : 2"},
-                {"Guru", "RED : 2"}, {"MD", "RED : 2"}, {"Kashish", "RED : 2"}};
-        logTable = new JTable(data, ColumnName);
-        logTable.setBounds(40, 120, 520, 200);
-        logTable.setLayout(new GridLayout(5, 3));
-        logTable.setBackground(Color.lightGray);
-        logTable.setBorder(BorderFactory.createLineBorder(Color.black));
-        logTable.setFont(new Font("serif", Font.BOLD, 20));
-        logTable.setRowHeight(40);
-    }
 
     private void createStatus() {
         status = new JTextArea();
@@ -118,7 +100,7 @@ public class ServerScreen extends JFrame {
         addToPlayersPanel();
         serverPanel.add(playersPanel);
         serverPanel.add(currentStatusPanel);
-        serverPanel.add(log);
+        serverPanel.add(log.getLog());
     }
 
     private void addToPlayersPanel() {
