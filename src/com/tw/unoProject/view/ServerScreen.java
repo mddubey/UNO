@@ -12,6 +12,8 @@ public class ServerScreen extends JFrame {
     private JPanel currentStatusPanel;
     private JTable logTable;
     private JPanel cardPanel;
+    private ImageIcon arrow;
+    private JLabel imageLable;
 
     public ServerScreen(){
         generateUI();
@@ -27,6 +29,10 @@ public class ServerScreen extends JFrame {
         createCurrentStatusPanel();
         addToCurrentStatusPanel();
         createLog();
+        arrow = new ImageIcon("D:/projects/UNO/src/com/tw/unoProject/view/arrow.jpg");
+        imageLable = new JLabel();
+        imageLable.setIcon(arrow);
+        imageLable.setBounds(10,10,50,50);
         setVisible(true);
     }
 
@@ -42,6 +48,8 @@ public class ServerScreen extends JFrame {
         playersPanel.setBounds(30, 30, 400, 50);
         playersPanel.setLayout(new GridLayout(1, 5));
         playersPanel.setBackground(Color.white);
+//        playersPanel.add(imageLable);
+
     }
 
     private void createPile() {
