@@ -2,8 +2,13 @@ package com.tw.unoProject.view;
 
 import javax.swing.*;
 import java.awt.*;
+<<<<<<< Updated upstream
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+=======
+import java.util.*;
+import java.util.List;
+>>>>>>> Stashed changes
 
 public class ServerScreen extends JFrame {
     private JPanel serverPanel;
@@ -14,9 +19,13 @@ public class ServerScreen extends JFrame {
     private JPanel currentStatusPanel;
     private JTable logTable;
     private JPanel cardPanel;
+<<<<<<< Updated upstream
     private ImageIcon arrow;
     private JLabel imageLabel;
     private JButton quit;
+=======
+    private List<JLabel> imageLable;
+>>>>>>> Stashed changes
 
     public ServerScreen(){
         generateUI();
@@ -33,10 +42,13 @@ public class ServerScreen extends JFrame {
         createCurrentStatusPanel();
         addToCurrentStatusPanel();
         createLog();
+<<<<<<< Updated upstream
         arrow = new ImageIcon("D:/projects/UNO/src/com/tw/unoProject/view/arrow.jpg");
         imageLabel = new JLabel();
         imageLabel.setIcon(arrow);
         imageLabel.setBounds(10, 10, 50, 50);
+=======
+>>>>>>> Stashed changes
         setVisible(true);
     }
 
@@ -49,10 +61,9 @@ public class ServerScreen extends JFrame {
 
     private void createPlayerPanel() {
         playersPanel = new JPanel();
-        playersPanel.setBounds(30, 30, 400, 50);
-        playersPanel.setLayout(new GridLayout(1, 5));
+        playersPanel.setBounds(30, 30, 400, 100);
+        playersPanel.setLayout(new GridLayout(2, 5));
         playersPanel.setBackground(Color.white);
-//        playersPanel.add(imageLable);
 
     }
 
@@ -115,15 +126,26 @@ public class ServerScreen extends JFrame {
         serverPanel.add(playersPanel);
         serverPanel.add(currentStatusPanel);
         serverPanel.add(log);
+
     }
 
     private void addToPlayersPanel() {
         for (int i = 0; i < 5; i++) {
             JLabel player = new JLabel(String.valueOf(i+1));
-            player.setFont(new Font("serif",Font.BOLD,25));
+            player.setFont(new Font("serif", Font.BOLD, 25));
             player.setBackground(Color.black);
-            player.setPreferredSize(new Dimension(50,20));
             playersPanel.add(player);
+        }
+        imageLable = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            imageLable.add(new JLabel());
+        }
+        for (JLabel label : imageLable) {
+            label.setText("=>");
+            label.setFont(new Font("serif", Font.BOLD, 30));
+            label.setBounds(10, 10, 50, 50);
+            label.setVisible(true);
+            playersPanel.add(label);
         }
     }
 
