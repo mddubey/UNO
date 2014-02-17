@@ -14,7 +14,7 @@ public class GameClient implements PlayerLoginObserver {
     }
 
     public void connectTo(String serverAddress, String playerName){
-
+        System.out.println(serverAddress);
         socket = unoFactory.createClientSocket(serverAddress);
     }
 

@@ -33,7 +33,6 @@ public class GameServer extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 dispose();
                 observer.onStartGame(pack.getText(),players.getText());
-                new ServerScreen().addToPanel();
             }
         });
 

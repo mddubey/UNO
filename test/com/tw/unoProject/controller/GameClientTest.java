@@ -16,7 +16,6 @@ public class GameClientTest {
         connection.connectTo(serverAddress, "kash");
 
         verify(stub, times(1)).createClientSocket(serverAddress);
-        verify(stub,times(1)).showPlayerLoginScreen(Matchers.<PlayerLoginObserver>anyObject());
     }
 
 }

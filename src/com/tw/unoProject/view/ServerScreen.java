@@ -20,8 +20,12 @@ public class ServerScreen extends JFrame {
     private JPanel cardPanel;
     private JButton quit;
     private List<JLabel> imageLable;
+    private int numOfPlayers;
+    private int numOfPacks;
 
-    public ServerScreen() {
+    public ServerScreen(int numOfPlayers,int numOfPacks) {
+        this.numOfPlayers = numOfPlayers;
+        this.numOfPacks = numOfPacks;
         generateUI();
         quit();
     }
@@ -36,6 +40,7 @@ public class ServerScreen extends JFrame {
         createCurrentStatusPanel();
         addToCurrentStatusPanel();
         createLog();
+        addToPanel();
         setVisible(true);
     }
 
@@ -49,7 +54,7 @@ public class ServerScreen extends JFrame {
     private void createPlayerPanel() {
         playersPanel = new JPanel();
         playersPanel.setBounds(30, 30, 400, 100);
-        playersPanel.setLayout(new GridLayout(2, 5));
+        playersPanel.setLayout(new GridLayout(2, numOfPlayers));
         playersPanel.setBackground(Color.white);
 
     }
@@ -114,18 +119,17 @@ public class ServerScreen extends JFrame {
         serverPanel.add(playersPanel);
         serverPanel.add(currentStatusPanel);
         serverPanel.add(log);
-
     }
 
     private void addToPlayersPanel() {
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < numOfPlayers; i++) {
             JLabel player = new JLabel(String.valueOf(i + 1));
             player.setFont(new Font("serif", Font.BOLD, 25));
             player.setBackground(Color.black);
             playersPanel.add(player);
         }
         imageLable = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < numOfPlayers; i++) {
             imageLable.add(new JLabel());
         }
         for (JLabel label : imageLable) {
