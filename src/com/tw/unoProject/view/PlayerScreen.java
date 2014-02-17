@@ -22,6 +22,8 @@ public class PlayerScreen extends JFrame {
     private JTextArea hintToUser;
 
     private List<String> players;
+    private List<JLabel> imageLable;
+
 
     private JScrollPane log;
     private JScrollPane cardsPane;
@@ -70,7 +72,7 @@ public class PlayerScreen extends JFrame {
     private void addPlayerPanel() {
         playersPanel = new JPanel();
         playersPanel.setBounds(30, 30, 700, 100);
-        playersPanel.setLayout(new GridLayout(1, 5));
+        playersPanel.setLayout(new GridLayout(2, 5));
         masterPanel.add(playersPanel);
     }
 
@@ -84,6 +86,14 @@ public class PlayerScreen extends JFrame {
         for (int i = 0; i < players.size(); i++) {
             JButton button = new JButton(players.get(i));
             playersPanel.add(button);
+        }
+        imageLable = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            imageLable.add(new JLabel("=>",JLabel.CENTER));
+        }
+        for (JLabel label : imageLable) {
+            label.setFont(new Font("serif", Font.BOLD, 30));
+            playersPanel.add(label);
         }
     }
 

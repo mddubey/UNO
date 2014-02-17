@@ -16,8 +16,6 @@ public class ServerScreen extends JFrame {
     private JPanel currentStatusPanel;
     private JTable logTable;
     private JPanel cardPanel;
-    private ImageIcon arrow;
-    private JLabel imageLabel;
     private JButton quit;
     private List<JLabel> imageLable;
 
