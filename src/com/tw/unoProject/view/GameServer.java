@@ -32,7 +32,7 @@ public class GameServer extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                observer.onStartGame(pack.getText(),players.getText());
+                observer.onStartGame(pack.getText(), players.getText());
             }
         });
 
@@ -82,5 +82,4 @@ public class GameServer extends JFrame {
         players.setFont(new Font("Times new Roman", Font.BOLD, 25));
         players.setBounds(190, 90, 290, 50);
     }
-
 }

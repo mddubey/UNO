@@ -9,7 +9,7 @@ public class Player {
 
     public Player(String name) {
         this.name = name;
-        myCards = new ArrayList();
+        myCards = new ArrayList<>();
 
     }
 
