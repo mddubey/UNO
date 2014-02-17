@@ -6,11 +6,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GameOverScreen extends JFrame {
-
-    private JLabel label;
-    private JPanel panel;
-    private JTable table;
-    private JButton play, quit;
+    private JLabel gameOverLabel;
+    private JPanel masterPanel;
+    private JTable scoreCard;
+    private JButton playAgain, quit;
 
     public GameOverScreen() {
         setSize(600, 600);
@@ -20,14 +19,16 @@ public class GameOverScreen extends JFrame {
     }
 
     public void addToPanel() {
-        panel = new JPanel();
-        this.add(panel);
-        panel.setLayout(null);
-        panel.setBackground(Color.DARK_GRAY);
+        masterPanel = new JPanel();
+        this.add(masterPanel);
+        masterPanel.setLayout(null);
+        masterPanel.setBackground(Color.GRAY);
         addLabelForGameOver();
         addTableForDisplay();
         addPlayAgainButton();
         addButtonForQuit();
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
     }
 
@@ -40,41 +41,37 @@ public class GameOverScreen extends JFrame {
                 dispose();
             }
         });
-        panel.add(quit);
+        masterPanel.add(quit);
         quit.setBounds(320, 350, 200, 60);
     }
 
     private void addPlayAgainButton() {
-        play = new JButton("Play Again");
-        play.setBorder(BorderFactory.createLineBorder(Color.GREEN));
-        play.setBounds(60, 350, 200, 60);
-        panel.add(play);
+        playAgain = new JButton("Play Again");
+        playAgain.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+        playAgain.setBounds(60, 350, 200, 60);
+        masterPanel.add(playAgain);
     }
 
     private void addTableForDisplay() {
-        Object ColumnName[] = {"NAME", "CARDS", "TOTAL"};
-        Object data[][] = {{"SAMIKSHA", "2", "3"}, {"MANALI", "2", "3"},
+        String ColumnName[] = {"NAME", "CARDS", "TOTAL"};
+        String data[][] = {{"SAMIKSHA", "2", "3"}, {"MANALI", "2", "3"},
                 {"GURU", "2", "3"}, {"MD", "2", "3"}, {"KASHISH", "2", "3"}};
-        table = new JTable(data, ColumnName);
-        table.setBounds(40, 120, 520, 200);
-        table.setLayout(new GridLayout(5, 3));
-        table.setBackground(Color.lightGray);
-        table.setBorder(BorderFactory.createLineBorder(Color.black));
-        table.setFont(new Font("serif", Font.BOLD, 20));
-        table.setRowHeight(40);
-        panel.add(table);
+        scoreCard = new JTable(data, ColumnName);
+        scoreCard.setBounds(40, 120, 520, 200);
+        scoreCard.setLayout(new GridLayout(5, 3));
+        scoreCard.setBackground(Color.lightGray);
+        scoreCard.setBorder(BorderFactory.createLineBorder(Color.black));
+        scoreCard.setFont(new Font("serif", Font.BOLD, 20));
+        scoreCard.setRowHeight(40);
+        masterPanel.add(scoreCard);
     }
 
     private void addLabelForGameOver() {
-        label = new JLabel("GAME OVER");
-        label.setBounds(20, 20, 500, 100);
-        label.setHorizontalAlignment(SwingConstants.CENTER);
-        label.setForeground(Color.BLACK);
-        label.setFont(new Font("serif", Font.BOLD, 50));
-        panel.add(label);
-    }
-
-    public static void main(String[] args) {
-        new GameOverScreen();
+        gameOverLabel = new JLabel("GAME OVER");
+        gameOverLabel.setBounds(20, 20, 500, 100);
+        gameOverLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        gameOverLabel.setForeground(Color.BLACK);
+        gameOverLabel.setFont(new Font("serif", Font.BOLD, 50));
+        masterPanel.add(gameOverLabel);
     }
 }

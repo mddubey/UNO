@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class ColorChooser {
     public String choseColor() {
-        String[] possibleValues = { "RED", "BLUE", "YELLOW","GREEN" };
+        String[] possibleValues = {"RED", "BLUE", "YELLOW", "GREEN"};
         String selectedValue = (String) JOptionPane.showInputDialog(null,
                 "Choose color", "COLOR",
                 JOptionPane.QUESTION_MESSAGE, null,

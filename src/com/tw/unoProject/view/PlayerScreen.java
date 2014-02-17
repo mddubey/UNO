@@ -4,19 +4,27 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PlayerScreen extends JFrame {
     private JPanel masterPanel;
     private JPanel playersPanel;
-    private JPanel centerPanel;
-    private JButton drawButton;
-    private JPanel cardPanel;
-    private JLabel openPile;
-    private JTextArea hintToUser;
     private JPanel playerCardsPanel;
+    private JPanel centerPanel;
+    private JPanel openPileCardPanel;
+
+    private JButton UNOButton, quit;
+    private JButton drawButton;
+
+    private JLabel openPile;
     private JTable logTable;
+    private JTextArea hintToUser;
+
+    private List<String> players;
+
     private JScrollPane log;
-    private JButton UNOButton,quit;
+    private JScrollPane cardsPane;
 
     public PlayerScreen() {
         super("UNO");
@@ -35,13 +43,18 @@ public class PlayerScreen extends JFrame {
         showOpenedPileCard();
         showCurrentHint();
 
-        addPlayerCardsPanel();
+        showPlayerCards();
+
         createLog();
+        showUNOButton();
+
+        quit();
+    }
+
+    private void showUNOButton() {
         UNOButton = new JButton("UNO");
         UNOButton.setBounds(680, 600, 70, 50);
         masterPanel.add(UNOButton);
-
-        quit();
     }
 
     private void setJFrame() {
@@ -56,14 +69,20 @@ public class PlayerScreen extends JFrame {
 
     private void addPlayerPanel() {
         playersPanel = new JPanel();
-        playersPanel.setBounds(30, 30, 700, 30);
+        playersPanel.setBounds(30, 30, 700, 100);
         playersPanel.setLayout(new GridLayout(1, 5));
         masterPanel.add(playersPanel);
     }
 
     private void createCatchButtons() {
-        for (int i = 0; i < 10; i++) {
-            JButton button = new JButton(String.valueOf(i + 1));
+        players = new ArrayList<>();
+        players.add("mkdskd:10");
+        players.add("manali:10");
+        players.add("Ande:10");
+        players.add("Kashish:10");
+        players.add("Guru:10");
+        for (int i = 0; i < players.size(); i++) {
+            JButton button = new JButton(players.get(i));
             playersPanel.add(button);
         }
     }
@@ -71,7 +90,7 @@ public class PlayerScreen extends JFrame {
     private void addCenterPanel() {
         centerPanel = new JPanel();
         centerPanel.setLayout(null);
-        centerPanel.setBounds(200, 150, 400, 200);
+        centerPanel.setBounds(200, 200, 400, 200);
         centerPanel.setBackground(Color.white);
         masterPanel.add(centerPanel);
     }
@@ -83,16 +102,16 @@ public class PlayerScreen extends JFrame {
     }
 
     private void showOpenedPileCard() {
-        cardPanel = new JPanel();
-        cardPanel.setLayout(null);
-        cardPanel.setBounds(200, 15, 150, 50);
-        cardPanel.setBackground(Color.cyan);
-        centerPanel.add(cardPanel);
+        openPileCardPanel = new JPanel();
+        openPileCardPanel.setLayout(null);
+        openPileCardPanel.setBounds(200, 15, 150, 50);
+        openPileCardPanel.setBackground(Color.cyan);
+        centerPanel.add(openPileCardPanel);
         openPile = new JLabel("1", JLabel.CENTER);
         openPile.setFont(new Font("Times new Roman", Font.BOLD, 30));
         openPile.setForeground(Color.black);
         openPile.setBounds(20, 5, 100, 30);
-        cardPanel.add(openPile);
+        openPileCardPanel.add(openPile);
     }
 
     private void showCurrentHint() {
@@ -128,7 +147,7 @@ public class PlayerScreen extends JFrame {
         logTable.setRowHeight(40);
     }
 
-    public void quit(){
+    public void quit() {
         quit = new JButton("quit");
         quit.addActionListener(new ActionListener() {
             @Override
@@ -137,15 +156,23 @@ public class PlayerScreen extends JFrame {
                 new GameOverScreen();
             }
         });
-        quit.setBounds(60,500,120,70);
+        quit.setBounds(60, 500, 120, 70);
         masterPanel.add(quit);
     }
 
-    private void addPlayerCardsPanel() {
+    private void showPlayerCards() {
         playerCardsPanel = new JPanel();
-        playerCardsPanel.setLayout(new GridLayout());
+        playerCardsPanel.setLayout(new GridLayout(1, 5));
         playerCardsPanel.setBackground(Color.white);
-        playerCardsPanel.setBounds(20, 600, 650, 100);
-        masterPanel.add(playerCardsPanel);
+
+        for (int i = 0; i < 20; i++) {
+            JButton button = new JButton(String.valueOf(i + 1));
+            button.setBackground(Color.GREEN);
+            button.setForeground(Color.black);
+            playerCardsPanel.add(button);
+        }
+        cardsPane = new JScrollPane(playerCardsPanel);
+        cardsPane.setBounds(20, 600, 650, 100);
+        masterPanel.add(cardsPane);
     }
 }

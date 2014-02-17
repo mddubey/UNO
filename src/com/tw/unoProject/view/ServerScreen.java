@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ServerScreen extends JFrame {
@@ -21,7 +21,7 @@ public class ServerScreen extends JFrame {
     private JButton quit;
     private List<JLabel> imageLable;
 
-    public ServerScreen(){
+    public ServerScreen() {
         generateUI();
         quit();
     }
@@ -36,10 +36,6 @@ public class ServerScreen extends JFrame {
         createCurrentStatusPanel();
         addToCurrentStatusPanel();
         createLog();
-        arrow = new ImageIcon("D:/projects/UNO/src/com/tw/unoProject/view/arrow.jpg");
-        imageLabel = new JLabel();
-        imageLabel.setIcon(arrow);
-        imageLabel.setBounds(10, 10, 50, 50);
         setVisible(true);
     }
 
@@ -61,7 +57,7 @@ public class ServerScreen extends JFrame {
     private void createPile() {
         cardPanel = new JPanel();
         cardPanel.setLayout(null);
-        cardPanel.setBounds(50,120 , 100, 50);
+        cardPanel.setBounds(50, 120, 100, 50);
         cardPanel.setBackground(Color.cyan);
         currentStatusPanel.add(cardPanel);
         openPile = new JLabel("1");
@@ -78,17 +74,18 @@ public class ServerScreen extends JFrame {
         log.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         log.setBounds(530, 10, 250, 730);
     }
-    private void createTable(){
-            String ColumnName[] = {"NAME","CARD"};
-            String data[][] = { {"Samiksha","RED : 2"},{"Manali","RED : 2"},
-                    {"Guru","RED : 2"},{"MD","RED : 2"},{"Kashish","RED : 2"}};
-            logTable = new JTable(data,ColumnName);
-            logTable.setBounds(40, 120, 520, 200);
-            logTable.setLayout(new GridLayout(5, 3));
-            logTable.setBackground(Color.lightGray);
-            logTable.setBorder(BorderFactory.createLineBorder(Color.black));
-            logTable.setFont(new Font("serif", Font.BOLD, 20));
-            logTable.setRowHeight(40);
+
+    private void createTable() {
+        String ColumnName[] = {"NAME", "CARD"};
+        String data[][] = {{"Samiksha", "RED : 2"}, {"Manali", "RED : 2"},
+                {"Guru", "RED : 2"}, {"MD", "RED : 2"}, {"Kashish", "RED : 2"}};
+        logTable = new JTable(data, ColumnName);
+        logTable.setBounds(40, 120, 520, 200);
+        logTable.setLayout(new GridLayout(5, 3));
+        logTable.setBackground(Color.lightGray);
+        logTable.setBorder(BorderFactory.createLineBorder(Color.black));
+        logTable.setFont(new Font("serif", Font.BOLD, 20));
+        logTable.setRowHeight(40);
     }
 
     private void createStatus() {
@@ -112,7 +109,7 @@ public class ServerScreen extends JFrame {
         currentStatusPanel.setBounds(50, 150, 400, 350);
     }
 
-    public void addToPanel(){
+    public void addToPanel() {
         addToPlayersPanel();
         serverPanel.add(playersPanel);
         serverPanel.add(currentStatusPanel);
@@ -122,7 +119,7 @@ public class ServerScreen extends JFrame {
 
     private void addToPlayersPanel() {
         for (int i = 0; i < 5; i++) {
-            JLabel player = new JLabel(String.valueOf(i+1));
+            JLabel player = new JLabel(String.valueOf(i + 1));
             player.setFont(new Font("serif", Font.BOLD, 25));
             player.setBackground(Color.black);
             playersPanel.add(player);
@@ -140,7 +137,7 @@ public class ServerScreen extends JFrame {
         }
     }
 
-    public void quit(){
+    public void quit() {
         quit = new JButton("quit");
         quit.addActionListener(new ActionListener() {
             @Override
@@ -149,12 +146,7 @@ public class ServerScreen extends JFrame {
                 new GameOverScreen();
             }
         });
-        quit.setBounds(60,600,120,70);
+        quit.setBounds(60, 600, 120, 70);
         serverPanel.add(quit);
-    }
-
-    public static void main(String[] args) {
-        ServerScreen screen = new ServerScreen();
-        screen.addToPanel();
     }
 }

@@ -13,8 +13,8 @@ public class GameSettings extends JFrame {
     private JLabel labelPack;
     private JLabel playerLabel;
 
-    public GameSettings(){
-        super("PLAY");
+    public GameSettings() {
+        super("Start Game");
         setupForFrame();
 
         addLabels();

@@ -13,7 +13,7 @@ public class StartPage extends JFrame {
     private JLabel labelGameMaster;
     private JLabel nameLabel;
 
-    public StartPage(){
+    public StartPage() {
         super("JOIN UNO");
         setupForFrame();
 
@@ -66,7 +66,7 @@ public class StartPage extends JFrame {
 
         nameLabel = new JLabel("Player Name");
         nameLabel.setFont(new Font("Times new Roman", Font.PLAIN, 25));
-        nameLabel.setBounds(30,90,200,50);
+        nameLabel.setBounds(30, 90, 200, 50);
     }
 
     private void addTextFields() {
