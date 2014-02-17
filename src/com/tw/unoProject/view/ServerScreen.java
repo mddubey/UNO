@@ -2,6 +2,8 @@ package com.tw.unoProject.view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class ServerScreen extends JFrame {
     private JPanel serverPanel;
@@ -13,10 +15,12 @@ public class ServerScreen extends JFrame {
     private JTable logTable;
     private JPanel cardPanel;
     private ImageIcon arrow;
-    private JLabel imageLable;
+    private JLabel imageLabel;
+    private JButton quit;
 
     public ServerScreen(){
         generateUI();
+        quit();
     }
 
     private void generateUI() {
@@ -30,9 +34,9 @@ public class ServerScreen extends JFrame {
         addToCurrentStatusPanel();
         createLog();
         arrow = new ImageIcon("D:/projects/UNO/src/com/tw/unoProject/view/arrow.jpg");
-        imageLable = new JLabel();
-        imageLable.setIcon(arrow);
-        imageLable.setBounds(10,10,50,50);
+        imageLabel = new JLabel();
+        imageLabel.setIcon(arrow);
+        imageLabel.setBounds(10, 10, 50, 50);
         setVisible(true);
     }
 
@@ -70,7 +74,7 @@ public class ServerScreen extends JFrame {
         log = new JScrollPane(logTable);
         log.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         log.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        log.setBounds(550, 10, 200, 600);
+        log.setBounds(530, 10, 250, 730);
     }
     private void createTable(){
             String ColumnName[] = {"NAME","CARD"};
@@ -121,6 +125,19 @@ public class ServerScreen extends JFrame {
             player.setPreferredSize(new Dimension(50,20));
             playersPanel.add(player);
         }
+    }
+
+    public void quit(){
+        quit = new JButton("quit");
+        quit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                new GameOverScreen();
+            }
+        });
+        quit.setBounds(60,600,120,70);
+        serverPanel.add(quit);
     }
 
     public static void main(String[] args) {

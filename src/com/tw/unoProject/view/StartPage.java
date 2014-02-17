@@ -28,7 +28,7 @@ public class StartPage extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                new PlayerScreen();
+                new WaitingScreen();
             }
         });
 

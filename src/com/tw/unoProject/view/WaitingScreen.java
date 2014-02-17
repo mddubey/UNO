@@ -2,6 +2,8 @@ package com.tw.unoProject.view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class WaitingScreen extends JFrame{
     private JPanel windowPanel;
@@ -16,6 +18,18 @@ public class WaitingScreen extends JFrame{
         masterPanelSetup();
         addPanel();
         addLabel();
+
+        Timer timer = new Timer(1000,new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                new PlayerScreen();
+            }
+        });
+        timer.start();
+        timer.setRepeats(false);
+        setVisible(true);
+
     }
 
     private void masterPanelSetup() {
@@ -37,10 +51,5 @@ public class WaitingScreen extends JFrame{
         message.setFont(new Font("serif", Font.BOLD, 20));
         message.setBounds(25, 25, 400, 25);
         displayPanel.add(message);
-    }
-
-    public static void main(String[] args) {
-        WaitingScreen waitWindow = new WaitingScreen();
-        waitWindow.setVisible(true);
     }
 }

@@ -2,6 +2,8 @@ package com.tw.unoProject.view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class PlayerScreen extends JFrame {
     private JPanel masterPanel;
@@ -14,7 +16,7 @@ public class PlayerScreen extends JFrame {
     private JPanel playerCardsPanel;
     private JTable logTable;
     private JScrollPane log;
-    private JButton UNOButton;
+    private JButton UNOButton,quit;
 
     public PlayerScreen() {
         super("UNO");
@@ -38,6 +40,8 @@ public class PlayerScreen extends JFrame {
         UNOButton = new JButton("UNO");
         UNOButton.setBounds(680, 600, 70, 50);
         masterPanel.add(UNOButton);
+
+        quit();
     }
 
     private void setJFrame() {
@@ -122,6 +126,19 @@ public class PlayerScreen extends JFrame {
         logTable.setBorder(BorderFactory.createLineBorder(Color.black));
         logTable.setFont(new Font("serif", Font.BOLD, 20));
         logTable.setRowHeight(40);
+    }
+
+    public void quit(){
+        quit = new JButton("quit");
+        quit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                new GameOverScreen();
+            }
+        });
+        quit.setBounds(60,500,120,70);
+        masterPanel.add(quit);
     }
 
     private void addPlayerCardsPanel() {

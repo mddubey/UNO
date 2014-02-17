@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class SettingPage extends JFrame {
+public class GameSettings extends JFrame {
     private JPanel settingPanel;
     private JTextField pack;
     private JTextField players;
@@ -13,7 +13,7 @@ public class SettingPage extends JFrame {
     private JLabel labelPack;
     private JLabel playerLabel;
 
-    public SettingPage(){
+    public GameSettings(){
         super("PLAY");
         setupForFrame();
 
@@ -80,6 +80,6 @@ public class SettingPage extends JFrame {
     }
 
     public static void main(String[] args) {
-        SettingPage startPage = new SettingPage();
+        GameSettings startPage = new GameSettings();
     }
 }
