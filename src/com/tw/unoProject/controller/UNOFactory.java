@@ -13,12 +13,20 @@ public class UNOFactory {
         }
     }
 
-    public GameClient acceptClient(ServerSocket serverSocket) {
+    public Client acceptClient(ServerSocket serverSocket) {
         try {
             Socket socket = serverSocket.accept();
-            return new GameClient(socket);
+            return new Client(socket);
         } catch (IOException e) {
             throw new RuntimeException("not able to accept the client");
+        }
+    }
+
+    public Socket createClientSocket(String serverAddress) {
+        try {
+            return new Socket(serverAddress, 9090);
+        } catch (IOException e) {
+            throw new RuntimeException("could not connect to " + serverAddress + " at " + 9090, e);
         }
     }
 }

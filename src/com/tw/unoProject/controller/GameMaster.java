@@ -8,7 +8,7 @@ public class GameMaster {
     private int noOfPlayers;
     private int noOfPacks;
     private ServerSocket serverSocket;
-    private List<GameClient> clients;
+    private List<Client> clients;
     private UNOFactory unoFactory;
 
     public GameMaster(int noOfPlayers, int noOfPacks, UNOFactory unoFactory) {
@@ -21,8 +21,14 @@ public class GameMaster {
 
     public void addClients(){
         for (int i = 0; i < noOfPlayers; i++) {
-            GameClient gameClient = unoFactory.acceptClient(serverSocket);
-            clients.add(gameClient);
+            Client client = unoFactory.acceptClient(serverSocket);
+            System.out.println("size"+clients.size());
+            clients.add(client);
+            System.out.println("size"+clients.size());
         }
+    }
+
+    public static void main(String[] args) {
+        new GameMaster(2,1,new UNOFactory()).addClients();
     }
 }
