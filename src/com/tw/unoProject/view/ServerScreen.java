@@ -1,5 +1,7 @@
 package com.tw.unoProject.view;
 
+import com.tw.unoProject.controller.ServerScreenObserver;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

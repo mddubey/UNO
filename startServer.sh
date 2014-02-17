@@ -1,1 +1,1 @@
-java -cp build/libs/UNO-0.1.jar com.tw.unoProject.view.GameSettings
+java -cp build/libs/UNO-0.1.jar com.tw.unoProject.view.GameServer

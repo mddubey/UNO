@@ -1,20 +1,24 @@
 package com.tw.unoProject.view;
 
+import com.tw.unoProject.controller.ServerScreenObserver;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class GameSettings extends JFrame {
+public class GameServer extends JFrame {
     private JPanel settingPanel;
     private JTextField pack;
     private JTextField players;
     private JButton playButton;
     private JLabel labelPack;
     private JLabel playerLabel;
+    private ServerScreenObserver observer;
 
-    public GameSettings() {
+    public GameServer(final ServerScreenObserver observer) {
         super("Start Game");
+        this.observer = observer;
         setupForFrame();
 
         addLabels();
@@ -28,6 +32,7 @@ public class GameSettings extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
+                observer.onStartGame(pack.getText(),players.getText());
                 new ServerScreen().addToPanel();
             }
         });
@@ -79,7 +84,7 @@ public class GameSettings extends JFrame {
         players.setBounds(190, 90, 290, 50);
     }
 
-    public static void main(String[] args) {
-        GameSettings startPage = new GameSettings();
-    }
+//    public static void main(String[] args) {
+//        GameServer startPage = new GameServer();
+//    }
 }

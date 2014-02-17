@@ -1,20 +1,25 @@
 package com.tw.unoProject.view;
 
+import com.tw.unoProject.controller.PlayerLoginObserver;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class StartPage extends JFrame {
+public class PlayerLogin extends JFrame {
     private JPanel joinMasterPanel;
     private JTextField gameMaster;
     private JTextField playerName;
     private JButton joinButton;
     private JLabel labelGameMaster;
     private JLabel nameLabel;
+    private PlayerLoginObserver observer;
 
-    public StartPage() {
+    public PlayerLogin(final PlayerLoginObserver observer) {
         super("JOIN UNO");
+        this.observer = observer;
+
         setupForFrame();
 
         addLabels();
@@ -29,6 +34,8 @@ public class StartPage extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 dispose();
                 new WaitingScreen();
+                observer.onJoin(gameMaster.getText(),playerName.getText());
+
             }
         });
 
@@ -79,7 +86,7 @@ public class StartPage extends JFrame {
         playerName.setBounds(190, 90, 290, 50);
     }
 
-    public static void main(String[] args) {
-        StartPage startPage = new StartPage();
-    }
+//    public static void main(String[] args) {
+//        PlayerLogin playerLogin = new PlayerLogin(new GameClient(new UNOFactory()));
+//    }
 }

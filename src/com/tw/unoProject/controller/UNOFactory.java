@@ -1,5 +1,9 @@
 package com.tw.unoProject.controller;
 
+import com.tw.unoProject.view.GameServer;
+import com.tw.unoProject.view.PlayerLogin;
+import com.tw.unoProject.view.ServerScreen;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -13,10 +17,10 @@ public class UNOFactory {
         }
     }
 
-    public Client acceptClient(ServerSocket serverSocket) {
+    public GameClient acceptClient(ServerSocket serverSocket) {
         try {
             Socket socket = serverSocket.accept();
-            return new Client(socket);
+            return new GameClient(this);
         } catch (IOException e) {
             throw new RuntimeException("not able to accept the client");
         }
@@ -28,5 +32,13 @@ public class UNOFactory {
         } catch (IOException e) {
             throw new RuntimeException("could not connect to " + serverAddress + " at " + 9090, e);
         }
+    }
+
+    public PlayerLogin showPlayerLoginScreen(PlayerLoginObserver observer) {
+        return new PlayerLogin(observer);
+    }
+
+    public GameServer showServerScreen(ServerScreenObserver observer) {
+        return new GameServer(observer);
     }
 }
