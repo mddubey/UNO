@@ -18,7 +18,10 @@ public class Player {
     public Player(String name) {
         this.name = name;
         myCards = new ArrayList<>();
+    }
 
+    public MessageChannel getChannel() {
+        return channel;
     }
 
     public void setMyCards(Card card) {

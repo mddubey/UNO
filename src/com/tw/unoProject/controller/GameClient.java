@@ -1,5 +1,8 @@
 package com.tw.unoProject.controller;
 
+import com.tw.unoProject.view.PlayerScreen;
+import com.tw.unoProject.view.WaitingScreen;
+
 import java.net.Socket;
 
 public class GameClient implements PlayerLoginObserver, MessageChannelListener {
@@ -40,7 +43,15 @@ public class GameClient implements PlayerLoginObserver, MessageChannelListener {
 
     @Override
     public void onMessage(MessageChannel client, Object message) {
-        System.out.println((String) message);
+        WaitingScreen waitingScreen = null;
+        System.out.println(message);
+        if(message.toString().equals("waiting"))
+            waitingScreen = new WaitingScreen();
+        if(message.toString().equals("connect")) {
+//            waitingScreen.dispose();
+            new PlayerScreen();
+        }
+
     }
 
     @Override

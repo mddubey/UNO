@@ -19,7 +19,6 @@ public class WaitingScreen extends JFrame {
         addPanel();
         addLabel();
         setVisible(true);
-
     }
 
     private void masterPanelSetup() {

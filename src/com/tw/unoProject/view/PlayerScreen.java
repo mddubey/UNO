@@ -39,6 +39,10 @@ public class PlayerScreen extends JFrame {
         setVisible(true);
     }
 
+    public PlayerScreen() {
+
+    }
+
     private void generateUI(List<Player> players) {
         setJFrame();
 

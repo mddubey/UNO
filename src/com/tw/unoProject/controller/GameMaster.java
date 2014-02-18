@@ -10,7 +10,6 @@ public class GameMaster implements ServerScreenObserver, MessageChannelListener 
     private ServerSocket serverSocket;
     private List<Player> players;
     private UNOFactory unoFactory;
-    private MessageChannel channel;
     private int numOfPlayers;
     private int numOfPacks;
 
@@ -22,16 +21,11 @@ public class GameMaster implements ServerScreenObserver, MessageChannelListener 
     }
 
     public void addClients() {
-        for (int i = 0; i < numOfPlayers; i++) {
+        for (int i = 0; i < numOfPlayers; i++)
             unoFactory.acceptClient(serverSocket).startListeningForMessages(this);
-        }
-    }
-
-    public static void main(String[] args) {
-
-        new GameMaster(new UNOFactory());
-
-
+        System.out.println("got "+numOfPlayers+" you");
+        for (Player player : players)
+            player.getChannel().send("connect");
     }
 
     @Override
@@ -57,5 +51,9 @@ public class GameMaster implements ServerScreenObserver, MessageChannelListener 
     @Override
     public void onConnectionClosed(MessageChannel client) {
 
+    }
+
+    public static void main(String[] args) {
+        new GameMaster(new UNOFactory());
     }
 }

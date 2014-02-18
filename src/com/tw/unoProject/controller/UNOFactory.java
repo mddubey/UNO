@@ -21,6 +21,7 @@ public class UNOFactory {
     public MessageChannel acceptClient(ServerSocket serverSocket) {
         try {
             Socket socket = serverSocket.accept();
+            socket.setSoTimeout(100);
             return new MessageChannel(socket);
         } catch (IOException e) {
             throw new RuntimeException("not able to accept the client");

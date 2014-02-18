@@ -33,7 +33,6 @@ public class PlayerLogin extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                new WaitingScreen();
                 observer.onJoin(gameMaster.getText(), playerName.getText());
 
             }
@@ -64,7 +63,6 @@ public class PlayerLogin extends JFrame {
         joinMasterPanel.add(gameMaster);
         joinMasterPanel.add(nameLabel);
         joinMasterPanel.add(playerName);
-
     }
 
     private void addLabels() {

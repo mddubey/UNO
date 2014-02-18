@@ -23,4 +23,12 @@ public class GameMasterTest {
         gameMaster.onStartGame("3", "2");
         verify(unoFactory.channel, times(2)).startListeningForMessages(gameMaster);
     }
+    
+    @Test
+    public void sendMessageToClientWhenItGetsPlayerName() {
+        GameMaster gameMaster = new GameMaster(unoFactory);
+        gameMaster.onMessage(unoFactory.channel,"Kashish");
+
+        verify(unoFactory.channel,times(1)).send("waiting");
+    }
 }
