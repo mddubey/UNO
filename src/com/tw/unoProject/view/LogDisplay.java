@@ -29,7 +29,7 @@ public class LogDisplay {
         for (int i = 0; i < players.size(); i++) {
             for (int j = 0; j < card.size(); j++) {
                 data[i][0] = players.get(i).getName();
-                data[i][1] = card.get(i).getColor() + ":" + card.get(i).getValue();
+                data[i][1] = card.get(i).getColor() + ":" + card.get(i).getCardValue();
 
             }
         }

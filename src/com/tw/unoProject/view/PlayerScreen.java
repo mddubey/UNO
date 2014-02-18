@@ -25,7 +25,6 @@ public class PlayerScreen extends JFrame {
     private JLabel openPile;
     private JTextArea hintToUser;
 
-//    private List<String> players;
     private List<JLabel> imageLable;
 
 
@@ -113,7 +112,7 @@ public class PlayerScreen extends JFrame {
         openPileCardPanel.setBounds(200, 15, 150, 50);
         openPileCardPanel.setBackground(card.getColor().getCardColor());
         centerPanel.add(openPileCardPanel);
-        openPile = new JLabel(String.valueOf(card.getValue()), JLabel.CENTER);
+        openPile = new JLabel(String.valueOf(card.getCardValue()), JLabel.CENTER);
         openPile.setFont(new Font("Times new Roman", Font.BOLD, 30));
         openPile.setForeground(Color.black);
         openPile.setBounds(20, 5, 100, 30);
