@@ -7,6 +7,10 @@ public class Player {
     private String name;
     private List<Card> myCards;
 
+    public void setMyCards(Card card) {
+        this.myCards.add(card);
+    }
+
     public Player(String name) {
         this.name = name;
         myCards = new ArrayList<>();

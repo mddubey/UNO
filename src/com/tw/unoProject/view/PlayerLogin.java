@@ -34,7 +34,7 @@ public class PlayerLogin extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 dispose();
                 new WaitingScreen();
-                observer.onJoin(gameMaster.getText(),playerName.getText());
+                observer.onJoin(gameMaster.getText(), playerName.getText());
 
             }
         });
@@ -87,7 +87,4 @@ public class PlayerLogin extends JFrame {
         playerName.setBounds(190, 90, 290, 50);
     }
 
-//    public static void main(String[] args) {
-//        PlayerLogin playerLogin = new PlayerLogin(new GameClient(new UNOFactory()));
-//    }
 }

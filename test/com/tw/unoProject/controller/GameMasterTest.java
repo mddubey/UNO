@@ -11,15 +11,15 @@ public class GameMasterTest {
     UNOFactory unoFactory = mock(UNOFactory.class);
 
     @Test
-    public void shouldCreateAServerSocketToListenForClients(){
-        new GameMaster( unoFactory);
-        verify(unoFactory,times(1)).createServerSocket();
+    public void shouldCreateAServerSocketToListenForClients() {
+        new GameMaster(unoFactory);
+        verify(unoFactory, times(1)).createServerSocket();
     }
 
     @Test
-    public void shouldAcceptClientsAsNumberOfPlayersGiven(){
+    public void shouldAcceptClientsAsNumberOfPlayersGiven() {
         GameMaster gameMaster = new GameMaster(unoFactory);
-        gameMaster.onStartGame("3","2");
-        verify(unoFactory,times(2)).acceptClient(any(ServerSocket.class));
+        gameMaster.onStartGame("3", "2");
+        verify(unoFactory, times(2)).acceptClient(any(ServerSocket.class));
     }
 }

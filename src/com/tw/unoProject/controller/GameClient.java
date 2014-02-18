@@ -1,19 +1,16 @@
 package com.tw.unoProject.controller;
 
-import com.tw.unoProject.view.PlayerLogin;
-
 import java.net.Socket;
 
 public class GameClient implements PlayerLoginObserver {
     private UNOFactory unoFactory;
     private Socket socket;
-    private PlayerLogin playerLogin;
 
     public GameClient(UNOFactory unoFactory) {
         this.unoFactory = unoFactory;
     }
 
-    public void connectTo(String serverAddress, String playerName){
+    public void connectTo(String serverAddress, String playerName) {
         System.out.println(serverAddress);
         socket = unoFactory.createClientSocket(serverAddress);
     }
@@ -23,7 +20,7 @@ public class GameClient implements PlayerLoginObserver {
     }
 
     private void withLogInScreen() {
-        playerLogin = unoFactory.showPlayerLoginScreen(this);
+        unoFactory.showPlayerLoginScreen(this);
     }
 
     @Override

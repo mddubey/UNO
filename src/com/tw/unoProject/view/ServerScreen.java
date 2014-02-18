@@ -1,7 +1,5 @@
 package com.tw.unoProject.view;
 
-import com.tw.unoProject.controller.ServerScreenObserver;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -24,7 +22,7 @@ public class ServerScreen extends JFrame {
     private int numOfPacks;
     LogDisplay log = new LogDisplay();
 
-    public ServerScreen(int numOfPlayers,int numOfPacks) {
+    public ServerScreen(int numOfPlayers, int numOfPacks) {
         this.numOfPlayers = numOfPlayers;
         this.numOfPacks = numOfPacks;
         generateUI();
@@ -40,7 +38,7 @@ public class ServerScreen extends JFrame {
         createPlayerPanel();
         createCurrentStatusPanel();
         addToCurrentStatusPanel();
-        log.createLog(530,10,250,730);
+        log.createLog(530, 10, 250, 730);
         addToPanel();
         setVisible(true);
     }
@@ -72,7 +70,6 @@ public class ServerScreen extends JFrame {
         openPile.setBounds(20, 5, 100, 30);
         cardPanel.add(openPile);
     }
-
 
 
     private void createStatus() {

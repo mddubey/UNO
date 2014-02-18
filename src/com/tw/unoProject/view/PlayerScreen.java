@@ -47,7 +47,7 @@ public class PlayerScreen extends JFrame {
 
         showPlayerCards();
 
-        log.createLog(770,10,300,720);
+        log.createLog(770, 10, 300, 720);
         masterPanel.add(log.getLog());
 
         showUNOButton();
@@ -91,7 +91,7 @@ public class PlayerScreen extends JFrame {
         }
         imageLable = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
-            imageLable.add(new JLabel("=>",JLabel.CENTER));
+            imageLable.add(new JLabel("=>", JLabel.CENTER));
         }
         for (JLabel label : imageLable) {
             label.setFont(new Font("serif", Font.BOLD, 30));

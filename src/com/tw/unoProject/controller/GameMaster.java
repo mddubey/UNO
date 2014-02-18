@@ -1,8 +1,5 @@
 package com.tw.unoProject.controller;
 
-import com.tw.unoProject.view.GameServer;
-import com.tw.unoProject.view.WaitingScreen;
-
 import java.net.ServerSocket;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,21 +8,20 @@ public class GameMaster implements ServerScreenObserver {
     private ServerSocket serverSocket;
     private List<GameClient> clients;
     private UNOFactory unoFactory;
-    private GameServer gameServer;
     private int numOfPlayers;
     private int numOfPacks;
 
-    public GameMaster( UNOFactory unoFactory) {
+    public GameMaster(UNOFactory unoFactory) {
         this.unoFactory = unoFactory;
         this.clients = new ArrayList<>();
         this.serverSocket = unoFactory.createServerSocket();
-        gameServer = unoFactory.showServerStartScreen(this);
+        unoFactory.showServerStartScreen(this);
     }
 
-    public void addClients(){
+    public void addClients() {
         for (int i = 0; i < numOfPlayers; i++) {
             GameClient client = unoFactory.acceptClient(serverSocket);
-            System.out.println("size"+clients.size());
+            System.out.println("size" + clients.size());
             clients.add(client);
             System.out.println("size" + clients.size());
         }
@@ -36,7 +32,7 @@ public class GameMaster implements ServerScreenObserver {
     }
 
     @Override
-    public void onStartGame(String noOfPacks,String noOfPlayers) {
+    public void onStartGame(String noOfPacks, String noOfPlayers) {
         numOfPlayers = Integer.parseInt(noOfPlayers);
         numOfPacks = Integer.parseInt(noOfPacks);
         unoFactory.showServerScreen(numOfPlayers, numOfPacks);

@@ -6,7 +6,8 @@ import java.awt.*;
 public class LogDisplay {
     private JScrollPane log;
     private JTable logTable;
-    public void createLog(int x,int y,int width,int height) {
+
+    public void createLog(int x, int y, int width, int height) {
         createTable();
         log = new JScrollPane(logTable);
         log.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
