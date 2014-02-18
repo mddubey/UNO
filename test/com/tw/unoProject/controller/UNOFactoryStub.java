@@ -14,6 +14,7 @@ public class UNOFactoryStub extends UNOFactory {
     public ServerSocket serverSocket = mock(ServerSocket.class);
     public MessageChannel channel = mock(MessageChannel.class);
     public ServerScreen serverScreen = mock(ServerScreen.class);
+    public GameServer gameServer = mock(GameServer.class);
     public PlayerLogin playerLogin = mock(PlayerLogin.class);
     public Socket socket = mock(Socket.class);
     public Player player = mock(Player.class);
@@ -35,9 +36,9 @@ public class UNOFactoryStub extends UNOFactory {
         return playerLogin;
     }
 
-//    public GameServer showServerStartScreen(ServerScreenObserver observer) {
-//        return new GameServer(observer);
-//    }
+    public GameServer showServerStartScreen(ServerScreenObserver observer) {
+        return gameServer;
+    }
 
     public ServerScreen showServerScreen(int numOfPacks, int numOfPlayers) {
         return serverScreen;
