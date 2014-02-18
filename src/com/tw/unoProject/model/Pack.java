@@ -13,7 +13,7 @@ public class Pack {
     }
 
     public List addCardsToPack() {
-        List<Color> colors = Arrays.asList(Color.BLUE, Color.GREEN, Color.RED, Color.YELLOW);
+        List<CardColor> colors = Arrays.asList(CardColor.BLUE, CardColor.GREEN, CardColor.RED, CardColor.YELLOW);
 
         for (int i = 0; i < colors.size(); i++) {
             cards.add(new Card(0, colors.get(i)));
@@ -28,14 +28,4 @@ public class Pack {
     public List<Card> getCards() {
         return cards;
     }
-
-    @Override
-    public String toString() {
-        String sample = null;
-        for (Card card : cards) {
-            sample += card.toString();
-        }
-        return sample;
-    }
-
 }

@@ -51,6 +51,7 @@ public class MessageChannel {
 
     public void send(Object message) {
         try {
+
             new ObjectOutputStream(socket.getOutputStream()).writeObject(message);
         } catch (IOException e) {
             throw new RuntimeException("Could not send message ", e);

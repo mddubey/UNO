@@ -1,11 +1,9 @@
 package com.tw.unoProject.controller;
 
 import com.tw.unoProject.model.Player;
-import com.tw.unoProject.view.PlayerScreen;
 
 import java.net.ServerSocket;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class GameMaster implements ServerScreenObserver, MessageChannelListener {
@@ -32,7 +30,6 @@ public class GameMaster implements ServerScreenObserver, MessageChannelListener 
     public static void main(String[] args) {
 
         new GameMaster(new UNOFactory());
-
 
 
     }

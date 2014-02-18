@@ -4,29 +4,36 @@ import java.util.Collections;
 import java.util.List;
 
 public class Randomizer {
+    Pack pack;
 
-    public void shuffleCards(List<Card> cards) {
-        Collections.shuffle(cards);
+    public Randomizer(Pack pack) {
+        this.pack = pack;
     }
 
-    public void dealCards(List<Player> players, Pack pack) {
-        List<Card> cards = pack.getCards();
-        shuffleCards(cards);
+    public void shuffleCards() {
+        Collections.shuffle(pack.getCards());
+    }
 
+    public void dealCards(List<Player> players) {
+        shuffleCards();
         for (int j = 0; j < players.size(); j++) {
-
-            for (int i = 0; i < cards.size(); i = i++) {
-                players.get(j).getMyCards().add(cards.get(i));
-                cards.remove(i);
-                if (players.get(j).getMyCards().size() == 7)
+            for (int i = 0; i < pack.getCards().size(); i = i++) {
+                players.get(j).getMyCards().add(pack.getCards().get(i));
+                pack.getCards().remove(i);
+                if (players.get(j).getMyCards().size() == 7) {
                     break;
+                }
             }
         }
     }
 
-    public Card openPile(List<Card> shuffleCards ){
-        Card card = shuffleCards.get(0);
-        shuffleCards.remove(0);
+    public Card openPile() {
+        Card card = pack.getCards().get(0);
+        pack.getCards().remove(0);
         return card;
+    }
+
+    public Pack closePile() {
+        return pack;
     }
 }

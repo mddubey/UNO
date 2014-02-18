@@ -14,7 +14,7 @@ public class LogDisplay {
 
     public void createLog(int x, int y, int width, int height) {
         List<Player> players = Arrays.asList(new Player("sa"),new Player("ma"));
-        List<Card> cards = Arrays.asList(new Card(2, com.tw.unoProject.model.Color.BLUE),new Card(4, com.tw.unoProject.model.Color.GREEN));
+        List<Card> cards = Arrays.asList(new Card(2, CardColor.BLUE),new Card(4, CardColor.GREEN));
         createTable(players,cards);
         log = new JScrollPane(logTable);
         log.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);

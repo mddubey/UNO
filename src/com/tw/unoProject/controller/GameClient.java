@@ -1,7 +1,5 @@
 package com.tw.unoProject.controller;
 
-import com.tw.unoProject.view.PlayerScreen;
-
 import java.net.Socket;
 
 public class GameClient implements PlayerLoginObserver, MessageChannelListener {
@@ -25,7 +23,8 @@ public class GameClient implements PlayerLoginObserver, MessageChannelListener {
         new GameClient(new UNOFactory()).withLogInScreen();
     }
 
-    private void withLogInScreen() {
+    private
+    void withLogInScreen() {
         unoFactory.showPlayerLoginScreen(this);
     }
 
@@ -41,7 +40,7 @@ public class GameClient implements PlayerLoginObserver, MessageChannelListener {
 
     @Override
     public void onMessage(MessageChannel client, Object message) {
-        System.out.println((String)message);
+        System.out.println((String) message);
     }
 
     @Override

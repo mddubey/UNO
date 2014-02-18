@@ -1,9 +1,11 @@
 package com.tw.unoProject.view;
 
 import com.tw.unoProject.model.Player;
+import com.tw.unoProject.model.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -23,7 +25,7 @@ public class PlayerScreen extends JFrame {
     private JLabel openPile;
     private JTextArea hintToUser;
 
-    private List<String> players;
+//    private List<String> players;
     private List<JLabel> imageLable;
 
 
@@ -45,16 +47,12 @@ public class PlayerScreen extends JFrame {
 
         addCenterPanel();
         createDrawButton();
-        showOpenedPileCard();
+        showOpenedPileCard(new Card(5, CardColor.BLUE));
         showCurrentHint();
-
         showPlayerCards();
-
         log.createLog(770, 10, 300, 720);
         masterPanel.add(log.getLog());
-
         showUNOButton();
-
         quit();
     }
 
@@ -63,7 +61,6 @@ public class PlayerScreen extends JFrame {
         UNOButton.setBounds(680, 600, 70, 50);
         masterPanel.add(UNOButton);
     }
-
     private void setJFrame() {
         masterPanel = new JPanel();
         setContentPane(masterPanel);
@@ -73,14 +70,12 @@ public class PlayerScreen extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
-
     private void addPlayerPanel() {
         playersPanel = new JPanel();
         playersPanel.setBounds(30, 30, 700, 100);
         playersPanel.setLayout(new GridLayout(2, 5));
         masterPanel.add(playersPanel);
     }
-
     private void createCatchButtons(List<Player> players) {
 
         for (int i = 0; i < players.size(); i++) {
@@ -96,7 +91,6 @@ public class PlayerScreen extends JFrame {
             playersPanel.add(label);
         }
     }
-
     private void addCenterPanel() {
         centerPanel = new JPanel();
         centerPanel.setLayout(null);
@@ -104,26 +98,23 @@ public class PlayerScreen extends JFrame {
         centerPanel.setBackground(Color.white);
         masterPanel.add(centerPanel);
     }
-
     private void createDrawButton() {
         drawButton = new JButton("Draw");
         drawButton.setBounds(15, 15, 150, 50);
         centerPanel.add(drawButton);
     }
-
-    private void showOpenedPileCard() {
+    private void showOpenedPileCard(Card card) {
         openPileCardPanel = new JPanel();
         openPileCardPanel.setLayout(null);
         openPileCardPanel.setBounds(200, 15, 150, 50);
-        openPileCardPanel.setBackground(Color.cyan);
+        openPileCardPanel.setBackground(card.getColor().getCardColor());
         centerPanel.add(openPileCardPanel);
-        openPile = new JLabel("1", JLabel.CENTER);
+        openPile = new JLabel(String.valueOf(card.getValue()), JLabel.CENTER);
         openPile.setFont(new Font("Times new Roman", Font.BOLD, 30));
         openPile.setForeground(Color.black);
         openPile.setBounds(20, 5, 100, 30);
         openPileCardPanel.add(openPile);
     }
-
     private void showCurrentHint() {
         hintToUser = new JTextArea();
         hintToUser.setBounds(20, 75, 350, 120);
@@ -134,7 +125,6 @@ public class PlayerScreen extends JFrame {
         hintToUser.setFont(new Font("Times new Roman", Font.PLAIN, 30));
         centerPanel.add(hintToUser);
     }
-
     public void quit() {
         quit = new JButton("quit");
         quit.addActionListener(new ActionListener() {
@@ -147,7 +137,6 @@ public class PlayerScreen extends JFrame {
         quit.setBounds(60, 500, 120, 70);
         masterPanel.add(quit);
     }
-
     private void showPlayerCards() {
         playerCardsPanel = new JPanel();
         playerCardsPanel.setLayout(new GridLayout(1, 5));
@@ -164,9 +153,7 @@ public class PlayerScreen extends JFrame {
         masterPanel.add(cardsPane);
 
     }
-
     public static void main(String[] args) {
         new PlayerScreen(Arrays.asList(new Player("sharan"),new Player("dubeyji"),new Player("kash")));
     }
-
 }

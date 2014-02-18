@@ -2,9 +2,9 @@ package com.tw.unoProject.model;
 
 public class Card {
     private int value;
-    private Color color;
+    private CardColor color;
 
-    public Card(int value, Color color) {
+    public Card(int value, CardColor color) {
         this.value = value;
         this.color = color;
     }
@@ -13,15 +13,7 @@ public class Card {
         return value;
     }
 
-    public Color getColor() {
+    public CardColor getColor() {
         return color;
-    }
-
-    @Override
-    public String toString() {
-        return "Card{" +
-                "value=" + value +
-                ", color=" + color +
-                '}';
     }
 }
