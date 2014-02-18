@@ -18,10 +18,15 @@ public class Randomizer {
             for (int i = 0; i < cards.size(); i = i++) {
                 players.get(j).getMyCards().add(cards.get(i));
                 cards.remove(i);
-                if (players.get(j).getMyCards().size() == 7) {
+                if (players.get(j).getMyCards().size() == 7)
                     break;
-                }
             }
         }
+    }
+
+    public Card openPile(List<Card> shuffleCards ){
+        Card card = shuffleCards.get(0);
+        shuffleCards.remove(0);
+        return card;
     }
 }
