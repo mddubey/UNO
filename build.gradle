@@ -13,6 +13,12 @@ dependencies {
     testCompile 'junit:junit:4.10' , 'org.mockito:mockito-all:1.9.5'
 }
 
+allprojects {
+   tasks.withType(Compile) {
+       options.compilerArgs += ["-Xlint:deprecation", "-Xlint:unchecked"]
+   }
+}
+
 sourceSets {
     main.java.srcDir 'src'
     test.java.srcDir 'test'

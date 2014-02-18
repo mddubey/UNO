@@ -2,16 +2,15 @@ package com.tw.unoProject.model;
 
 import org.junit.Test;
 
-import static org.hamcrest.core.Is.is;
+import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertThat;
 
 public class CardTest {
     @Test
     public void shouldTellTwoCardsAreSame() {
         Card actual = new Card(2, CardColor.BLUE);
         Card expected = new Card(2, CardColor.BLUE);
-        assertThat(actual, is(expected));
+        assertEquals(expected, actual);
     }
 
     @Test
