@@ -1,10 +1,13 @@
 package com.tw.unoProject.view;
 
+import com.tw.unoProject.model.Player;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class PlayerScreen extends JFrame {
@@ -28,17 +31,17 @@ public class PlayerScreen extends JFrame {
     LogDisplay log = new LogDisplay();
 
 
-    public PlayerScreen() {
+    public PlayerScreen(List<Player> players) {
         super("UNO");
-        generateUI();
+        generateUI(players);
         setVisible(true);
     }
 
-    private void generateUI() {
+    private void generateUI(List<Player> players) {
         setJFrame();
 
         addPlayerPanel();
-        createCatchButtons();
+        createCatchButtons(players);
 
         addCenterPanel();
         createDrawButton();
@@ -78,19 +81,14 @@ public class PlayerScreen extends JFrame {
         masterPanel.add(playersPanel);
     }
 
-    private void createCatchButtons() {
-        players = new ArrayList<>();
-        players.add("mkdskd:10");
-        players.add("manali:10");
-        players.add("Ande:10");
-        players.add("Kashish:10");
-        players.add("Guru:10");
+    private void createCatchButtons(List<Player> players) {
+
         for (int i = 0; i < players.size(); i++) {
-            JButton button = new JButton(players.get(i));
+            JButton button = new JButton(players.get(i).getName()+" : "+players.get(i).getMyCards().size());
             playersPanel.add(button);
         }
         imageLable = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < players.size(); i++) {
             imageLable.add(new JLabel("=>", JLabel.CENTER));
         }
         for (JLabel label : imageLable) {
@@ -164,5 +162,11 @@ public class PlayerScreen extends JFrame {
         cardsPane = new JScrollPane(playerCardsPanel);
         cardsPane.setBounds(20, 600, 650, 100);
         masterPanel.add(cardsPane);
+
     }
+
+    public static void main(String[] args) {
+        new PlayerScreen(Arrays.asList(new Player("sharan"),new Player("dubeyji"),new Player("kash")));
+    }
+
 }

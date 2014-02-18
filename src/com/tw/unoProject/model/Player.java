@@ -15,14 +15,14 @@ public class Player {
         this.name = name;
     }
 
-    public void setMyCards(Card card) {
-        this.myCards.add(card);
-    }
-
     public Player(String name) {
         this.name = name;
         myCards = new ArrayList<>();
 
+    }
+
+    public void setMyCards(Card card) {
+        this.myCards.add(card);
     }
 
     public String getName() {

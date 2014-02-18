@@ -18,16 +18,6 @@ public class WaitingScreen extends JFrame {
         masterPanelSetup();
         addPanel();
         addLabel();
-
-        Timer timer = new Timer(1000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                new PlayerScreen();
-            }
-        });
-        timer.start();
-        timer.setRepeats(false);
         setVisible(true);
 
     }

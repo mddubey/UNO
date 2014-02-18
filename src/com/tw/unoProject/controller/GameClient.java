@@ -1,5 +1,7 @@
 package com.tw.unoProject.controller;
 
+import com.tw.unoProject.view.PlayerScreen;
+
 import java.net.Socket;
 
 public class GameClient implements PlayerLoginObserver, MessageChannelListener {
