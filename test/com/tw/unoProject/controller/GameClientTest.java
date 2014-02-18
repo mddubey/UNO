@@ -5,16 +5,18 @@ import org.junit.Test;
 import static org.mockito.Mockito.*;
 
 public class GameClientTest {
+    UNOFactoryStub unoFactory = new UNOFactoryStub();
     @Test
     public void shouldCallCreateConnection() {
-        UNOFactory stub = mock(UNOFactory.class);
 
-        GameClient connection = new GameClient(stub);
+        GameClient client = new GameClient(unoFactory);
         String serverAddress = "127.0.0.1";
 
-        connection.connectTo(serverAddress, "kash");
+        String kash = "kash";
+        client.connectTo(serverAddress, kash);
 
-        verify(stub, times(1)).createClientSocket(serverAddress);
+        verify(unoFactory.channel, times(1)).send(kash);
+        verify(unoFactory.channel, times(1)).startListeningForMessages(client);
     }
 
 }

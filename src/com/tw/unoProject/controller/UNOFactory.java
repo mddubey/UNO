@@ -1,5 +1,6 @@
 package com.tw.unoProject.controller;
 
+import com.tw.unoProject.model.Player;
 import com.tw.unoProject.view.GameServer;
 import com.tw.unoProject.view.PlayerLogin;
 import com.tw.unoProject.view.ServerScreen;
@@ -17,10 +18,10 @@ public class UNOFactory {
         }
     }
 
-    public GameClient acceptClient(ServerSocket serverSocket) {
+    public MessageChannel acceptClient(ServerSocket serverSocket) {
         try {
             Socket socket = serverSocket.accept();
-            return new GameClient(this);
+            return new MessageChannel(socket);
         } catch (IOException e) {
             throw new RuntimeException("not able to accept the client");
         }
@@ -46,4 +47,11 @@ public class UNOFactory {
         return new ServerScreen(numOfPacks, numOfPlayers);
     }
 
+    public MessageChannel createChannel(Socket socket) {
+        return new MessageChannel(socket);
+    }
+
+    public Player createPlayer(MessageChannel client, String name) {
+        return new Player(client, name);
+    }
 }
