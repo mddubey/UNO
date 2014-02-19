@@ -29,4 +29,9 @@ public class Card {
         return cardValue.getValue() == card.cardValue.getValue() && color == card.color;
 
     }
+
+    @Override
+    public String toString() {
+        return cardValue.getValue() +" " + color.getCardColor().toString();
+    }
 }
