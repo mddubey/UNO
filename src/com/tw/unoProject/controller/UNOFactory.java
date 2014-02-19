@@ -53,6 +53,6 @@ public class UNOFactory {
     }
 
     public Player createPlayer(MessageChannel client, String name) {
-        return new Player(client, name);
+        return new Player(name);
     }
 }

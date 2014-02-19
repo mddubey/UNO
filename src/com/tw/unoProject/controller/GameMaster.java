@@ -20,20 +20,20 @@ public class GameMaster implements ServerScreenObserver, MessageChannelListener 
         unoFactory.showServerStartScreen(this);
     }
 
-    public void addClients() {
-        for (int i = 0; i < numOfPlayers; i++)
-            unoFactory.acceptClient(serverSocket).startListeningForMessages(this);
-        System.out.println("got "+numOfPlayers+" you");
-        for (Player player : players)
-            player.getChannel().send("connect");
-    }
+//    public void addClients() {
+//        for (int i = 0; i < numOfPlayers; i++)
+//            unoFactory.acceptClient(serverSocket).startListeningForMessages(this);
+//        System.out.println("got "+numOfPlayers+" you");
+//        for (Player player : players)
+//            player.getChannel().send("connect");
+//    }
 
     @Override
     public void onStartGame(String noOfPacks, String noOfPlayers) {
         numOfPlayers = Integer.parseInt(noOfPlayers);
         numOfPacks = Integer.parseInt(noOfPacks);
         unoFactory.showServerScreen(numOfPlayers, numOfPacks);
-        addClients();
+//        addClients();
     }
 
     @Override
