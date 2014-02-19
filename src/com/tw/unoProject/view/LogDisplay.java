@@ -14,7 +14,7 @@ public class LogDisplay {
 
     public void createLog(int x, int y, int width, int height) {
         List<Player> players = Arrays.asList(new Player("sa"),new Player("ma"));
-        List<Card> cards = Arrays.asList(new Card(2, CardColor.BLUE),new Card(4, CardColor.GREEN));
+        List<Card> cards = Arrays.asList(new Card(CardValue.TWO, CardColor.BLUE),new Card(CardValue.FOUR, CardColor.GREEN));
         createTable(players,cards);
         log = new JScrollPane(logTable);
         log.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -22,14 +22,14 @@ public class LogDisplay {
         log.setBounds(x, y, width, height);
     }
 
-    public void createTable(List<Player> players,List<Card> card) {
+    public void createTable(List<Player> players,List<Card> cards) {
         String ColumnName[] = {"NAME", "CARD"};
         Object data[][] = new Object[players.size()][2];
         System.out.println(data.length);
         for (int i = 0; i < players.size(); i++) {
-            for (int j = 0; j < card.size(); j++) {
+            for (Card card : cards) {
                 data[i][0] = players.get(i).getName();
-                data[i][1] = card.get(i).getColor() + ":" + card.get(i).getCardValue();
+                data[i][1] = card.getColor() + ":" + card.getCardValue();
 
             }
         }

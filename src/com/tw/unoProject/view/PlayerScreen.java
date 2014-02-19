@@ -50,7 +50,7 @@ public class PlayerScreen extends JFrame {
 
         addCenterPanel();
         createDrawButton();
-        showOpenedPileCard(new Card(5, CardColor.BLUE));
+        showOpenedPileCard(new Card(CardValue.FIVE, CardColor.BLUE));
         showCurrentHint();
         showPlayerCards();
         log.createLog(770, 10, 300, 720);
@@ -81,12 +81,12 @@ public class PlayerScreen extends JFrame {
     }
     private void createCatchButtons(List<Player> players) {
 
-        for (int i = 0; i < players.size(); i++) {
-            JButton button = new JButton(players.get(i).getName()+" : "+players.get(i).getMyCards().size());
+        for (Player player : players) {
+            JButton button = new JButton(player.getName() + " : " + player.getMyCards().size());
             playersPanel.add(button);
         }
         imageLable = new ArrayList<>();
-        for (int i = 0; i < players.size(); i++) {
+        for (Player player : players) {
             imageLable.add(new JLabel("=>", JLabel.CENTER));
         }
         for (JLabel label : imageLable) {
@@ -110,7 +110,7 @@ public class PlayerScreen extends JFrame {
         openPileCardPanel = new JPanel();
         openPileCardPanel.setLayout(null);
         openPileCardPanel.setBounds(200, 15, 150, 50);
-        openPileCardPanel.setBackground(card.getColor().getCardColor());
+        openPileCardPanel.setBackground(card.getColor());
         centerPanel.add(openPileCardPanel);
         openPile = new JLabel(String.valueOf(card.getCardValue()), JLabel.CENTER);
         openPile.setFont(new Font("Times new Roman", Font.BOLD, 30));

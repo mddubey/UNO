@@ -1,20 +1,22 @@
 package com.tw.unoProject.model;
 
+import java.awt.*;
+
 public class Card {
-    private int cardValue;
+    private CardValue cardValue;
     private CardColor color;
 
-    public Card(int cardValue, CardColor color) {
+    public Card(CardValue cardValue, CardColor color) {
         this.cardValue = cardValue;
         this.color = color;
     }
 
     public int getCardValue() {
-        return cardValue;
+        return cardValue.getValue();
     }
 
-    public CardColor getColor() {
-        return color;
+    public Color getColor() {
+        return color.getCardColor();
     }
 
     @Override
@@ -24,9 +26,7 @@ public class Card {
 
         Card card = (Card) o;
 
-        if (cardValue != card.cardValue) return false;
-        if (color != card.color) return false;
+        return cardValue.getValue() == card.cardValue.getValue() && color == card.color;
 
-        return true;
     }
 }
