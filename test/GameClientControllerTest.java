@@ -27,6 +27,8 @@ public class GameClientControllerTest {
     @Test
     public void sendsIntroductionAfterJoiningGame() {
         controller.join("serverAddress", "me");
+
+        verify(stub.channel,times(1)).startListeningForMessages(controller);
         verify(stub.channel, times(1)).send(any(Introduction.class));
     }
 
@@ -44,6 +46,8 @@ public class GameClientControllerTest {
         controller.onMessage(stub.channel, snapshot);
         verify(playerView, times(1)).update(snapshot);
     }
+
+
 
     class StubFactory extends CommunicationFactory {
         public final MessageChannel channel = mock(MessageChannel.class);

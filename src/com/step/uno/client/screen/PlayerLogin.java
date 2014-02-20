@@ -3,8 +3,6 @@ package com.step.uno.client.screen;
 import com.step.uno.client.controller.GameClientController;
 import com.step.uno.client.view.JoinGameView;
 import com.step.uno.client.view.PlayerView;
-import com.step.uno.messages.GameSnapshot;
-import com.step.uno.messages.Snapshot;
 
 import javax.swing.*;
 import java.awt.*;
