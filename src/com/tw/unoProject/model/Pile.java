@@ -16,24 +16,25 @@ public class Pile {
         for (Card card : closePileList) this.closePile.push(card);
     }
 
-    public void placeCardToOpenPile(Card card){
+    public void placeCardToOpenPile(Card card) {
         openPile.push(card);
     }
 
-    public Card getTopCardFromPile(){
+    public Card getTopCardFromPile() {
         return openPile.peek();
     }
 
-    public List<Card> drawPenaltyCards(){
-        List<Card> penaltyCards = new ArrayList<>();
-        if(currentPanaltyCards == 0){
-            penaltyCards.add(closePile.pop());
-            return penaltyCards;
-        }
-        while (currentPanaltyCards>0){
-            penaltyCards.add(closePile.pop());
-            currentPanaltyCards--;
-        }
-        return penaltyCards;
+    public Card drawCard(){
+//        List<Card> penaltyCards = new ArrayList<>();
+//        if(currentPanaltyCards == 0){
+//            penaltyCards.add(closePile.pop());
+//            return penaltyCards;
+//        }
+//        while (currentPanaltyCards>0){
+//            penaltyCards.add(closePile.pop());
+//            currentPanaltyCards--;
+//        }
+//        return penaltyCards;
+        return closePile.pop();
     }
 }
