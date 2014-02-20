@@ -20,6 +20,7 @@ public class GameMasterController implements MessageServerListener, MessageChann
         this.numberOfPlayers = numberOfPlayers;
         this.numberOfPacks = numberOfPacks;
         messageServer = factory.createMessageServer();
+        System.out.println("no of players" + numberOfPlayers + "no of packes" + numberOfPacks);
     }
 
     @Override
