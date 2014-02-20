@@ -1,1 +1,1 @@
-java -cp build/libs/UNO-0.1.jar com.step.uno.client.UnoClient
+java -cp ../lib/* com.step.uno.client.UnoClient

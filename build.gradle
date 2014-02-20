@@ -3,9 +3,8 @@ apply plugin: 'application'
 apply plugin: 'idea'
 
 group = "com.tw.unoProject"
-version = "0.1"
 
-mainClassName="com.tw.unoProject.Main" // Change it to your main class
+mainClassName="com.step.uno.server.UnoServer" // Change it to your main class
 
 repositories { mavenCentral() }
 
@@ -19,6 +18,7 @@ allprojects {
    }
 }
 
+
 sourceSets {
     main.java.srcDir 'src'
     test.java.srcDir 'test'
@@ -31,5 +31,12 @@ task wrapper(type: Wrapper) {
 idea {
     module {
         excludeDirs += [file(".gradle"), file('gradle')]
+    }
+}
+
+distZip {
+    into(project.name + "/bin" ) {
+        from './startClient.sh', './startServer.sh'
+        include '*'
     }
 }

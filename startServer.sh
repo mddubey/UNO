@@ -1,1 +1,1 @@
-java -cp build/libs/UNO-0.1.jar com.step.uno.server.UnoServer "$@"
+java -cp ../lib/* com.step.uno.server.UnoServer "$@"
