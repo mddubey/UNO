@@ -5,12 +5,14 @@ import com.step.uno.client.view.PlayerView;
 import com.step.uno.messages.Snapshot;
 import com.step.uno.model.Card;
 import com.step.uno.model.Colour;
+import com.step.uno.model.PlayerSummary;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class PlayerScreen extends JFrame implements PlayerView {
@@ -43,13 +45,10 @@ public class PlayerScreen extends JFrame implements PlayerView {
         setJFrame();
 
         addPlayerPanel();
-        createCatchButtons();
-
         addCenterPanel();
         createDrawButton();
         showOpenedPileCard(Card.createCard(Colour.Yellow, "_5"));
         showCurrentHint();
-        showPlayerCards();
         log.createLog(770, 10, 300, 720);
         masterPanel.add(log.getLog());
         showUNOButton();
@@ -79,13 +78,14 @@ public class PlayerScreen extends JFrame implements PlayerView {
         masterPanel.add(playersPanel);
     }
 
-    private void createCatchButtons() {
-        for (int i = 0; i < 10; i++) {
-            JButton button = new JButton("some" + " : " +i);
+    private void createCatchButtons(List<PlayerSummary> playerSummaries) {
+        for (PlayerSummary playerSummary : playerSummaries) {
+            JButton button = new JButton(playerSummary.name + playerSummaries.get(0).cardsInHand);
             playersPanel.add(button);
         }
+
         imageLable = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (PlayerSummary playerSummary : playerSummaries) {
             imageLable.add(new JLabel("=>", JLabel.CENTER));
         }
         for (JLabel label : imageLable) {
@@ -145,15 +145,18 @@ public class PlayerScreen extends JFrame implements PlayerView {
         masterPanel.add(quit);
     }
 
-    private void showPlayerCards() {
+    private void showPlayerCards(List<Card> cards) {
         playerCardsPanel = new JPanel();
         playerCardsPanel.setLayout(new GridLayout(1, 5));
         playerCardsPanel.setBackground(Color.white);
 
-        for (int i = 0; i < 20; i++) {
-            JButton button = new JButton(String.valueOf(i + 1));
-            button.setBackground(Color.GREEN);
-            button.setForeground(Color.black);
+        for (Card card : cards) {
+            Colour[] colours = {Colour.Black, Colour.Blue, Colour.Green, Colour.Red, Colour.Yellow};
+            Color[] colors = {Color.black, Color.blue, Color.green, Color.RED, Color.YELLOW};
+            int index = Arrays.asList(colours).indexOf(card.colour);
+            JButton button = new JButton(String.valueOf(cards.get(0).sign.points));
+            button.setBackground(colors[index]);
+            button.setForeground(Color.white);
             playerCardsPanel.add(button);
         }
         cardsPane = new JScrollPane(playerCardsPanel);
@@ -164,7 +167,10 @@ public class PlayerScreen extends JFrame implements PlayerView {
 
     public void update(Snapshot snapshot) {
         setVisible(true);
-
+        Card[] myCards = snapshot.myCards;
+        PlayerSummary[] playerSummaries = snapshot.playerSummaries;
+        createCatchButtons(Arrays.asList(playerSummaries));
+        showPlayerCards(Arrays.asList(myCards));
     }
 
     public void showDisconnected() {
