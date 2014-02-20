@@ -37,8 +37,8 @@ public class PileTest {
         Card greenCardWithFive = new Card(CardPoints.FIVE, CardColor.GREEN);
         closedPile.add(greenCardWithFive);
 
-        List<Card> cards = new Pile(closedPile).drawPenaltyCards();
-        assertEquals(cards.get(0), greenCardWithFive);
+        Card card = new Pile(closedPile).drawCard();
+        assertEquals(card, greenCardWithFive);
     }
 
 

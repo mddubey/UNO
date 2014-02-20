@@ -38,7 +38,7 @@ public class Player {
     }
 
     public void populateCards(Snapshot snapshot) {
-        snapshot.cards = myCards.toArray(new Card[]{});
+        snapshot.myCards = myCards.toArray(new Card[]{});
     }
 
     public ResultOfPlayer generateResult() {

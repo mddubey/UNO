@@ -24,16 +24,17 @@ public class Pile {
         return openPile.peek();
     }
 
-    public List<Card> drawPenaltyCards() {
-        List<Card> penaltyCards = new ArrayList<>();
-        if (currentPanaltyCards == 0) {
-            penaltyCards.add(closePile.pop());
-            return penaltyCards;
-        }
-        while (currentPanaltyCards > 0) {
-            penaltyCards.add(closePile.pop());
-            currentPanaltyCards--;
-        }
-        return penaltyCards;
+    public Card drawCard(){
+//        List<Card> penaltyCards = new ArrayList<>();
+//        if(currentPanaltyCards == 0){
+//            penaltyCards.add(closePile.pop());
+//            return penaltyCards;
+//        }
+//        while (currentPanaltyCards>0){
+//            penaltyCards.add(closePile.pop());
+//            currentPanaltyCards--;
+//        }
+//        return penaltyCards;
+        return closePile.pop();
     }
 }
