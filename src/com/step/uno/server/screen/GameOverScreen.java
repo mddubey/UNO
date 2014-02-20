@@ -1,4 +1,4 @@
-package com.step.uno.client.screen;
+package com.step.uno.server.screen;
 
 import javax.swing.*;
 import java.awt.*;

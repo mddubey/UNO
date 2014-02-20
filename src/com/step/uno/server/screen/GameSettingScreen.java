@@ -1,4 +1,4 @@
-package com.step.uno.client.screen;
+package com.step.uno.server.screen;
 
 import com.step.communication.factory.CommunicationFactory;
 import com.step.uno.server.controller.GameMasterController;
@@ -8,7 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ServerSettingScreen extends JFrame {
+public class GameSettingScreen extends JFrame {
     private JPanel settingPanel;
     private JTextField noOfPack;
     private JTextField noOfPlayers;
@@ -17,7 +17,7 @@ public class ServerSettingScreen extends JFrame {
     private JLabel playerLabel;
     private GameMasterController controller;
 
-    public ServerSettingScreen() {
+    public GameSettingScreen() {
         super("Start Game");
         setupForFrame();
 

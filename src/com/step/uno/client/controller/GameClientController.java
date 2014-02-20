@@ -12,7 +12,7 @@ import java.lang.reflect.InvocationTargetException;
 
 public class GameClientController implements MessageChannelListener {
     private CommunicationFactory factory;
-    private JoinGameView playerLogin;
+    private JoinGameView playerLoginView;
     private PlayerView playerView;
     private MessageChannel channel;
 
@@ -32,7 +32,7 @@ public class GameClientController implements MessageChannelListener {
     }
 
     private void handle(GameSnapshot snapshot){
-        if(playerView == null) playerView = playerLogin.switchToPlayerView();
+        if(playerView == null) playerView = playerLoginView.switchToPlayerView();
         playerView.update(snapshot);
     }
 
@@ -58,6 +58,6 @@ public class GameClientController implements MessageChannelListener {
     }
 
     public void bindView(JoinGameView joinGameView) {
-        this.playerLogin = joinGameView;
+        this.playerLoginView = joinGameView;
     }
 }

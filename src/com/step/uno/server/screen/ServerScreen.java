@@ -1,4 +1,7 @@
-package com.step.uno.client.screen;
+package com.step.uno.server.screen;
+
+import com.step.uno.client.screen.LogDisplay;
+import com.step.uno.server.view.ServerView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -7,7 +10,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ServerScreen extends JFrame {
+public class ServerScreen extends JFrame implements ServerView {
     private JPanel serverPanel;
     private JLabel openPile;
     private JPanel playersPanel;
@@ -130,5 +133,10 @@ public class ServerScreen extends JFrame {
         });
         quit.setBounds(60, 600, 120, 70);
         serverPanel.add(quit);
+    }
+
+    @Override
+    public void display() {
+        setVisible(true);
     }
 }

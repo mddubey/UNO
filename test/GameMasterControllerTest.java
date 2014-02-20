@@ -1,7 +1,7 @@
 import com.step.communication.channel.MessageChannel;
 import com.step.communication.factory.CommunicationFactory;
 import com.step.communication.server.MessageServer;
-import com.step.uno.client.screen.ServerScreen;
+import com.step.uno.server.screen.ServerScreen;
 import com.step.uno.messages.GameSnapshot;
 import com.step.uno.server.controller.GameMasterController;
 import org.junit.Test;
@@ -45,7 +45,7 @@ public class GameMasterControllerTest {
         }
 
         @Override
-        public ServerScreen serverScreen(int players, int packs) {
+        public ServerScreen getServerView(int players, int packs) {
             return serverScreen;
         }
     }

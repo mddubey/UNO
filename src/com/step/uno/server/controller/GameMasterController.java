@@ -5,7 +5,6 @@ import com.step.communication.channel.MessageChannelListener;
 import com.step.communication.factory.CommunicationFactory;
 import com.step.communication.server.MessageServer;
 import com.step.communication.server.MessageServerListener;
-import com.step.uno.client.screen.ServerScreen;
 import com.step.uno.messages.GameSnapshot;
 
 import java.util.ArrayList;
@@ -18,7 +17,7 @@ public class GameMasterController implements MessageServerListener, MessageChann
     private MessageServer messageServer;
     private List<MessageChannel> channels = new ArrayList<>();
 
-    public GameMasterController(int numberOfPlayers, int numberOfPacks,CommunicationFactory factory) {
+    public GameMasterController(int numberOfPlayers, int numberOfPacks, CommunicationFactory factory) {
         this.numberOfPlayers = numberOfPlayers;
         this.numberOfPacks = numberOfPacks;
         this.factory = factory;
@@ -27,13 +26,13 @@ public class GameMasterController implements MessageServerListener, MessageChann
 
     @Override
     public void onNewConnection(MessageChannel channel) {
-        if(isHousefull()){
+        if (isHousefull()) {
             channel.stop();
             return;
         }
         channels.add(channel);
         channel.startListeningForMessages(this);
-        if(isHousefull())startGame();
+        if (isHousefull()) startGame();
     }
 
     private boolean isHousefull() {
@@ -45,7 +44,7 @@ public class GameMasterController implements MessageServerListener, MessageChann
         for (MessageChannel channel : channels) {
             channel.send(snapshot);
         }
-        show(numberOfPlayers,numberOfPacks);
+        factory.getServerView(numberOfPlayers, numberOfPacks).display();
     }
 
     @Override
@@ -73,7 +72,4 @@ public class GameMasterController implements MessageServerListener, MessageChann
 
     }
 
-    public void show(int players, int packs) {
-        factory.serverScreen(players,packs).setVisible(true);
-    }
 }
