@@ -4,6 +4,7 @@ import com.step.communication.channel.MessageChannel;
 import com.step.communication.channel.MessageChannelListener;
 import com.step.communication.factory.CommunicationFactory;
 import com.step.uno.client.view.JoinGameView;
+import com.step.uno.client.view.PlayerScreen;
 import com.step.uno.client.view.PlayerView;
 import com.step.uno.messages.GameSnapshot;
 import com.step.uno.messages.Introduction;
@@ -12,7 +13,7 @@ import java.lang.reflect.InvocationTargetException;
 
 public class GameClientController implements MessageChannelListener {
     private CommunicationFactory factory;
-    private JoinGameView joinGameView;
+    private JoinGameView playerLogin;
     private PlayerView playerView;
     private MessageChannel channel;
 
@@ -34,7 +35,7 @@ public class GameClientController implements MessageChannelListener {
     }
 
     private void handle(GameSnapshot snapshot){
-        if(playerView == null) playerView = joinGameView.switchToPlayerView();
+        if(playerView == null) playerView = playerLogin.switchToPlayerView();
         playerView.update(snapshot);
     }
 
@@ -60,6 +61,6 @@ public class GameClientController implements MessageChannelListener {
     }
 
     public void bindView(JoinGameView joinGameView) {
-        this.joinGameView = joinGameView;
+        this.playerLogin = joinGameView;
     }
 }

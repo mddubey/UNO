@@ -39,7 +39,7 @@ public class Card {
         return cards;
     }
 
-    private static Card createCard(Colour c, String signText) {
+    public static Card createCard(Colour c, String signText) {
         Card card = new Card();
         card.colour = c;
         card.sign = Sign.valueOf(signText);
