@@ -3,7 +3,9 @@ package com.step.communication.factory;
 import com.step.communication.channel.MessageChannel;
 import com.step.communication.channel.MessageChannelListener;
 import com.step.communication.server.MessageServer;
+import com.step.uno.client.screen.ServerScreen;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -50,5 +52,9 @@ public class CommunicationFactory {
         } catch (IOException e) {
             throw new RuntimeException("could not connect to "+serverAddress+" at "+port,e);
         }
+    }
+
+    public ServerScreen serverScreen(int players, int packs) {
+        return new ServerScreen(players,packs);
     }
 }

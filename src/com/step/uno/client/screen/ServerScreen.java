@@ -40,7 +40,6 @@ public class ServerScreen extends JFrame {
         addToCurrentStatusPanel();
         log.createLog(530, 10, 250, 730);
         addToPanel();
-        setVisible(true);
     }
 
     private void createServerPanel() {

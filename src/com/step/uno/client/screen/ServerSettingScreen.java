@@ -8,7 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class GameServer extends JFrame {
+public class ServerSettingScreen extends JFrame {
     private JPanel settingPanel;
     private JTextField noOfPack;
     private JTextField noOfPlayers;
@@ -17,7 +17,7 @@ public class GameServer extends JFrame {
     private JLabel playerLabel;
     private GameMasterController controller;
 
-    public GameServer() {
+    public ServerSettingScreen() {
         super("Start Game");
         setupForFrame();
 

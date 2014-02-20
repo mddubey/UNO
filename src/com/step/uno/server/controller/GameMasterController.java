@@ -14,19 +14,19 @@ import java.util.List;
 public class GameMasterController implements MessageServerListener, MessageChannelListener {
     private final int numberOfPlayers;
     private final int numberOfPacks;
+    private CommunicationFactory factory;
     private MessageServer messageServer;
     private List<MessageChannel> channels = new ArrayList<>();
 
     public GameMasterController(int numberOfPlayers, int numberOfPacks,CommunicationFactory factory) {
         this.numberOfPlayers = numberOfPlayers;
         this.numberOfPacks = numberOfPacks;
+        this.factory = factory;
         messageServer = factory.createMessageServer();
-        System.out.println("no of players" + numberOfPlayers + "no of packes" + numberOfPacks);
     }
 
     @Override
     public void onNewConnection(MessageChannel channel) {
-        System.out.println("got a new connection");
         if(isHousefull()){
             channel.stop();
             return;
@@ -74,6 +74,6 @@ public class GameMasterController implements MessageServerListener, MessageChann
     }
 
     public void show(int players, int packs) {
-        new ServerScreen(players,packs);
+        factory.serverScreen(players,packs).setVisible(true);
     }
 }
