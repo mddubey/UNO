@@ -60,4 +60,5 @@ public class GameMaster implements MessageServerListener, ProxyPlayerObserver {
         if (players.size() == noOfPlayers)
             startGame();
     }
+
 }
