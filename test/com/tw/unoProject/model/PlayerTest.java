@@ -12,7 +12,7 @@ public class PlayerTest {
         Player player = new Player("somePlayer");
         player.addCard(new Card(CardPoints.EIGHT, CardColor.GREEN));
 
-        List<Card> allCards = player.getAllCards();
+        List<Card> allCards = player.getMyCards();
         assertEquals(allCards.get(0), new Card(CardPoints.EIGHT, CardColor.GREEN));
     }
 
@@ -22,7 +22,7 @@ public class PlayerTest {
         player.addCard(new Card(CardPoints.EIGHT, CardColor.YELLOW));
         player.addCard(new Card(CardPoints.FIVE, CardColor.RED));
 
-        List<Card> allCards = player.getAllCards();
+        List<Card> allCards = player.getMyCards();
         assertEquals(2, allCards.size());
     }
 

@@ -16,13 +16,17 @@ public class Game {
         this.players = players;
         this.noOfPacks = noOfPacks;
         this.cards = new ArrayList<>();
-        this.currentPlayer = this.players.get(0);
         useRequiredPacks();
     }
 
     public void start() {
         shufflePlayers();
         dealCards();
+        startManagePiles();
+    }
+
+    private void startManagePiles() {
+        this.pile = new Pile(this.cards);
     }
 
     private void useRequiredPacks() {

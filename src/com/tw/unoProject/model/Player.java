@@ -17,10 +17,6 @@ public class Player {
         this.myCards.add(card);
     }
 
-    public List<Card> getAllCards() {
-        return this.myCards;
-    }
-
     public boolean playACard(Card card) {
         return this.myCards.remove(card);
     }
