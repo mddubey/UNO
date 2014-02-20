@@ -1,11 +1,12 @@
 package com.tw.unoProject.view;
 
+import com.tw.unoProject.model.Card;
+import com.tw.unoProject.model.CardColor;
+import com.tw.unoProject.model.CardPoints;
 import com.tw.unoProject.model.Player;
-import com.tw.unoProject.model.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;

@@ -34,5 +34,24 @@ public class PlayerTest {
         player.playACard(card);
         assertEquals(0, player.getMyCards().size());
     }
-
+    @Test
+    public void shouldBeAbleToPlayCard() {
+        Player player = new Player("me");
+        Card card1 = new Card(CardPoints.EIGHT, CardColor.GREEN);
+        Card card2 = new Card(CardPoints.FIVE, CardColor.BLUE);
+        player.addCard(card1);
+        player.addCard(card2);
+        player.play(card1);
+        List<Card> allCards = player.getMyCards();
+        assertEquals(allCards.get(0), new Card(CardPoints.FIVE, CardColor.BLUE));
+    }
+    @Test
+    public void shouldBeAbleToCalculatePoints() {
+        Player player = new Player("me");
+        Card card1 = new Card(CardPoints.EIGHT, CardColor.GREEN);
+        Card card2 = new Card(CardPoints.FIVE, CardColor.BLUE);
+        player.addCard(card1);
+        player.addCard(card2);
+        assertEquals(13,player.calculatePoints());
+    }
 }
