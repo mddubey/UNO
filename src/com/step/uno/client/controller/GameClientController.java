@@ -4,7 +4,6 @@ import com.step.communication.channel.MessageChannel;
 import com.step.communication.channel.MessageChannelListener;
 import com.step.communication.factory.CommunicationFactory;
 import com.step.uno.client.view.JoinGameView;
-import com.step.uno.client.view.PlayerScreen;
 import com.step.uno.client.view.PlayerView;
 import com.step.uno.messages.GameSnapshot;
 import com.step.uno.messages.Introduction;

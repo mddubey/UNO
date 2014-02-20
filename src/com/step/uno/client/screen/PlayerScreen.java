@@ -1,17 +1,16 @@
-package com.step.uno.client.view;
+package com.step.uno.client.screen;
 
 
+import com.step.uno.client.view.PlayerView;
 import com.step.uno.messages.GameSnapshot;
 import com.step.uno.model.Card;
 import com.step.uno.model.Colour;
-import com.step.uno.model.Player;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class PlayerScreen extends JFrame implements PlayerView {
@@ -34,21 +33,17 @@ public class PlayerScreen extends JFrame implements PlayerView {
     LogDisplay log = new LogDisplay();
 
 
-    public PlayerScreen(List<Player> players) {
+    public PlayerScreen() {
         super("UNO");
-        generateUI(players);
+        generateUI();
         setVisible(true);
     }
 
-    public PlayerScreen() {
-
-    }
-
-    private void generateUI(List<Player> players) {
+    private void generateUI() {
         setJFrame();
 
         addPlayerPanel();
-        createCatchButtons(players);
+        createCatchButtons();
 
         addCenterPanel();
         createDrawButton();
@@ -84,14 +79,13 @@ public class PlayerScreen extends JFrame implements PlayerView {
         masterPanel.add(playersPanel);
     }
 
-    private void createCatchButtons(List<Player> players) {
-
-        for (Player player : players) {
-            JButton button = new JButton("some" + " : " + "5");
+    private void createCatchButtons() {
+        for (int i = 0; i < 10; i++) {
+            JButton button = new JButton("some" + " : " +i);
             playersPanel.add(button);
         }
         imageLable = new ArrayList<>();
-        for (Player player : players) {
+        for (int i = 0; i < 10; i++) {
             imageLable.add(new JLabel("=>", JLabel.CENTER));
         }
         for (JLabel label : imageLable) {
@@ -168,11 +162,8 @@ public class PlayerScreen extends JFrame implements PlayerView {
 
     }
 
-    public static void main(String[] args) {
-        new PlayerScreen(Arrays.asList(new Player("sharan"), new Player("dubeyji"), new Player("kash")));
-    }
-
     public void update(GameSnapshot snapshot) {
+        setVisible(true);
 
     }
 

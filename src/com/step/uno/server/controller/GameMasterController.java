@@ -17,7 +17,6 @@ public class GameMasterController implements MessageServerListener, MessageChann
     private List<MessageChannel> channels = new ArrayList<>();
 
     public GameMasterController(int numberOfPlayers, int numberOfPacks,CommunicationFactory factory) {
-
         this.numberOfPlayers = numberOfPlayers;
         this.numberOfPacks = numberOfPacks;
         messageServer = factory.createMessageServer();
@@ -25,6 +24,7 @@ public class GameMasterController implements MessageServerListener, MessageChann
 
     @Override
     public void onNewConnection(MessageChannel channel) {
+        System.out.println("got a new connection");
         if(isHousefull()){
             channel.stop();
             return;

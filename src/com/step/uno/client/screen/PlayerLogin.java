@@ -2,11 +2,14 @@ package com.step.uno.client.screen;
 
 import com.step.uno.client.controller.GameClientController;
 import com.step.uno.client.view.JoinGameView;
-import com.step.uno.client.view.PlayerScreen;
 import com.step.uno.client.view.PlayerView;
+import com.step.uno.messages.GameSnapshot;
+import com.step.uno.messages.Snapshot;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class PlayerLogin extends JFrame implements JoinGameView {
     private JPanel joinMasterPanel;
@@ -15,10 +18,11 @@ public class PlayerLogin extends JFrame implements JoinGameView {
     private JButton joinButton;
     private JLabel labelGameMaster;
     private JLabel nameLabel;
+    private GameClientController controller;
 
     public PlayerLogin(GameClientController controller) {
         super("JOIN UNO");
-
+        this.controller = controller;
         setupForFrame();
 
         addLabels();
@@ -28,8 +32,6 @@ public class PlayerLogin extends JFrame implements JoinGameView {
         addJoinButton();
 
         addComponentsToMasterPanel();
-
-        setVisible(true);
     }
 
     private void setupForFrame() {
@@ -77,10 +79,29 @@ public class PlayerLogin extends JFrame implements JoinGameView {
     }
 
     public PlayerView switchToPlayerView() {
-        return null;
+        PlayerView view = new PlayerScreen();
+//            @Override
+//            public void showDisconnected() {
+//                System.out.println("disconnected");
+//            }
+//
+//            @Override
+//            public void update(GameSnapshot snapshot) {
+//                System.out.println("Got a snapshot");
+//            }
+//        };
+        setVisible(false);
+        return view;
     }
 
     public void showScreen() {
-
+        controller.bindView(this);
+        joinButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.join(gameMaster.getText(), playerName.getText());
+            }
+        });
+        setVisible(true);
     }
 }

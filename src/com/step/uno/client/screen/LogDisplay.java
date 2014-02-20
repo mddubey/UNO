@@ -1,4 +1,4 @@
-package com.step.uno.client.view;
+package com.step.uno.client.screen;
 
 
 import com.step.uno.model.Card;
