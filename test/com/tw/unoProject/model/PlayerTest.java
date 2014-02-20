@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.util.List;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 public class PlayerTest {
@@ -53,5 +54,16 @@ public class PlayerTest {
         player.addCard(card1);
         player.addCard(card2);
         assertEquals(13,player.calculatePoints());
+    }
+    @Test
+    public void shouldBeAbleToPopulateCards() {
+        Player player = new Player("me");
+        Snapshot snapshot = new Snapshot();
+        Card card1 = new Card(CardPoints.EIGHT, CardColor.GREEN);
+        Card card2 = new Card(CardPoints.FIVE, CardColor.BLUE);
+        player.addCard(card1);
+        player.addCard(card2);
+        player.populateCards(snapshot);
+        assertArrayEquals(player.getMyCards().toArray(), snapshot.myCards);
     }
 }
