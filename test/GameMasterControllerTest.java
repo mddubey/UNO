@@ -17,7 +17,7 @@ public class GameMasterControllerTest {
     public void startsTheGameAfterAllPlayersJoin() {
         MessageChannel channel = mock(MessageChannel.class);
         GameMasterController controller = new GameMasterController(1, 1, stub);
-        controller.waitForConnections();
+//        controller.waitForConnections();
         controller.onNewConnection(channel);
 
         verify(channel, times(1)).send(any(GameSnapshot.class));
@@ -28,7 +28,7 @@ public class GameMasterControllerTest {
         MessageChannel channel = mock(MessageChannel.class);
         MessageChannel lateChannel = mock(MessageChannel.class);
         GameMasterController controller = new GameMasterController(1, 1, stub);
-        controller.waitForConnections();
+//        controller.waitForConnections();
         controller.onNewConnection(channel);
         controller.onNewConnection(lateChannel);
         verify(lateChannel, times(1)).stop();

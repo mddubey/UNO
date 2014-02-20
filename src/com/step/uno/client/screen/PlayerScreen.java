@@ -2,7 +2,7 @@ package com.step.uno.client.screen;
 
 
 import com.step.uno.client.view.PlayerView;
-import com.step.uno.messages.GameSnapshot;
+import com.step.uno.messages.Snapshot;
 import com.step.uno.model.Card;
 import com.step.uno.model.Colour;
 
@@ -162,7 +162,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
 
     }
 
-    public void update(GameSnapshot snapshot) {
+    public void update(Snapshot snapshot) {
         setVisible(true);
 
     }

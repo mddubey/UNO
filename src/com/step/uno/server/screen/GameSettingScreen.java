@@ -35,7 +35,7 @@ public class GameSettingScreen extends JFrame {
                 int players = Integer.parseInt(noOfPlayers.getText());
                 int packs = Integer.parseInt(noOfPack.getText());
                 controller = new GameMasterController(players, packs, new CommunicationFactory());
-                controller.waitForConnections();
+//                controller.waitForConnections();
             }
         });
 

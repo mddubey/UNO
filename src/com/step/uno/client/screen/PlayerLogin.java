@@ -67,27 +67,17 @@ public class PlayerLogin extends JFrame implements JoinGameView {
     }
 
     private void addTextFields() {
-        gameMaster = new JTextField();
+        gameMaster = new JTextField("127.0.0.1");
         gameMaster.setFont(new Font("Times new Roman", Font.BOLD, 25));
         gameMaster.setBounds(190, 20, 290, 50);
 
-        playerName = new JTextField();
+        playerName = new JTextField("me");
         playerName.setFont(new Font("Times new Roman", Font.BOLD, 25));
         playerName.setBounds(190, 90, 290, 50);
     }
 
     public PlayerView switchToPlayerView() {
         PlayerView view = new PlayerScreen();
-//            @Override
-//            public void showDisconnected() {
-//                System.out.println("disconnected");
-//            }
-//
-//            @Override
-//            public void update(GameSnapshot snapshot) {
-//                System.out.println("Got a snapshot");
-//            }
-//        };
         setVisible(false);
         return view;
     }

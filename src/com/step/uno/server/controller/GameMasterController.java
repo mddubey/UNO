@@ -6,11 +6,13 @@ import com.step.communication.factory.CommunicationFactory;
 import com.step.communication.server.MessageServer;
 import com.step.communication.server.MessageServerListener;
 import com.step.uno.messages.GameSnapshot;
+import com.step.uno.server.network.GameMaster;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GameMasterController implements MessageServerListener, MessageChannelListener {
+    private GameMaster gameMaster;
     private final int numberOfPlayers;
     private final int numberOfPacks;
     private CommunicationFactory factory;
@@ -18,21 +20,24 @@ public class GameMasterController implements MessageServerListener, MessageChann
     private List<MessageChannel> channels = new ArrayList<>();
 
     public GameMasterController(int numberOfPlayers, int numberOfPacks, CommunicationFactory factory) {
+        this.gameMaster = new GameMaster(numberOfPlayers,numberOfPacks,factory);
         this.numberOfPlayers = numberOfPlayers;
         this.numberOfPacks = numberOfPacks;
         this.factory = factory;
-        messageServer = factory.createMessageServer();
+//        messageServer = factory.createMessageServer();
+        gameMaster.start();
     }
 
     @Override
     public void onNewConnection(MessageChannel channel) {
-        if (isHousefull()) {
-            channel.stop();
-            return;
-        }
-        channels.add(channel);
-        channel.startListeningForMessages(this);
-        if (isHousefull()) startGame();
+        gameMaster.onNewConnection(channel);
+//        if (isHousefull()) {
+//            channel.stop();
+//            return;
+//        }
+//        channels.add(channel);
+//        channel.startListeningForMessages(this);
+//        if (isHousefull()) gameMaster.start();
     }
 
     private boolean isHousefull() {
@@ -52,10 +57,10 @@ public class GameMasterController implements MessageServerListener, MessageChann
 
     }
 
-    public void waitForConnections() {
-        messageServer.startListeningForConnections(this);
-
-    }
+//    public void waitForConnections() {
+//        messageServer.startListeningForConnections(this);
+//
+//    }
 
     @Override
     public void onError(MessageChannel client, Exception e) {

@@ -2,24 +2,26 @@ package com.step.uno.client;
 
 import com.step.communication.channel.MessageChannel;
 import com.step.communication.channel.MessageChannelListener;
-import com.step.uno.factory.Factory;
+import com.step.communication.factory.CommunicationFactory;
 import com.step.uno.messages.*;
 import com.step.uno.model.Card;
 import com.step.uno.model.Colour;
 
 public class GameClient implements MessageChannelListener {
-    private Factory factory;
+    private CommunicationFactory communicationFactory;
     private MessageChannel channel;
     private String playerName;
+    private GameClientObserver observer;
 
-    public GameClient(Factory factory) {
-
-        this.factory = factory;
+    public GameClient(CommunicationFactory communicationFactory, GameClientObserver observer) {
+        this.communicationFactory = communicationFactory;
+        this.observer = observer;
     }
 
     public void start(String playerName, String serverAddress) {
         this.playerName = playerName;
-        this.channel = factory.communication.connectTo(serverAddress, this);
+        this.channel = communicationFactory.connectTo(serverAddress, this);
+        channel.startListeningForMessages(this);
         sendIntroduction();
     }
 
@@ -64,7 +66,7 @@ public class GameClient implements MessageChannelListener {
     @Override
     public void onMessage(MessageChannel client, Object message) {
         if(message.getClass().equals(Snapshot.class)){
-            //present snapshot on to screen
+            observer.displaySnapShotOnView((Snapshot) message);
         }
 
         if(message.getClass().equals(GameResult.class)){
