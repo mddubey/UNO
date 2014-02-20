@@ -4,8 +4,7 @@ import java.awt.*;
 
 
 public enum CardColor {
-//    RED,GREEN,YELLOW,BLUE;
-    RED(Color.RED), GREEN(Color.GREEN), YELLOW(Color.YELLOW), BLUE(Color.BLUE);
+    RED(Color.RED), GREEN(Color.GREEN), YELLOW(Color.YELLOW), BLUE(Color.BLUE),BLACK(Color.BLACK);
     private final Color cardColor;
 
     CardColor(Color cardColor) {
