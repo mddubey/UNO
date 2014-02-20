@@ -85,4 +85,5 @@ public class GameServer extends JFrame {
         noOfPlayers.setFont(new Font("Times new Roman", Font.BOLD, 25));
         noOfPlayers.setBounds(190, 90, 290, 50);
     }
+
 }

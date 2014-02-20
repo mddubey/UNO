@@ -5,6 +5,7 @@ import com.step.communication.channel.MessageChannelListener;
 import com.step.communication.factory.CommunicationFactory;
 import com.step.communication.server.MessageServer;
 import com.step.communication.server.MessageServerListener;
+import com.step.uno.client.screen.ServerScreen;
 import com.step.uno.messages.GameSnapshot;
 
 import java.util.ArrayList;
@@ -44,6 +45,7 @@ public class GameMasterController implements MessageServerListener, MessageChann
         for (MessageChannel channel : channels) {
             channel.send(snapshot);
         }
+        show(numberOfPlayers,numberOfPacks);
     }
 
     @Override
@@ -53,6 +55,7 @@ public class GameMasterController implements MessageServerListener, MessageChann
 
     public void waitForConnections() {
         messageServer.startListeningForConnections(this);
+
     }
 
     @Override
@@ -68,5 +71,9 @@ public class GameMasterController implements MessageServerListener, MessageChann
     @Override
     public void onConnectionClosed(MessageChannel client) {
 
+    }
+
+    public void show(int players, int packs) {
+        new ServerScreen(players,packs);
     }
 }
