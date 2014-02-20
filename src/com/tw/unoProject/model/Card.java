@@ -3,16 +3,16 @@ package com.tw.unoProject.model;
 import java.awt.*;
 
 public class Card {
-    private CardValue cardValue;
+    private CardPoints cardPoints;
     private CardColor color;
 
-    public Card(CardValue cardValue, CardColor color) {
-        this.cardValue = cardValue;
+    public Card(CardPoints cardPoints, CardColor color) {
+        this.cardPoints = cardPoints;
         this.color = color;
     }
 
-    public int getCardValue() {
-        return cardValue.getValue();
+    public int getCardPoints() {
+        return cardPoints.getValue();
     }
 
     public Color getColor() {
@@ -26,12 +26,12 @@ public class Card {
 
         Card card = (Card) o;
 
-        return cardValue.getValue() == card.cardValue.getValue() && color == card.color;
+        return cardPoints.getValue() == card.cardPoints.getValue() && color == card.color;
 
     }
 
     @Override
     public String toString() {
-        return cardValue.getValue() +" " + color.getCardColor().toString();
+        return cardPoints.getValue() +" " + color.getCardColor().toString();
     }
 }

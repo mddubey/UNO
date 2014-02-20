@@ -50,7 +50,7 @@ public class PlayerScreen extends JFrame {
 
         addCenterPanel();
         createDrawButton();
-        showOpenedPileCard(new Card(CardValue.FIVE, CardColor.BLUE));
+        showOpenedPileCard(new Card(CardPoints.FIVE, CardColor.BLUE));
         showCurrentHint();
         showPlayerCards();
         log.createLog(770, 10, 300, 720);
@@ -112,7 +112,7 @@ public class PlayerScreen extends JFrame {
         openPileCardPanel.setBounds(200, 15, 150, 50);
         openPileCardPanel.setBackground(card.getColor());
         centerPanel.add(openPileCardPanel);
-        openPile = new JLabel(String.valueOf(card.getCardValue()), JLabel.CENTER);
+        openPile = new JLabel(String.valueOf(card.getCardPoints()), JLabel.CENTER);
         openPile.setFont(new Font("Times new Roman", Font.BOLD, 30));
         openPile.setForeground(Color.black);
         openPile.setBounds(20, 5, 100, 30);

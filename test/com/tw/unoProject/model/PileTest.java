@@ -11,30 +11,30 @@ public class PileTest {
     @Test
     public void shouldPlaceOneCardOnOpenPile() {
         Pile pile = new Pile(new ArrayList<Card>());
-        pile.placeCardToOpenPile(new Card(CardValue.EIGHT, CardColor.GREEN));
+        pile.placeCardToOpenPile(new Card(CardPoints.EIGHT, CardColor.GREEN));
 
         Card topCardFromPile = pile.getTopCardFromPile();
 
-        assertEquals(topCardFromPile, new Card(CardValue.EIGHT, CardColor.GREEN));
+        assertEquals(topCardFromPile, new Card(CardPoints.EIGHT, CardColor.GREEN));
     }
 
     @Test
     public void shouldBeAbleToGetTheTopMostCardFromOPenPile() {
         Pile pile = new Pile(new ArrayList<Card>());
-        pile.placeCardToOpenPile(new Card(CardValue.FIVE, CardColor.YELLOW));
-        pile.placeCardToOpenPile(new Card(CardValue.EIGHT, CardColor.GREEN));
+        pile.placeCardToOpenPile(new Card(CardPoints.FIVE, CardColor.YELLOW));
+        pile.placeCardToOpenPile(new Card(CardPoints.EIGHT, CardColor.GREEN));
 
         Card topCardFromPile = pile.getTopCardFromPile();
 
-        assertEquals(topCardFromPile, new Card(CardValue.EIGHT, CardColor.GREEN));
+        assertEquals(topCardFromPile, new Card(CardPoints.EIGHT, CardColor.GREEN));
     }
 
     @Test
     public void shouldBeAbleToDrawOneCardFromPile() {
         List<Card> closedPile = new ArrayList<>();
-        closedPile.add(new Card(CardValue.ZERO, CardColor.BLUE));
-        closedPile.add(new Card(CardValue.EIGHT, CardColor.YELLOW));
-        Card greenCardWithFive = new Card(CardValue.FIVE, CardColor.GREEN);
+        closedPile.add(new Card(CardPoints.ZERO, CardColor.BLUE));
+        closedPile.add(new Card(CardPoints.EIGHT, CardColor.YELLOW));
+        Card greenCardWithFive = new Card(CardPoints.FIVE, CardColor.GREEN);
         closedPile.add(greenCardWithFive);
 
         List<Card> cards = new Pile(closedPile).drawPenaltyCards();

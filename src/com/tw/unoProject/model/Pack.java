@@ -14,10 +14,10 @@ public class Pack {
 
     public List addCardsToPack() {
         List<CardColor> colors = Arrays.asList(CardColor.BLUE, CardColor.GREEN, CardColor.RED, CardColor.YELLOW);
-        CardValue[] values = {CardValue.ONE, CardValue.TWO, CardValue.THREE, CardValue.FOUR, CardValue.FIVE, CardValue.SIX, CardValue.SEVEN, CardValue.EIGHT, CardValue.NINE};
+        CardPoints[] values = {CardPoints.ONE, CardPoints.TWO, CardPoints.THREE, CardPoints.FOUR, CardPoints.FIVE, CardPoints.SIX, CardPoints.SEVEN, CardPoints.EIGHT, CardPoints.NINE};
 
         for (CardColor color : colors) {
-            cards.add(new Card(CardValue.ZERO, color));
+            cards.add(new Card(CardPoints.ZERO, color));
             for (int j = 1; j <= 9; j++) {
                 cards.add(new Card(values[j - 1], color));
                 cards.add(new Card(values[j - 1], color));
