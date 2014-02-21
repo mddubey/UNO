@@ -60,4 +60,10 @@ public class GameClientControllerTest {
         controller.onCardPlayed(card);
         verify(stub.gameClient, times(1)).play(card);
     }
+
+    @Test
+    public void shouldBeAbleToInformThatOneCardHasDrawn() {
+        controller.onDraw();
+        verify(stub.gameClient, times(1)).draw();
+    }
 }

@@ -95,4 +95,11 @@ public class PlayerProxy implements MessageChannelListener {
         if(this.player != player) return;
         channel.send(new WaitingForDrawnCardAction(card));
     }
+
+    public void sendSnapShotToPlayer(Game game,Player player) {
+        if(this.player != player) return;
+        Snapshot snapshot = new Snapshot();
+        game.populate(snapshot,player);
+        channel.send(snapshot);
+    }
 }

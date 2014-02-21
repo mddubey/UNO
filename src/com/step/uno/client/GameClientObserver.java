@@ -7,4 +7,6 @@ public interface GameClientObserver {
     public void displaySnapShotOnView(Snapshot snapshot);
 
     void disconnectView(MessageChannel channel);
+
+    void decideActionAfterDraw();
 }

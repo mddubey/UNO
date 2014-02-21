@@ -74,6 +74,7 @@ public class GameClient implements MessageChannelListener {
         }
 
         if(message.getClass().equals(WaitingForDrawnCardAction.class)){
+            observer.decideActionAfterDraw();
             //add new card to screen
             //wait for 5 seconds to play that card
             //send no NoActionOnDrawnCard message
@@ -84,5 +85,9 @@ public class GameClient implements MessageChannelListener {
     public void onConnectionClosed(MessageChannel client) {
         channel.stop();
         observer.disconnectView(channel);
+    }
+
+    public void noAction() {
+        channel.send(new NoActionOnDrawnCard());
     }
 }

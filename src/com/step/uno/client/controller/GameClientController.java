@@ -47,7 +47,22 @@ public class GameClientController implements GameClientObserver, PlayerViewObser
     }
 
     @Override
+    public void decideActionAfterDraw() {
+//        playerView.
+    }
+
+    @Override
     public void onCardPlayed(Card card) {
         gameClient.play(card);
+    }
+
+    @Override
+    public void onDraw() {
+        gameClient.draw();
+    }
+
+    @Override
+    public void onNoAction() {
+        gameClient.noAction();
     }
 }

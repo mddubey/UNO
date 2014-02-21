@@ -11,7 +11,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.reflect.Array;
 import java.util.*;
 import java.util.List;
 
@@ -29,6 +28,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
 
     private List<JLabel> imageLable;
     private List<JButton> catchButtons = new ArrayList<>();
+    private JButton noAction = new JButton("Continue");
 
     private JScrollPane cardsPane;
     LogDisplay log = new LogDisplay();
@@ -55,6 +55,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
         showOpenedPileCard();
         showCurrentHint();
         showPlayerCards();
+        showContinueButton();
         quit();
     }
 
@@ -117,8 +118,25 @@ public class PlayerScreen extends JFrame implements PlayerView {
 
     private void createDrawButton() {
         drawButton = new JButton("Draw");
+        drawButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                observer.onDraw();
+            }
+        });
         drawButton.setBounds(15, 15, 150, 50);
         centerPanel.add(drawButton);
+    }
+
+    private void showContinueButton() {
+        noAction.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                observer.onNoAction();
+            }
+        });
+        noAction.setBounds(200, 500, 120, 70);
+        masterPanel.add(noAction);
     }
 
     private void showOpenedPileCard() {
@@ -170,8 +188,10 @@ public class PlayerScreen extends JFrame implements PlayerView {
 
     private void showPlayerCards() {
         playerCardsPanel = new JPanel();
+        playerCardsPanel.removeAll();
         playerCardsPanel.setLayout(new GridLayout(1, 5));
         playerCardsPanel.setBackground(Color.white);
+        cardsPane = new JScrollPane(playerCardsPanel);
 
         cardsPane = new JScrollPane(playerCardsPanel);
         cardsPane.setBounds(20, 600, 650, 100);
@@ -181,7 +201,8 @@ public class PlayerScreen extends JFrame implements PlayerView {
 
     private void updatePlayerCards(List<Card> cards) {
         final Map<JButton, Card> myCards = new HashMap<>();
-        for (Card card : cards) {
+        for (final Card card : cards) {
+            System.out.println(cards.size());
             int index = Arrays.asList(colours).indexOf(card.colour);
             JButton button = new JButton(String.valueOf(card.sign));
             myCards.put(button, card);
@@ -198,7 +219,8 @@ public class PlayerScreen extends JFrame implements PlayerView {
                 }
             });
         }
-
+        cardsPane.setBounds(20, 600, 650, 100);
+        masterPanel.add(cardsPane);
     }
 
     public void update(Snapshot snapshot, PlayerViewObserver observer) {

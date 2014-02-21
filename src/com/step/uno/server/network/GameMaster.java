@@ -95,13 +95,20 @@ public class GameMaster implements MessageServerListener, PlayerProxyObserver {
     @Override
     public void onPlayerDrewCard(Player player) {
         Card card = game.drawCard(player);
-        sendWaitingForDrawnCardAction(player, card);
+        sendSnapshotToWaitingPlayer(player);
     }
 
     private void sendWaitingForDrawnCardAction(Player player, Card card) {
         for (PlayerProxy proxy : proxies) {
             proxy.sendWaitingForDrawnCardAction(player, card);
         }
+        sendSnapshot();
+        sendSnapshotToWaitingPlayer(player);
+    }
+
+    private void sendSnapshotToWaitingPlayer(Player player) {
+        for (PlayerProxy proxy : proxies)
+            proxy.sendSnapShotToPlayer(game,player);
     }
 
     @Override

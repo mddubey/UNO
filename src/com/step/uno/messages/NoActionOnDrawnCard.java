@@ -1,4 +1,6 @@
 package com.step.uno.messages;
 
-public class NoActionOnDrawnCard {
+import java.io.Serializable;
+
+public class NoActionOnDrawnCard implements Serializable {
 }
