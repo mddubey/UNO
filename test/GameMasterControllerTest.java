@@ -1,6 +1,7 @@
 import com.step.communication.channel.MessageChannel;
 import com.step.communication.factory.CommunicationFactory;
 import com.step.communication.server.MessageServer;
+import com.step.uno.server.network.GameMaster;
 import com.step.uno.server.screen.ServerScreen;
 import com.step.uno.messages.GameSnapshot;
 import com.step.uno.server.controller.GameMasterController;
@@ -14,30 +15,19 @@ public class GameMasterControllerTest {
     StubFactory stub = new StubFactory();
 
     @Test
-    public void startsTheGameAfterAllPlayersJoin() {
+    public void informsTheGameServerOnNewConnection() {
         MessageChannel channel = mock(MessageChannel.class);
         GameMasterController controller = new GameMasterController(1, 1, stub);
-//        controller.waitForConnections();
         controller.onNewConnection(channel);
 
-        verify(channel, times(1)).send(any(GameSnapshot.class));
+        verify(stub.gameMaster, times(1)).onNewConnection(channel);
     }
 
-    @Test
-    public void rejectsConnectionsAfterAllPlayersJoin() {
-        MessageChannel channel = mock(MessageChannel.class);
-        MessageChannel lateChannel = mock(MessageChannel.class);
-        GameMasterController controller = new GameMasterController(1, 1, stub);
-//        controller.waitForConnections();
-        controller.onNewConnection(channel);
-        controller.onNewConnection(lateChannel);
-        verify(lateChannel, times(1)).stop();
-        verify(lateChannel, never()).send(any(GameSnapshot.class));
-    }
 
     class StubFactory extends CommunicationFactory {
         public final MessageServer messageServer = mock(MessageServer.class);
-        private final ServerScreen serverScreen = mock(ServerScreen.class);
+        public final ServerScreen serverScreen = mock(ServerScreen.class);
+        public final GameMaster gameMaster = mock(GameMaster.class);
 
         @Override
         public MessageServer createMessageServer() {
@@ -47,6 +37,11 @@ public class GameMasterControllerTest {
         @Override
         public ServerScreen getServerView(int players, int packs) {
             return serverScreen;
+        }
+
+        @Override
+        public GameMaster createGameServer(int numberOfPlayers, int numberOfPacks) {
+            return gameMaster;
         }
     }
 }

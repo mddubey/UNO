@@ -168,9 +168,10 @@ public class PlayerScreen extends JFrame implements PlayerView {
     public void update(Snapshot snapshot) {
         setVisible(true);
         Card[] myCards = snapshot.myCards;
+        showPlayerCards(Arrays.asList(myCards));
+
         PlayerSummary[] playerSummaries = snapshot.playerSummaries;
         createCatchButtons(Arrays.asList(playerSummaries));
-        showPlayerCards(Arrays.asList(myCards));
     }
 
     public void showDisconnected() {

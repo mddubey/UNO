@@ -22,7 +22,7 @@ public class GameClientController implements MessageChannelListener, GameClientO
 
     public GameClientController(CommunicationFactory factory) {
         this.factory = factory;
-        gameClient = new GameClient(factory, this);
+        gameClient = factory.createGameClient(this);
     }
 
     public void join(String serverAddress, String playerName) {

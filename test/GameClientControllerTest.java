@@ -1,6 +1,8 @@
 import com.step.communication.channel.MessageChannel;
 import com.step.communication.channel.MessageChannelListener;
 import com.step.communication.factory.CommunicationFactory;
+import com.step.uno.client.GameClient;
+import com.step.uno.client.GameClientObserver;
 import com.step.uno.client.controller.GameClientController;
 import com.step.uno.client.view.JoinGameView;
 import com.step.uno.client.view.PlayerView;
@@ -29,8 +31,7 @@ public class GameClientControllerTest {
     public void sendsIntroductionAfterJoiningGame() {
         controller.join("serverAddress", "me");
 
-        verify(stub.channel,times(1)).startListeningForMessages(controller);
-        verify(stub.channel, times(1)).send(any(Introduction.class));
+        verify(stub.gameClient,times(1)).start("me","serverAddress");
     }
 
     @Test
@@ -41,10 +42,10 @@ public class GameClientControllerTest {
     }
 
     @Test
-    public void displaysGameSnapshotAsItArrives() {
+    public void displaysGameSnapshot() {
         controller.join("serverAddress", "me");
         Snapshot snapshot = new Snapshot();
-        controller.onMessage(stub.channel, snapshot);
+        controller.displaySnapShotOnView(snapshot);
         verify(playerView, times(1)).update(snapshot);
     }
 
@@ -52,10 +53,16 @@ public class GameClientControllerTest {
 
     class StubFactory extends CommunicationFactory {
         public final MessageChannel channel = mock(MessageChannel.class);
+        public final GameClient gameClient = mock(GameClient.class);
 
         @Override
         public MessageChannel connectTo(String serverAddress, MessageChannelListener observer) {
             return channel;
+        }
+
+        @Override
+        public GameClient createGameClient(GameClientObserver observer) {
+            return gameClient;
         }
     }
 }

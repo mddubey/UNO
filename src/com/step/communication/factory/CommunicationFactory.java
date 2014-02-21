@@ -3,6 +3,10 @@ package com.step.communication.factory;
 import com.step.communication.channel.MessageChannel;
 import com.step.communication.channel.MessageChannelListener;
 import com.step.communication.server.MessageServer;
+import com.step.uno.client.GameClient;
+import com.step.uno.client.GameClientObserver;
+import com.step.uno.client.controller.GameClientController;
+import com.step.uno.server.network.GameMaster;
 import com.step.uno.server.screen.ServerScreen;
 
 import java.io.IOException;
@@ -55,5 +59,13 @@ public class CommunicationFactory {
 
     public ServerScreen getServerView(int players, int packs) {
         return new ServerScreen(players, packs);
+    }
+
+    public GameClient createGameClient(GameClientObserver observer) {
+        return new GameClient(this, observer);
+    }
+
+    public GameMaster createGameServer(int numberOfPlayers, int numberOfPacks) {
+        return new GameMaster(numberOfPlayers, numberOfPacks, this);
     }
 }

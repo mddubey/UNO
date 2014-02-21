@@ -20,11 +20,10 @@ public class GameMasterController implements MessageServerListener, MessageChann
     private List<MessageChannel> channels = new ArrayList<>();
 
     public GameMasterController(int numberOfPlayers, int numberOfPacks, CommunicationFactory factory) {
-        this.gameMaster = new GameMaster(numberOfPlayers,numberOfPacks,factory);
+        this.gameMaster = factory.createGameServer(numberOfPlayers,numberOfPacks);
         this.numberOfPlayers = numberOfPlayers;
         this.numberOfPacks = numberOfPacks;
         this.factory = factory;
-//        messageServer = factory.createMessageServer();
         gameMaster.start();
     }
 
