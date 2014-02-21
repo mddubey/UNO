@@ -22,27 +22,5 @@ public class GameMasterControllerTest {
 
         verify(stub.gameMaster, times(1)).onNewConnection(channel);
     }
-
-
-    class StubFactory extends CommunicationFactory {
-        public final MessageServer messageServer = mock(MessageServer.class);
-        public final ServerScreen serverScreen = mock(ServerScreen.class);
-        public final GameMaster gameMaster = mock(GameMaster.class);
-
-        @Override
-        public MessageServer createMessageServer() {
-            return messageServer;
-        }
-
-        @Override
-        public ServerScreen getServerView(int players, int packs) {
-            return serverScreen;
-        }
-
-        @Override
-        public GameMaster createGameServer(int numberOfPlayers, int numberOfPacks) {
-            return gameMaster;
-        }
-    }
 }
 

@@ -82,5 +82,8 @@ public class GameClient implements MessageChannelListener {
 
     @Override
     public void onConnectionClosed(MessageChannel client) {
+        channel.stop();
+
+        observer.disconnectView(channel);
     }
 }

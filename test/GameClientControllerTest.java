@@ -30,14 +30,24 @@ public class GameClientControllerTest {
     @Test
     public void sendsIntroductionAfterJoiningGame() {
         controller.join("serverAddress", "me");
-
         verify(stub.gameClient,times(1)).start("me","serverAddress");
     }
 
     @Test
-    public void doesNotInformUserWhenConnectionIsLostBeforeGameStarts() {
+    public void viewShouldBeNotVisibleAfterJoiningGame(){
+        controller.join("server", "me");
+        verify(joinGameView,times(1)).showVisible(false);
+    } 
+    @Test
+    public void waitingViewShouldBeVisibleAfterJoiningTheGame(){
+        controller.join("server", "me");
+        verify(stub.waitingView, times(1)).showVisible(true);
+    }
+
+    @Test
+    public void disconnectUserWhenConnectionClosed() {
         controller.join("serverAddress", "me");
-        controller.onConnectionClosed(stub.channel);
+        controller.disconnectView(stub.channel);
         verify(playerView, times(0)).showDisconnected();
     }
 
@@ -47,22 +57,5 @@ public class GameClientControllerTest {
         Snapshot snapshot = new Snapshot();
         controller.displaySnapShotOnView(snapshot);
         verify(playerView, times(1)).update(snapshot);
-    }
-
-
-
-    class StubFactory extends CommunicationFactory {
-        public final MessageChannel channel = mock(MessageChannel.class);
-        public final GameClient gameClient = mock(GameClient.class);
-
-        @Override
-        public MessageChannel connectTo(String serverAddress, MessageChannelListener observer) {
-            return channel;
-        }
-
-        @Override
-        public GameClient createGameClient(GameClientObserver observer) {
-            return gameClient;
-        }
     }
 }

@@ -1,7 +1,5 @@
 package com.step.uno.client.view;
 
-public interface JoinGameView {
-    PlayerView switchToPlayerView();
-
+public interface WaitingView {
     void showVisible(boolean b);
 }

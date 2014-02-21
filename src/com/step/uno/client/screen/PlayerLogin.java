@@ -78,8 +78,13 @@ public class PlayerLogin extends JFrame implements JoinGameView {
 
     public PlayerView switchToPlayerView() {
         PlayerView view = new PlayerScreen();
-        setVisible(false);
+//        setVisible(false);
         return view;
+    }
+
+    @Override
+    public void showVisible(boolean b) {
+        setVisible(b);
     }
 
     public void showScreen() {

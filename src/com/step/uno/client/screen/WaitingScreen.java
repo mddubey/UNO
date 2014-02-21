@@ -1,11 +1,13 @@
 package com.step.uno.client.screen;
 
+import com.step.uno.client.view.WaitingView;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class WaitingScreen extends JFrame {
+public class WaitingScreen extends JFrame implements WaitingView {
     private JPanel windowPanel;
     private JPanel displayPanel;
     private JLabel message;
@@ -18,7 +20,6 @@ public class WaitingScreen extends JFrame {
         masterPanelSetup();
         addPanel();
         addLabel();
-        setVisible(true);
     }
 
     private void masterPanelSetup() {
@@ -40,5 +41,10 @@ public class WaitingScreen extends JFrame {
         message.setFont(new Font("serif", Font.BOLD, 20));
         message.setBounds(25, 25, 400, 25);
         displayPanel.add(message);
+    }
+
+    @Override
+    public void showVisible(boolean b) {
+        setVisible(b);
     }
 }

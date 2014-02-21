@@ -1,64 +1,31 @@
 package com.step.uno.client.controller;
 
 import com.step.communication.channel.MessageChannel;
-import com.step.communication.channel.MessageChannelListener;
 import com.step.communication.factory.CommunicationFactory;
 import com.step.uno.client.GameClient;
 import com.step.uno.client.GameClientObserver;
 import com.step.uno.client.view.JoinGameView;
 import com.step.uno.client.view.PlayerView;
-import com.step.uno.messages.GameSnapshot;
-import com.step.uno.messages.Introduction;
+import com.step.uno.client.view.WaitingView;
 import com.step.uno.messages.Snapshot;
 
-import java.lang.reflect.InvocationTargetException;
-
-public class GameClientController implements MessageChannelListener, GameClientObserver {
+public class GameClientController implements GameClientObserver {
     private CommunicationFactory factory;
     private JoinGameView playerLoginView;
+    private WaitingView waitingView;
     private PlayerView playerView;
-    private MessageChannel channel;
     private GameClient gameClient;
 
     public GameClientController(CommunicationFactory factory) {
         this.factory = factory;
         gameClient = factory.createGameClient(this);
+        waitingView = factory.getWaitingView();
     }
 
     public void join(String serverAddress, String playerName) {
         gameClient.start(playerName, serverAddress);
-
-    }
-
-    @Override
-    public void onError(MessageChannel client, Exception e) {
-
-    }
-
-    //    private void handle(GameSnapshot snapshot) {
-//        if (playerView == null) playerView = playerLoginView.switchToPlayerView();
-//        playerView.update(snapshot);
-//    }
-//
-    @Override
-    public void onMessage(MessageChannel client, Object message) {
-//
-//        try {
-//            getClass().getDeclaredMethod("handle", message.getClass()).invoke(this, message);
-//        } catch (IllegalAccessException e) {
-//            e.printStackTrace();
-//        } catch (InvocationTargetException e) {
-//            e.printStackTrace();
-//        } catch (NoSuchMethodException e) {
-//            e.printStackTrace();
-//        }
-    }
-
-    @Override
-    public void onConnectionClosed(MessageChannel client) {
-        client.stop();
-        if (playerView != null)
-            playerView.showDisconnected();
+        playerLoginView.showVisible(false);
+        waitingView.showVisible(true);
     }
 
     public void bindView(JoinGameView joinGameView) {
@@ -69,5 +36,11 @@ public class GameClientController implements MessageChannelListener, GameClientO
     public void displaySnapShotOnView(Snapshot snapshot) {
         if (playerView == null) playerView = playerLoginView.switchToPlayerView();
         playerView.update(snapshot);
+    }
+
+    @Override
+    public void disconnectView(MessageChannel channel) {
+        if (playerView != null)
+            playerView.showDisconnected();
     }
 }
