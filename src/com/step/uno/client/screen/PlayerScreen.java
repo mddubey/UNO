@@ -21,14 +21,14 @@ public class PlayerScreen extends JFrame implements PlayerView {
     private JPanel playerCardsPanel;
     private JPanel centerPanel;
     private JPanel openPileCardPanel;
-
     private JButton UNOButton, quit;
     private JButton drawButton;
-
     private JLabel openPile;
     private JTextArea hintToUser;
+    private PlayerViewObserver observer;
 
     private List<JLabel> imageLable;
+    private List<JButton> catchButtons = new ArrayList<>();
 
 
     private JScrollPane cardsPane;
@@ -80,18 +80,25 @@ public class PlayerScreen extends JFrame implements PlayerView {
     }
 
     private void createCatchButtons(List<PlayerSummary> playerSummaries, int currentPlayerIndex) {
-        for (PlayerSummary playerSummary : playerSummaries) {
-            JButton button = new JButton(playerSummary.name + "(" + playerSummaries.get(0).cardsInHand + ")");
-            playersPanel.add(button);
-            button.setFont(new Font("serif", Font.BOLD, 30));
+        if (catchButtons.size() == 0) {
+            for (PlayerSummary playerSummary : playerSummaries) {
+                JButton catchButton = new JButton();
+                catchButtons.add(catchButton);
+                playersPanel.add(catchButton);
+                catchButton.setFont(new Font("serif", Font.BOLD, 30));
+            }
+            imageLable = new ArrayList<>();
+            for (PlayerSummary playerSummary : playerSummaries) {
+                JLabel e = new JLabel("=>", JLabel.CENTER);
+                imageLable.add(e);
+                e.setVisible(false);
+            }
+        }
+        for (int i = 0; i < catchButtons.size(); i++) {
+            catchButtons.get(i).setText(playerSummaries.get(i).name + playerSummaries.get(i).cardsInHand);
+
         }
 
-        imageLable = new ArrayList<>();
-        for (PlayerSummary playerSummary : playerSummaries) {
-            JLabel e = new JLabel("=>", JLabel.CENTER);
-            imageLable.add(e);
-            e.setVisible(false);
-        }
         imageLable.get(currentPlayerIndex).setVisible(true);
         for (JLabel label : imageLable) {
             label.setFont(new Font("serif", Font.BOLD, 30));
@@ -158,13 +165,19 @@ public class PlayerScreen extends JFrame implements PlayerView {
         playerCardsPanel.setLayout(new GridLayout(1, 5));
         playerCardsPanel.setBackground(Color.white);
 
-        for (Card card : cards) {
+        for (final Card card : cards) {
             int index = Arrays.asList(colours).indexOf(card.colour);
             JButton button = new JButton(String.valueOf(card.sign));
             button.setFont(new Font("serif", Font.BOLD, 18));
             button.setBackground(colors[index]);
             button.setForeground(foregroundColor[index]);
             playerCardsPanel.add(button);
+            button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    observer.onCardPlayed(card);
+                }
+            });
         }
         cardsPane = new JScrollPane(playerCardsPanel);
         cardsPane.setBounds(20, 600, 650, 100);
@@ -172,7 +185,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
 
     }
 
-    public void update(Snapshot snapshot) {
+    public void update(Snapshot snapshot, PlayerViewObserver observer) {
         Card[] myCards = snapshot.myCards;
         showPlayerCards(Arrays.asList(myCards));
 
@@ -180,6 +193,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
         createCatchButtons(Arrays.asList(playerSummaries), snapshot.currentPlayerIndex);
         showCurrentHint(snapshot.openCard);
         showOpenedPileCard(snapshot.openCard);
+        this.observer = observer;
         centerPanel.setVisible(true);
         setVisible(true);
     }

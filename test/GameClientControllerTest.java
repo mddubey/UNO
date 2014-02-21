@@ -1,14 +1,8 @@
-import com.step.communication.channel.MessageChannel;
-import com.step.communication.channel.MessageChannelListener;
-import com.step.communication.factory.CommunicationFactory;
-import com.step.uno.client.GameClient;
-import com.step.uno.client.GameClientObserver;
 import com.step.uno.client.controller.GameClientController;
 import com.step.uno.client.view.JoinGameView;
 import com.step.uno.client.view.PlayerView;
-import com.step.uno.messages.GameSnapshot;
-import com.step.uno.messages.Introduction;
 import com.step.uno.messages.Snapshot;
+import com.step.uno.model.Card;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -30,16 +24,17 @@ public class GameClientControllerTest {
     @Test
     public void sendsIntroductionAfterJoiningGame() {
         controller.join("serverAddress", "me");
-        verify(stub.gameClient,times(1)).start("me","serverAddress");
+        verify(stub.gameClient, times(1)).start("me", "serverAddress");
     }
 
     @Test
-    public void viewShouldBeNotVisibleAfterJoiningGame(){
+    public void viewShouldBeNotVisibleAfterJoiningGame() {
         controller.join("server", "me");
-        verify(joinGameView,times(1)).showVisible(false);
-    } 
+        verify(joinGameView, times(1)).showVisible(false);
+    }
+
     @Test
-    public void waitingViewShouldBeVisibleAfterJoiningTheGame(){
+    public void waitingViewShouldBeVisibleAfterJoiningTheGame() {
         controller.join("server", "me");
         verify(stub.waitingView, times(1)).showVisible(true);
     }
@@ -56,6 +51,13 @@ public class GameClientControllerTest {
         controller.join("serverAddress", "me");
         Snapshot snapshot = new Snapshot();
         controller.displaySnapShotOnView(snapshot);
-        verify(playerView, times(1)).update(snapshot);
+        verify(playerView, times(1)).update(snapshot, controller);
+    }
+
+    @Test
+    public void shouldBeAbleToInformThatCardHasPlayed() {
+        Card card = new Card();
+        controller.onCardPlayed(card);
+        verify(stub.gameClient, times(1)).play(card);
     }
 }
