@@ -30,7 +30,6 @@ public class GameClient implements MessageChannelListener {
     }
 
     public void play(Card card){
-        System.out.println("got a play");
         channel.send(
                 new PlayCardAction(card));
     }

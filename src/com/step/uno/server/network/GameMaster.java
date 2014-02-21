@@ -25,7 +25,7 @@ public class GameMaster implements MessageServerListener, PlayerProxyObserver {
     private List<Player> players = new ArrayList<>();
     private Game game;
 
-    public GameMaster(int totalPlayers, int packs, CommunicationFactory factory,GameMasterObserver observer) {
+    public GameMaster(int totalPlayers, int packs, CommunicationFactory factory, GameMasterObserver observer) {
         this.totalPlayers = totalPlayers;
         this.totalPacks = packs;
         this.factory = factory;
@@ -68,7 +68,7 @@ public class GameMaster implements MessageServerListener, PlayerProxyObserver {
     @Override
     public void onPlayerRegistered(Player player) {
         players.add(player);
-        if(players.size() == totalPlayers){
+        if (players.size() == totalPlayers) {
             startGame();
             Snapshot snapshot = new Snapshot();
             game.populate(snapshot, player);
@@ -78,8 +78,8 @@ public class GameMaster implements MessageServerListener, PlayerProxyObserver {
 
     @Override
     public void onPlayerPlayed(Player player, Card card, Colour newColour) {
-        game.playCard(player,card,newColour);
-        if(player.hasWon())
+        game.playCard(player, card, newColour);
+        if (player.hasWon())
             sendResult();
         else
             sendSnapshot();
@@ -95,12 +95,12 @@ public class GameMaster implements MessageServerListener, PlayerProxyObserver {
     @Override
     public void onPlayerDrewCard(Player player) {
         Card card = game.drawCard(player);
-        sendWaitingForDrawnCardAction(player,card);
+        sendWaitingForDrawnCardAction(player, card);
     }
 
     private void sendWaitingForDrawnCardAction(Player player, Card card) {
         for (PlayerProxy proxy : proxies) {
-            proxy.sendWaitingForDrawnCardAction(player,card);
+            proxy.sendWaitingForDrawnCardAction(player, card);
         }
     }
 
@@ -112,7 +112,7 @@ public class GameMaster implements MessageServerListener, PlayerProxyObserver {
 
     @Override
     public void onPlayerCaughtUno(Player player, int playerIndex) {
-        game.catchUno(player,playerIndex);
+        game.catchUno(player, playerIndex);
         sendSnapshot();
     }
 
