@@ -35,7 +35,7 @@ public class Card implements Serializable {
 
         for(int times = 0;times<4;times++){
             cards.add(createCard(Colour.Black, "Wild"));
-            cards.add(createCard(Colour.Black, "WildDrawFour"));
+            cards.add(createCard(Colour.Black, "DrawFour"));
         }
         return cards;
     }

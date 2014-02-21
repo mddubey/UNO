@@ -81,8 +81,9 @@ public class PlayerScreen extends JFrame implements PlayerView {
 
     private void createCatchButtons(List<PlayerSummary> playerSummaries, int currentPlayerIndex) {
         for (PlayerSummary playerSummary : playerSummaries) {
-            JButton button = new JButton(playerSummary.name + playerSummaries.get(0).cardsInHand);
+            JButton button = new JButton(playerSummary.name + "(" + playerSummaries.get(0).cardsInHand + ")");
             playersPanel.add(button);
+            button.setFont(new Font("serif", Font.BOLD, 30));
         }
 
         imageLable = new ArrayList<>();
@@ -115,15 +116,16 @@ public class PlayerScreen extends JFrame implements PlayerView {
     private void showOpenedPileCard(Card card) {
         openPileCardPanel = new JPanel();
         openPileCardPanel.setLayout(null);
-        openPileCardPanel.setBounds(200, 15, 150, 50);
+        openPileCardPanel.setBounds(170, 15, 180, 50);
         int index = Arrays.asList(colours).indexOf(card.colour);
         openPileCardPanel.setBackground(colors[index]);
         centerPanel.add(openPileCardPanel);
         openPile = new JLabel(String.valueOf(card.sign), JLabel.CENTER);
         openPile.setFont(new Font("Times new Roman", Font.BOLD, 30));
         openPile.setForeground(foregroundColor[index]);
-        openPile.setBounds(20, 5, 100, 30);
+        openPile.setBounds(20, 5, 150, 30);
         openPileCardPanel.add(openPile);
+        openPileCardPanel.setVisible(true);
     }
 
     private void showCurrentHint(Card card) {
@@ -131,7 +133,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
         hintToUser.setBounds(20, 75, 350, 120);
         hintToUser.setBackground(Color.gray);
         hintToUser.setForeground(Color.white);
-        hintToUser.setText("Play a " + card.sign  + " or " + card.colour);
+        hintToUser.setText("Play a " + card.sign + " or " + card.colour);
         hintToUser.setEditable(false);
         hintToUser.setLineWrap(true);
         hintToUser.setFont(new Font("Times new Roman", Font.PLAIN, 30));
@@ -159,7 +161,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
         for (Card card : cards) {
             int index = Arrays.asList(colours).indexOf(card.colour);
             JButton button = new JButton(String.valueOf(card.sign));
-            button.setFont(new Font("serif",Font.BOLD,18));
+            button.setFont(new Font("serif", Font.BOLD, 18));
             button.setBackground(colors[index]);
             button.setForeground(foregroundColor[index]);
             playerCardsPanel.add(button);
@@ -175,9 +177,10 @@ public class PlayerScreen extends JFrame implements PlayerView {
         showPlayerCards(Arrays.asList(myCards));
 
         PlayerSummary[] playerSummaries = snapshot.playerSummaries;
-        createCatchButtons(Arrays.asList(playerSummaries),snapshot.currentPlayerIndex);
+        createCatchButtons(Arrays.asList(playerSummaries), snapshot.currentPlayerIndex);
         showCurrentHint(snapshot.openCard);
         showOpenedPileCard(snapshot.openCard);
+        centerPanel.setVisible(true);
         setVisible(true);
     }
 

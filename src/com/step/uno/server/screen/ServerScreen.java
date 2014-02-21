@@ -70,14 +70,14 @@ public class ServerScreen extends JFrame implements ServerView {
     private void createPile(Card card) {
         cardPanel = new JPanel();
         cardPanel.setLayout(null);
-        cardPanel.setBounds(50, 120, 100, 50);
+        cardPanel.setBounds(50, 120, 140, 100);
         int index = Arrays.asList(colours).indexOf(card.colour);
         cardPanel.setBackground(colors[index]);
         currentStatusPanel.add(cardPanel);
         openPile = new JLabel(card.sign + "");
         openPile.setFont(new Font("Times new Roman", Font.BOLD, 30));
         openPile.setForeground(foregroundColor[index]);
-        openPile.setBounds(20, 5, 100, 30);
+        openPile.setBounds(5, 5, 150, 30);
         cardPanel.add(openPile);
     }
 
@@ -85,7 +85,7 @@ public class ServerScreen extends JFrame implements ServerView {
     private void createStatus(Card card) {
         status = new JTextArea();
         status.setEditable(false);
-        status.setText("Play a " + card.sign  + " or " + card.colour);
+        status.setText("Play a " + card.sign + " or " + card.colour);
         status.setBackground(Color.GRAY);
         status.setForeground(Color.WHITE);
         status.setLineWrap(true);
@@ -113,7 +113,7 @@ public class ServerScreen extends JFrame implements ServerView {
 
     private void addToPlayersPanel(PlayerSummary[] playerSummaries, int currentPlayerIndex) {
         for (int i = 0; i < numOfPlayers; i++) {
-            JLabel player = new JLabel(playerSummaries[i].name + playerSummaries[i].cardsInHand);
+            JLabel player = new JLabel(playerSummaries[i].name + "(" + playerSummaries[i].cardsInHand + ")");
             player.setFont(new Font("serif", Font.BOLD, 25));
             player.setBackground(Color.black);
             playersPanel.add(player);

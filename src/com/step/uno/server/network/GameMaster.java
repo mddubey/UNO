@@ -35,6 +35,7 @@ public class GameMaster implements MessageServerListener, PlayerProxyObserver {
     public void start() {
         server = factory.createMessageServer();
         server.startListeningForConnections(this);
+        System.out.println("Game server is started");
     }
 
     @Override
