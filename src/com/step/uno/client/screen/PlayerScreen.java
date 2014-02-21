@@ -33,6 +33,9 @@ public class PlayerScreen extends JFrame implements PlayerView {
 
     private JScrollPane cardsPane;
     LogDisplay log = new LogDisplay();
+    private Colour[] colours = {Colour.Black, Colour.Blue, Colour.Green, Colour.Red, Colour.Yellow};
+    private Color[] colors = {Color.black, Color.blue, Color.green, Color.RED, Color.YELLOW};
+    private Color[] foregroundColor = {Color.WHITE, Color.WHITE, Color.BLACK, Color.BLACK, Color.BLACK};
 
 
     public PlayerScreen() {
@@ -47,8 +50,6 @@ public class PlayerScreen extends JFrame implements PlayerView {
         addPlayerPanel();
         addCenterPanel();
         createDrawButton();
-        showOpenedPileCard(Card.createCard(Colour.Yellow, "_5"));
-        showCurrentHint();
         log.createLog(770, 10, 300, 720);
         masterPanel.add(log.getLog());
         showUNOButton();
@@ -78,7 +79,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
         masterPanel.add(playersPanel);
     }
 
-    private void createCatchButtons(List<PlayerSummary> playerSummaries) {
+    private void createCatchButtons(List<PlayerSummary> playerSummaries, int currentPlayerIndex) {
         for (PlayerSummary playerSummary : playerSummaries) {
             JButton button = new JButton(playerSummary.name + playerSummaries.get(0).cardsInHand);
             playersPanel.add(button);
@@ -86,8 +87,11 @@ public class PlayerScreen extends JFrame implements PlayerView {
 
         imageLable = new ArrayList<>();
         for (PlayerSummary playerSummary : playerSummaries) {
-            imageLable.add(new JLabel("=>", JLabel.CENTER));
+            JLabel e = new JLabel("=>", JLabel.CENTER);
+            imageLable.add(e);
+            e.setVisible(false);
         }
+        imageLable.get(currentPlayerIndex).setVisible(true);
         for (JLabel label : imageLable) {
             label.setFont(new Font("serif", Font.BOLD, 30));
             playersPanel.add(label);
@@ -112,22 +116,24 @@ public class PlayerScreen extends JFrame implements PlayerView {
         openPileCardPanel = new JPanel();
         openPileCardPanel.setLayout(null);
         openPileCardPanel.setBounds(200, 15, 150, 50);
-        openPileCardPanel.setBackground(Color.cyan);
+        int index = Arrays.asList(colours).indexOf(card.colour);
+        openPileCardPanel.setBackground(colors[index]);
         centerPanel.add(openPileCardPanel);
-        openPile = new JLabel(String.valueOf(card.sign.points), JLabel.CENTER);
+        openPile = new JLabel(String.valueOf(card.sign), JLabel.CENTER);
         openPile.setFont(new Font("Times new Roman", Font.BOLD, 30));
-        openPile.setForeground(Color.black);
+        openPile.setForeground(foregroundColor[index]);
         openPile.setBounds(20, 5, 100, 30);
         openPileCardPanel.add(openPile);
     }
 
-    private void showCurrentHint() {
+    private void showCurrentHint(Card card) {
         hintToUser = new JTextArea();
         hintToUser.setBounds(20, 75, 350, 120);
         hintToUser.setBackground(Color.gray);
         hintToUser.setForeground(Color.white);
-        hintToUser.setText("Play a 4 or Green card");
+        hintToUser.setText("Play a " + card.sign  + " or " + card.colour);
         hintToUser.setEditable(false);
+        hintToUser.setLineWrap(true);
         hintToUser.setFont(new Font("Times new Roman", Font.PLAIN, 30));
         centerPanel.add(hintToUser);
     }
@@ -151,12 +157,11 @@ public class PlayerScreen extends JFrame implements PlayerView {
         playerCardsPanel.setBackground(Color.white);
 
         for (Card card : cards) {
-            Colour[] colours = {Colour.Black, Colour.Blue, Colour.Green, Colour.Red, Colour.Yellow};
-            Color[] colors = {Color.black, Color.blue, Color.green, Color.RED, Color.YELLOW};
             int index = Arrays.asList(colours).indexOf(card.colour);
-            JButton button = new JButton(String.valueOf(cards.get(0).sign.points));
+            JButton button = new JButton(String.valueOf(card.sign));
+            button.setFont(new Font("serif",Font.BOLD,18));
             button.setBackground(colors[index]);
-            button.setForeground(Color.white);
+            button.setForeground(foregroundColor[index]);
             playerCardsPanel.add(button);
         }
         cardsPane = new JScrollPane(playerCardsPanel);
@@ -166,12 +171,14 @@ public class PlayerScreen extends JFrame implements PlayerView {
     }
 
     public void update(Snapshot snapshot) {
-        setVisible(true);
         Card[] myCards = snapshot.myCards;
         showPlayerCards(Arrays.asList(myCards));
 
         PlayerSummary[] playerSummaries = snapshot.playerSummaries;
-        createCatchButtons(Arrays.asList(playerSummaries));
+        createCatchButtons(Arrays.asList(playerSummaries),snapshot.currentPlayerIndex);
+        showCurrentHint(snapshot.openCard);
+        showOpenedPileCard(snapshot.openCard);
+        setVisible(true);
     }
 
     public void showDisconnected() {

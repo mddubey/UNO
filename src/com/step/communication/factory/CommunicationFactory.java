@@ -7,8 +7,10 @@ import com.step.uno.client.GameClient;
 import com.step.uno.client.GameClientObserver;
 import com.step.uno.client.screen.WaitingScreen;
 import com.step.uno.client.view.WaitingView;
+import com.step.uno.server.GameMasterObserver;
 import com.step.uno.server.network.GameMaster;
 import com.step.uno.server.screen.ServerScreen;
+import com.step.uno.server.view.ServerView;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -58,7 +60,7 @@ public class CommunicationFactory {
         }
     }
 
-    public ServerScreen getServerView(int players, int packs) {
+    public ServerView getServerView(int players, int packs) {
         return new ServerScreen(players, packs);
     }
 
@@ -66,8 +68,8 @@ public class CommunicationFactory {
         return new GameClient(this, observer);
     }
 
-    public GameMaster createGameServer(int numberOfPlayers, int numberOfPacks) {
-        return new GameMaster(numberOfPlayers, numberOfPacks, this);
+    public GameMaster createGameServer(int numberOfPlayers, int numberOfPacks, GameMasterObserver observer) {
+        return new GameMaster(numberOfPlayers, numberOfPacks, this,observer);
     }
 
     public WaitingView getWaitingView() {

@@ -5,6 +5,7 @@ import com.step.communication.server.MessageServer;
 import com.step.uno.client.GameClient;
 import com.step.uno.client.GameClientObserver;
 import com.step.uno.client.view.WaitingView;
+import com.step.uno.server.GameMasterObserver;
 import com.step.uno.server.network.GameMaster;
 import com.step.uno.server.screen.ServerScreen;
 
@@ -40,7 +41,7 @@ public class StubFactory extends CommunicationFactory {
     }
 
     @Override
-    public GameMaster createGameServer(int numberOfPlayers, int numberOfPacks) {
+    public GameMaster createGameServer(int numberOfPlayers, int numberOfPacks, GameMasterObserver observer) {
         return gameMaster;
     }
 

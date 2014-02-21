@@ -3,7 +3,6 @@ import com.step.communication.factory.CommunicationFactory;
 import com.step.communication.server.MessageServer;
 import com.step.uno.server.network.GameMaster;
 import com.step.uno.server.screen.ServerScreen;
-import com.step.uno.messages.GameSnapshot;
 import com.step.uno.server.controller.GameMasterController;
 import org.junit.Test;
 

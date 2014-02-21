@@ -1,6 +1,10 @@
 package com.step.uno.server.screen;
 
 import com.step.uno.client.screen.LogDisplay;
+import com.step.uno.messages.Snapshot;
+import com.step.uno.model.Card;
+import com.step.uno.model.Colour;
+import com.step.uno.model.PlayerSummary;
 import com.step.uno.server.view.ServerView;
 
 import javax.swing.*;
@@ -8,6 +12,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ServerScreen extends JFrame implements ServerView {
@@ -23,6 +28,9 @@ public class ServerScreen extends JFrame implements ServerView {
     private List<JLabel> imageLable;
     private int numOfPlayers;
     private int numOfPacks;
+    private Colour[] colours = {Colour.Black, Colour.Blue, Colour.Green, Colour.Red, Colour.Yellow};
+    private Color[] colors = {Color.black, Color.blue, Color.green, Color.RED, Color.YELLOW};
+    private Color[] foregroundColor = {Color.WHITE, Color.WHITE, Color.BLACK, Color.BLACK, Color.BLACK};
     LogDisplay log = new LogDisplay();
 
     public ServerScreen(int numOfPlayers, int numOfPacks) {
@@ -40,7 +48,6 @@ public class ServerScreen extends JFrame implements ServerView {
 
         createPlayerPanel();
         createCurrentStatusPanel();
-        addToCurrentStatusPanel();
         log.createLog(530, 10, 250, 730);
         addToPanel();
     }
@@ -60,32 +67,35 @@ public class ServerScreen extends JFrame implements ServerView {
 
     }
 
-    private void createPile() {
+    private void createPile(Card card) {
         cardPanel = new JPanel();
         cardPanel.setLayout(null);
         cardPanel.setBounds(50, 120, 100, 50);
-        cardPanel.setBackground(Color.cyan);
+        int index = Arrays.asList(colours).indexOf(card.colour);
+        cardPanel.setBackground(colors[index]);
         currentStatusPanel.add(cardPanel);
-        openPile = new JLabel("1");
+        openPile = new JLabel(card.sign + "");
         openPile.setFont(new Font("Times new Roman", Font.BOLD, 30));
-        openPile.setForeground(Color.black);
+        openPile.setForeground(foregroundColor[index]);
         openPile.setBounds(20, 5, 100, 30);
         cardPanel.add(openPile);
     }
 
 
-    private void createStatus() {
+    private void createStatus(Card card) {
         status = new JTextArea();
-        status.setEnabled(false);
+        status.setEditable(false);
+        status.setText("Play a " + card.sign  + " or " + card.colour);
         status.setBackground(Color.GRAY);
+        status.setForeground(Color.WHITE);
+        status.setLineWrap(true);
+        status.setFont(new Font("Times new Roman", Font.PLAIN, 30));
         status.setBounds(200, 50, 150, 200);
     }
 
-    private void addToCurrentStatusPanel() {
-        createPile();
-        createStatus();
+    private void addToCurrentStatusPanel(Card openCard) {
+        createPile(openCard);
         currentStatusPanel.add(cardPanel);
-        currentStatusPanel.add(status);
     }
 
     private void createCurrentStatusPanel() {
@@ -96,15 +106,14 @@ public class ServerScreen extends JFrame implements ServerView {
     }
 
     public void addToPanel() {
-        addToPlayersPanel();
         serverPanel.add(playersPanel);
         serverPanel.add(currentStatusPanel);
         serverPanel.add(log.getLog());
     }
 
-    private void addToPlayersPanel() {
+    private void addToPlayersPanel(PlayerSummary[] playerSummaries, int currentPlayerIndex) {
         for (int i = 0; i < numOfPlayers; i++) {
-            JLabel player = new JLabel(String.valueOf(i + 1));
+            JLabel player = new JLabel(playerSummaries[i].name + playerSummaries[i].cardsInHand);
             player.setFont(new Font("serif", Font.BOLD, 25));
             player.setBackground(Color.black);
             playersPanel.add(player);
@@ -117,9 +126,10 @@ public class ServerScreen extends JFrame implements ServerView {
             label.setText("=>");
             label.setFont(new Font("serif", Font.BOLD, 30));
             label.setBounds(10, 10, 50, 50);
-            label.setVisible(true);
+            label.setVisible(false);
             playersPanel.add(label);
         }
+        imageLable.get(currentPlayerIndex).setVisible(true);
     }
 
     public void quit() {
@@ -136,7 +146,13 @@ public class ServerScreen extends JFrame implements ServerView {
     }
 
     @Override
-    public void display() {
+    public void display(Snapshot snapshot) {
+        addToPlayersPanel(snapshot.playerSummaries, snapshot.currentPlayerIndex);
+        createStatus(snapshot.openCard);
+        currentStatusPanel.add(status);
+        addToCurrentStatusPanel(snapshot.openCard);
+
         setVisible(true);
+
     }
 }

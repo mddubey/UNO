@@ -5,10 +5,12 @@ import com.step.communication.factory.CommunicationFactory;
 import com.step.communication.server.MessageServer;
 import com.step.communication.server.MessageServerListener;
 import com.step.uno.messages.GameResult;
+import com.step.uno.messages.Snapshot;
 import com.step.uno.model.Card;
 import com.step.uno.model.Colour;
 import com.step.uno.model.Game;
 import com.step.uno.model.Player;
+import com.step.uno.server.GameMasterObserver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,15 +19,17 @@ public class GameMaster implements MessageServerListener, PlayerProxyObserver {
     private final int totalPlayers;
     private final int totalPacks;
     private final CommunicationFactory factory;
+    private GameMasterObserver observer;
     private MessageServer server;
     private final List<PlayerProxy> proxies = new ArrayList<>();
     private List<Player> players = new ArrayList<>();
     private Game game;
 
-    public GameMaster(int totalPlayers, int packs, CommunicationFactory factory) {
+    public GameMaster(int totalPlayers, int packs, CommunicationFactory factory,GameMasterObserver observer) {
         this.totalPlayers = totalPlayers;
         this.totalPacks = packs;
         this.factory = factory;
+        this.observer = observer;
     }
 
     public void start() {
@@ -53,7 +57,6 @@ public class GameMaster implements MessageServerListener, PlayerProxyObserver {
     private void sendSnapshot() {
         for (PlayerProxy proxy : proxies)
             proxy.sendSnapshot(game);
-
     }
 
     @Override
@@ -64,8 +67,12 @@ public class GameMaster implements MessageServerListener, PlayerProxyObserver {
     @Override
     public void onPlayerRegistered(Player player) {
         players.add(player);
-        if(players.size() == totalPlayers)
+        if(players.size() == totalPlayers){
             startGame();
+            Snapshot snapshot = new Snapshot();
+            game.populate(snapshot, player);
+            observer.onGameStart(snapshot);
+        }
     }
 
     @Override
