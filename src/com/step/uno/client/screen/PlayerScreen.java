@@ -28,7 +28,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
 
     private List<JLabel> imageLable;
     private List<JButton> catchButtons = new ArrayList<>();
-    private JButton noAction = new JButton("Continue");
+    private JButton continueAction = new JButton("Continue");
 
     private JScrollPane cardsPane;
     LogDisplay log = new LogDisplay();
@@ -125,6 +125,8 @@ public class PlayerScreen extends JFrame implements PlayerView {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
+                continueAction.setEnabled(true);
+                drawButton.setEnabled(false);
                 observer.onDraw();
             }
         });
@@ -133,14 +135,17 @@ public class PlayerScreen extends JFrame implements PlayerView {
     }
 
     private void showContinueButton() {
-        noAction.addActionListener(new ActionListener() {
+        continueAction.setEnabled(false);
+        continueAction.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 observer.onNoAction();
+                continueAction.setEnabled(false);
+                drawButton.setEnabled(true);
             }
         });
-        noAction.setBounds(200, 500, 120, 70);
-        masterPanel.add(noAction);
+        continueAction.setBounds(200, 500, 120, 70);
+        masterPanel.add(continueAction);
     }
 
     private void showOpenedPileCard() {
@@ -196,7 +201,8 @@ public class PlayerScreen extends JFrame implements PlayerView {
         playerCardsPanel.removeAll();
         playerCardsPanel.setLayout(new GridLayout(1, 5));
         playerCardsPanel.setBackground(Color.white);
-        cardsPane = new JScrollPane(playerCardsPanel);
+        cardsPane = new
+                JScrollPane(playerCardsPanel);
 
         cardsPane = new JScrollPane(playerCardsPanel);
         cardsPane.setBounds(20, 600, 650, 100);
@@ -221,8 +227,11 @@ public class PlayerScreen extends JFrame implements PlayerView {
                 public void actionPerformed(ActionEvent e) {
                     Object source = e.getSource();
                     if (myCards.containsKey(source))
-                        if (myCards.get(source).isCardEqual(cardToPlay))
+                        if (myCards.get(source).isCardEqual(cardToPlay)) {
                             observer.onCardPlayed(myCards.get(source));
+                            continueAction.setEnabled(false);
+                            drawButton.setEnabled(false );
+                        }
                         else
                             JOptionPane.showMessageDialog(null,"You can not play this card");
                 }
@@ -237,6 +246,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
         if (snapshot.currentPlayerIndex != snapshot.myPlayerIndex) enable = false;
         else
             enable = true;
+        drawButton.setEnabled(enable);
         showPlayerCards();
         updatePlayerCards(Arrays.asList(myCards), enable, snapshot.openCard);
         updateHint(snapshot.openCard);
