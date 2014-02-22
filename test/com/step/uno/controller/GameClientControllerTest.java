@@ -8,6 +8,7 @@ import com.step.uno.model.Card;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 public class GameClientControllerTest {
@@ -18,7 +19,7 @@ public class GameClientControllerTest {
 
     @Before
     public void setup() {
-        when(joinGameView.switchToPlayerView()).thenReturn(playerView);
+        when(joinGameView.switchToPlayerView(anyString())).thenReturn(playerView);
         controller = new GameClientController(stub);
         controller.bindView(joinGameView);
     }
@@ -52,9 +53,19 @@ public class GameClientControllerTest {
     public void displaysGameSnapshot() {
         controller.join("serverAddress", "me");
         Snapshot snapshot = new Snapshot();
-        controller.displaySnapShotOnView(snapshot);
+        controller.displaySnapShotOnView(snapshot, anyString());
         verify(stub.waitingView, times(1)).showVisible(false);
-        verify(playerView, times(1)).update(snapshot, controller);
+        verify(playerView, times(1)).update(snapshot, controller, true);
+    }
+
+    @Test
+    public void displaysGameSnapshotWithDrawButtonDisabled() {
+        controller.join("serverAddress", "me");
+        Snapshot snapshot = new Snapshot();
+        snapshot.myPlayerIndex = 1;
+        controller.displaySnapShotOnView(snapshot, anyString());
+
+        verify(playerView, times(1)).update(snapshot, controller,false);
     }
 
     @Test
@@ -69,6 +80,5 @@ public class GameClientControllerTest {
         controller.onDraw();
 
         verify(stub.gameClient, times(1)).draw();
-
     }
 }

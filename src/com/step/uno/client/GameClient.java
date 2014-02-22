@@ -68,7 +68,7 @@ public class GameClient implements MessageChannelListener {
     @Override
     public void onMessage(MessageChannel client, Object message) {
         if (message.getClass().equals(Snapshot.class)) {
-            observer.displaySnapShotOnView((Snapshot) message);
+            observer.displaySnapShotOnView((Snapshot) message,playerName);
         }
 
         if (message.getClass().equals(GameResult.class)) {

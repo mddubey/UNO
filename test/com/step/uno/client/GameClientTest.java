@@ -39,6 +39,6 @@ public class GameClientTest {
         Snapshot snapshot = new Snapshot();
         gameClient.onMessage(stub.channel, snapshot);
 
-        verify(mock,times(1)).displaySnapShotOnView(snapshot);
+        verify(mock,times(1)).displaySnapShotOnView(snapshot, null);
     }
 }

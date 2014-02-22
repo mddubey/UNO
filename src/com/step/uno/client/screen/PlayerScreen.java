@@ -38,8 +38,8 @@ public class PlayerScreen extends JFrame implements PlayerView {
     private boolean enable = true;
 
 
-    public PlayerScreen() {
-        super("UNO");
+    public PlayerScreen(String playerName) {
+        super(playerName);
         generateUI();
         setVisible(true);
     }
@@ -100,7 +100,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
             }
         }
         for (int i = 0; i < catchButtons.size(); i++) {
-            catchButtons.get(i).setText(playerSummaries.get(i).name + playerSummaries.get(i).cardsInHand);
+            catchButtons.get(i).setText(playerSummaries.get(i).name + " : " + playerSummaries.get(i).cardsInHand);
             imageLable.get(i).setVisible(false);
         }
 
@@ -124,10 +124,9 @@ public class PlayerScreen extends JFrame implements PlayerView {
         drawButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dispose();
                 continueAction.setEnabled(true);
-                drawButton.setEnabled(false);
                 observer.onDraw();
+                drawButton.setEnabled(false);
             }
         });
         drawButton.setBounds(15, 15, 150, 50);
@@ -241,12 +240,9 @@ public class PlayerScreen extends JFrame implements PlayerView {
         masterPanel.add(cardsPane);
     }
 
-    public void update(Snapshot snapshot, PlayerViewObserver observer) {
+    public void update(Snapshot snapshot, PlayerViewObserver observer,boolean enable) {
         Card[] myCards = snapshot.myCards;
-        if (snapshot.currentPlayerIndex != snapshot.myPlayerIndex) enable = false;
-        else
-            enable = true;
-        drawButton.setEnabled(enable);
+        drawButton.setEnabled((snapshot.disableDraw != null) ? snapshot.disableDraw : enable);
         showPlayerCards();
         updatePlayerCards(Arrays.asList(myCards), enable, snapshot.openCard);
         updateHint(snapshot.openCard);

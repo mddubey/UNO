@@ -76,8 +76,8 @@ public class PlayerLogin extends JFrame implements JoinGameView {
         playerName.setBounds(190, 90, 290, 50);
     }
 
-    public PlayerView switchToPlayerView() {
-        PlayerView view = new PlayerScreen();
+    public PlayerView switchToPlayerView(String playerName) {
+        PlayerView view = new PlayerScreen(playerName);
         return view;
     }
 
