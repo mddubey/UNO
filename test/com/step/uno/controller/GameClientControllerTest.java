@@ -53,6 +53,7 @@ public class GameClientControllerTest {
         controller.join("serverAddress", "me");
         Snapshot snapshot = new Snapshot();
         controller.displaySnapShotOnView(snapshot);
+        verify(stub.waitingView, times(1)).showVisible(false);
         verify(playerView, times(1)).update(snapshot, controller);
     }
 
@@ -66,6 +67,7 @@ public class GameClientControllerTest {
     @Test
     public void shouldBeAbleToInformThatOneCardHasDrawn() {
         controller.onDraw();
+
         verify(stub.gameClient, times(1)).draw();
 
     }
