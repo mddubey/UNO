@@ -35,6 +35,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
     private Colour[] colours = {Colour.Black, Colour.Blue, Colour.Green, Colour.Red, Colour.Yellow};
     private Color[] colors = {Color.black, Color.blue, Color.green, Color.RED, Color.YELLOW};
     private Color[] foregroundColor = {Color.WHITE, Color.WHITE, Color.BLACK, Color.BLACK, Color.BLACK};
+    private boolean enable = true;
 
 
     public PlayerScreen() {
@@ -67,6 +68,8 @@ public class PlayerScreen extends JFrame implements PlayerView {
 
     private void setJFrame() {
         masterPanel = new JPanel();
+        cardsPane = new JScrollPane();
+        masterPanel.add(cardsPane);
         setContentPane(masterPanel);
         masterPanel.setBackground(Color.GRAY);
         masterPanel.setLayout(null);
@@ -121,6 +124,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
         drawButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                dispose();
                 observer.onDraw();
             }
         });
@@ -187,6 +191,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
     }
 
     private void showPlayerCards() {
+        masterPanel.remove(cardsPane);
         playerCardsPanel = new JPanel();
         playerCardsPanel.removeAll();
         playerCardsPanel.setLayout(new GridLayout(1, 5));
@@ -199,12 +204,13 @@ public class PlayerScreen extends JFrame implements PlayerView {
 
     }
 
-    private void updatePlayerCards(List<Card> cards) {
+    private void updatePlayerCards(List<Card> cards, boolean enable) {
         final Map<JButton, Card> myCards = new HashMap<>();
         for (final Card card : cards) {
             System.out.println(cards.size());
             int index = Arrays.asList(colours).indexOf(card.colour);
             JButton button = new JButton(String.valueOf(card.sign).split("_")[1]);
+            button.setEnabled(enable);
             myCards.put(button, card);
             button.setFont(new Font("serif", Font.BOLD, 18));
             button.setBackground(colors[index]);
@@ -213,6 +219,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    dispose();
                     Object source = e.getSource();
                     if (myCards.containsKey(source))
                         observer.onCardPlayed(myCards.get(source));
@@ -225,8 +232,11 @@ public class PlayerScreen extends JFrame implements PlayerView {
 
     public void update(Snapshot snapshot, PlayerViewObserver observer) {
         Card[] myCards = snapshot.myCards;
-        updatePlayerCards(Arrays.asList(myCards));
+        if (snapshot.currentPlayerIndex != snapshot.myPlayerIndex) enable = false;
+        else
+            enable = true;
         showPlayerCards();
+        updatePlayerCards(Arrays.asList(myCards), enable);
         updateHint(snapshot.openCard);
         updateOpenPile(snapshot.openCard);
         this.observer = observer;

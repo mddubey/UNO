@@ -36,7 +36,6 @@ public class GameClientController implements GameClientObserver, PlayerViewObser
 
     @Override
     public void displaySnapShotOnView(Snapshot snapshot) {
-        playerView = null;
         if (playerView == null) playerView = playerLoginView.switchToPlayerView();
         playerView.update(snapshot, this);
     }
