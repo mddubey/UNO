@@ -4,7 +4,7 @@ import com.step.uno.model.Card;
 
 public interface PlayerViewObserver {
     public void onCardPlayed(Card card);
-    public void onDraw();
+    public void onDraw(int count);
 
     void onNoAction();
 }

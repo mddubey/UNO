@@ -158,4 +158,14 @@ public class Game {
     public void moveForwardAsPlayerTookNoActionOnDrawnCard() {
         nextTurn();
     }
+
+    private boolean handleDraw4(Snapshot snapshot, Card card) {
+        Colour runningColor = snapshot.runningColour;
+        for (Card myCard : snapshot.myCards) {
+            if(myCard.colour.equals(runningColor))
+                return false;
+        }
+        return true;
+    }
 }
+

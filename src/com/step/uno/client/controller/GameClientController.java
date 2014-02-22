@@ -18,6 +18,7 @@ public class GameClientController implements GameClientObserver, PlayerViewObser
     private PlayerView playerView;
     private GameClient gameClient;
 
+
     public GameClientController(CommunicationFactory factory) {
         this.factory = factory;
         gameClient = factory.createGameClient(this);
@@ -62,8 +63,11 @@ public class GameClientController implements GameClientObserver, PlayerViewObser
     }
 
     @Override
-    public void onDraw() {
-        gameClient.draw();
+    public void onDraw(int count) {
+        if(count > 0)
+        gameClient.drawTwo();
+        else
+            gameClient.draw();
     }
 
     @Override

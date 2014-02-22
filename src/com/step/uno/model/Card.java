@@ -23,10 +23,10 @@ public class Card implements Serializable {
 
     private static List<Card> createPack() {
         List<Card> cards = new ArrayList<>();
-        Colour[] colours = {Colour.Blue,Colour.Green,Colour.Red,Colour.Yellow};
+        Colour[] colours = {Colour.Blue, Colour.Green, Colour.Red, Colour.Yellow};
         for (Colour c : colours) {
             cards.add(createCard(c, "_0"));
-            for(int times = 0;times<2;times++){
+            for (int times = 0; times < 2; times++) {
                 for (int i = 1; i < 10; i++) {
                     cards.add(createCard(c, "_" + i));
                 }
@@ -36,7 +36,7 @@ public class Card implements Serializable {
             }
         }
 
-        for(int times = 0;times<4;times++){
+        for (int times = 0; times < 4; times++) {
             cards.add(createCard(Colour.Black, "_Wild"));
             cards.add(createCard(Colour.Black, "_DrawFour"));
         }
@@ -63,9 +63,16 @@ public class Card implements Serializable {
         return true;
     }
 
-    public boolean isCardEqual(Card card) {
-        if (colour == card.colour || sign == card.sign) return true;
-        return false;
+    public boolean isCardEqual(Card card, int draw2Run) {
+        if (this.sign.equals(Sign._Wild)) return true;
+        if (this.sign.equals(Sign._DrawFour))
+            return true;
+        if (card.colour.equals(Colour.Black))
+            return true;
+        if (draw2Run != 0)
+            if (card.sign.equals(Sign._DrawTwo))
+                return this.sign.equals(Sign._DrawTwo);
+        return this.sign.equals(card.sign) || card.colour.equals(this.colour);
     }
 
     @Override

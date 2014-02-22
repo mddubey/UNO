@@ -77,8 +77,7 @@ public class GameClientControllerTest {
 
     @Test
     public void shouldBeAbleToInformThatOneCardHasDrawn() {
-        controller.onDraw();
-
+        controller.onDraw(0);
         verify(stub.gameClient, times(1)).draw();
     }
 }

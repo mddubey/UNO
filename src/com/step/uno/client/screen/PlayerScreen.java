@@ -6,6 +6,7 @@ import com.step.uno.messages.Snapshot;
 import com.step.uno.model.Card;
 import com.step.uno.model.Colour;
 import com.step.uno.model.PlayerSummary;
+import com.step.uno.model.Sign;
 
 import javax.swing.*;
 import java.awt.*;
@@ -36,6 +37,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
     private Color[] backgroundColours = {Color.black, new Color(100,100,255), new Color(100,255,100), new Color(255,100,100),  new Color(225,255,100)};
     private Color[] foregroundColor = {Color.WHITE, Color.WHITE, Color.BLACK, Color.BLACK, Color.BLACK};
     private boolean enable = true;
+    private Snapshot snapshot;
 
 
     public PlayerScreen(String playerName) {
@@ -85,7 +87,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
         masterPanel.add(playersPanel);
     }
 
-    private void createCatchButtons(List<PlayerSummary> playerSummaries, int currentPlayerIndex) {
+    private void createCatchButtons(List<PlayerSummary> playerSummaries, int currentPlayerIndex, boolean isInAscendingOrder) {
         if (catchButtons.size() == 0) {
             for (PlayerSummary playerSummary : playerSummaries) {
                 JButton catchButton = new JButton();
@@ -94,8 +96,15 @@ public class PlayerScreen extends JFrame implements PlayerView {
                 catchButton.setFont(new Font("serif", Font.BOLD, 30));
             }
             imageLable = new ArrayList<>();
+            JLabel e;
             for (PlayerSummary playerSummary : playerSummaries) {
-                JLabel e = new JLabel("=>", JLabel.CENTER);
+                e = new JLabel("",JLabel.CENTER);
+                if(isInAscendingOrder == false) {
+                    e.setText("<=");
+                }
+                else{
+                    e.setText("=>");
+                }
                 imageLable.add(e);
             }
         }
@@ -125,8 +134,8 @@ public class PlayerScreen extends JFrame implements PlayerView {
             @Override
             public void actionPerformed(ActionEvent e) {
                 continueAction.setEnabled(true);
-                observer.onDraw();
                 drawButton.setEnabled(false);
+                observer.onDraw(snapshot.draw2Run);
             }
         });
         drawButton.setBounds(15, 15, 150, 50);
@@ -210,7 +219,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
 
     }
 
-    private void updatePlayerCards(List<Card> cards, boolean enable, final Card cardToPlay) {
+    private void updatePlayerCards(List<Card> cards, boolean enable, final Card cardToPlay, final int draw2Run) {
         final Map<JButton, Card> myCards = new HashMap<>();
         for (final Card card : cards) {
             int index = Arrays.asList(colours).indexOf(card.colour);
@@ -226,7 +235,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
                 public void actionPerformed(ActionEvent e) {
                     Object source = e.getSource();
                     if (myCards.containsKey(source))
-                        if (myCards.get(source).isCardEqual(cardToPlay)) {
+                       if (myCards.get(source).isCardEqual(cardToPlay,draw2Run)) {
                             observer.onCardPlayed(myCards.get(source));
                             continueAction.setEnabled(false);
                             drawButton.setEnabled(false );
@@ -241,16 +250,19 @@ public class PlayerScreen extends JFrame implements PlayerView {
     }
 
     public void update(Snapshot snapshot, PlayerViewObserver observer,boolean enable) {
+        this.snapshot = snapshot;
         Card[] myCards = snapshot.myCards;
         drawButton.setEnabled((snapshot.disableDraw != null) ? snapshot.disableDraw : enable);
         showPlayerCards();
-        updatePlayerCards(Arrays.asList(myCards), enable, snapshot.openCard);
+        updatePlayerCards(Arrays.asList(myCards), enable, snapshot.openCard, snapshot.draw2Run);
         updateHint(snapshot.openCard);
         updateOpenPile(snapshot.openCard);
         this.observer = observer;
 
+
         PlayerSummary[] playerSummaries = snapshot.playerSummaries;
-        createCatchButtons(Arrays.asList(playerSummaries), snapshot.currentPlayerIndex);
+        System.out.println(snapshot.isInAscendingOrder);
+        createCatchButtons(Arrays.asList(playerSummaries), snapshot.currentPlayerIndex, snapshot.isInAscendingOrder);
 
         centerPanel.setVisible(true);
         setVisible(true);
