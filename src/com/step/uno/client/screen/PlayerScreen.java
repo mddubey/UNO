@@ -123,7 +123,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
     private void addCenterPanel() {
         centerPanel = new JPanel();
         centerPanel.setLayout(null);
-        centerPanel.setBounds(200, 200, 400, 200);
+        centerPanel.setBounds(200, 200, 400, 220);
         centerPanel.setBackground(Color.white);
         masterPanel.add(centerPanel);
     }
@@ -138,7 +138,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
                 observer.onDraw(snapshot.draw2Run);
             }
         });
-        drawButton.setBounds(15, 15, 150, 50);
+        drawButton.setBounds(5, 5, 120, 100);
         centerPanel.add(drawButton);
     }
 
@@ -159,11 +159,11 @@ public class PlayerScreen extends JFrame implements PlayerView {
     private void showOpenedPileCard() {
         openPileCardPanel = new JPanel();
         openPileCardPanel.setLayout(null);
-        openPileCardPanel.setBounds(170, 15, 180, 50);
+        openPileCardPanel.setBounds(5, 110, 120, 100);
         centerPanel.add(openPileCardPanel);
         openPile = new JLabel("", JLabel.CENTER);
-        openPile.setFont(new Font("Times new Roman", Font.BOLD, 30));
-        openPile.setBounds(20, 5, 150, 30);
+        openPile.setFont(new Font("Times new Roman", Font.BOLD, 18));
+        openPile.setBounds(5, 0, 100, 90);
         openPileCardPanel.add(openPile);
         openPileCardPanel.setVisible(true);
     }
@@ -177,7 +177,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
 
     private void showCurrentHint() {
         hintToUser = new JTextArea();
-        hintToUser.setBounds(20, 75, 350, 120);
+        hintToUser.setBounds(135, 5, 240, 200);
         hintToUser.setBackground(Color.gray);
         hintToUser.setForeground(Color.white);
         hintToUser.setEditable(false);
@@ -261,7 +261,6 @@ public class PlayerScreen extends JFrame implements PlayerView {
 
 
         PlayerSummary[] playerSummaries = snapshot.playerSummaries;
-        System.out.println(snapshot.isInAscendingOrder);
         createCatchButtons(Arrays.asList(playerSummaries), snapshot.currentPlayerIndex, snapshot.isInAscendingOrder);
 
         centerPanel.setVisible(true);
