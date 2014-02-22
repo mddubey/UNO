@@ -13,11 +13,11 @@ public enum Sign implements Serializable{
     _7(7),
     _8(8),
     _9(9),
-    Reverse(20),
-    Skip(20),
-    DrawTwo(20),
-    DrawFour(50),
-    Wild(50);
+    _Reverse(20),
+    _Skip(20),
+    _DrawTwo(20),
+    _DrawFour(50),
+    _Wild(50);
     public final int points;
 
     Sign(int v) {

@@ -64,7 +64,6 @@ public class ServerScreen extends JFrame implements ServerView {
         playersPanel.setBounds(30, 30, 400, 100);
         playersPanel.setLayout(new GridLayout(2, numOfPlayers));
         playersPanel.setBackground(Color.white);
-
     }
 
     private void createPile(Card card) {
@@ -74,18 +73,17 @@ public class ServerScreen extends JFrame implements ServerView {
         int index = Arrays.asList(colours).indexOf(card.colour);
         cardPanel.setBackground(colors[index]);
         currentStatusPanel.add(cardPanel);
-        openPile = new JLabel(card.sign + "");
+        openPile = new JLabel(String.valueOf(card.sign).split("_")[1]);
         openPile.setFont(new Font("Times new Roman", Font.BOLD, 30));
         openPile.setForeground(foregroundColor[index]);
         openPile.setBounds(5, 5, 150, 30);
         cardPanel.add(openPile);
     }
 
-
     private void createStatus(Card card) {
         status = new JTextArea();
         status.setEditable(false);
-        status.setText("Play a " + card.sign + " or " + card.colour);
+        status.setText("Play a " + String.valueOf(card.sign).split("_")[1] + " or " + card.colour);
         status.setBackground(Color.GRAY);
         status.setForeground(Color.WHITE);
         status.setLineWrap(true);
@@ -151,8 +149,6 @@ public class ServerScreen extends JFrame implements ServerView {
         createStatus(snapshot.openCard);
         currentStatusPanel.add(status);
         addToCurrentStatusPanel(snapshot.openCard);
-
         setVisible(true);
-
     }
 }

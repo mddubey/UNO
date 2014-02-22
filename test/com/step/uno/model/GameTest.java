@@ -4,13 +4,14 @@ import com.step.uno.messages.Snapshot;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
 public class GameTest {
     @Test
-    public void shouldInitializeTheGame() throws Exception {
-        ArrayList<Player> givenPlayers = new ArrayList<>();
+    public void shouldInitializeTheGame() {
+        List<Player> givenPlayers = new ArrayList<>();
         givenPlayers.add(new Player("kash"));
         Game game = new Game(1, givenPlayers);
         game.initialize();
@@ -19,7 +20,7 @@ public class GameTest {
         assertEquals(playerSummary.cardsInHand,7);
     }
     @Test
-    public void testPopulateTheSnapshot() throws Exception {
+    public void testPopulateTheSnapshot() {
         ArrayList<Player> givenPlayers = new ArrayList<>();
         givenPlayers.add(new Player("kash"));
 

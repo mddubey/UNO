@@ -48,9 +48,13 @@ public class Player {
         return new PlayerResult(name, cards, calculatePoints());
     }
 
-    private int calculatePoints() {
+    public int calculatePoints() {
         int total = 0;
         for (Card card : cards) total += card.sign.points;
         return total;
+    }
+
+    public List<Card> getCards() {
+        return cards;
     }
 }

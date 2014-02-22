@@ -1,5 +1,6 @@
 package com.step.uno.model;
 
+import java.awt.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +8,8 @@ import java.util.List;
 public class Card implements Serializable {
     public Colour colour;
     public Sign sign;
+    private int cardPoints;
+    private Color color;
 
     //in one pack
     // 4 X {wildcard,wild+4}, 2 X {1-9, +2, reverse, skip}, 0,  for colours {red, green, blue, yellow},
@@ -27,15 +30,15 @@ public class Card implements Serializable {
                 for (int i = 1; i < 10; i++) {
                     cards.add(createCard(c, "_" + i));
                 }
-                cards.add(createCard(c, "Reverse"));
-                cards.add(createCard(c, "Skip"));
-                cards.add(createCard(c, "DrawTwo"));
+                cards.add(createCard(c, "_Reverse"));
+                cards.add(createCard(c, "_Skip"));
+                cards.add(createCard(c, "_DrawTwo"));
             }
         }
 
         for(int times = 0;times<4;times++){
-            cards.add(createCard(Colour.Black, "Wild"));
-            cards.add(createCard(Colour.Black, "DrawFour"));
+            cards.add(createCard(Colour.Black, "_Wild"));
+            cards.add(createCard(Colour.Black, "_DrawFour"));
         }
         return cards;
     }
@@ -66,6 +69,15 @@ public class Card implements Serializable {
         result = 31 * result + (sign != null ? sign.hashCode() : 0);
         return result;
     }
+
+    public int getCardPoints() {
+        return cardPoints;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
 }
 
 

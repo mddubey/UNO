@@ -154,7 +154,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
     private void updateOpenPile(Card card) {
         int index = Arrays.asList(colours).indexOf(card.colour);
         openPileCardPanel.setBackground(colors[index]);
-        openPile.setText(String.valueOf(card.sign));
+        openPile.setText(String.valueOf(card.sign).split("_")[1]);
         openPile.setForeground(foregroundColor[index]);
     }
 
@@ -170,7 +170,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
     }
 
     private void updateHint(Card card) {
-        hintToUser.setText("Play a " + card.sign + " or " + card.colour);
+        hintToUser.setText("Play a " + String.valueOf(card.sign).split("_")[1] + " or " + card.colour);
     }
 
     public void quit() {
@@ -204,7 +204,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
         for (final Card card : cards) {
             System.out.println(cards.size());
             int index = Arrays.asList(colours).indexOf(card.colour);
-            JButton button = new JButton(String.valueOf(card.sign));
+            JButton button = new JButton(String.valueOf(card.sign).split("_")[1]);
             myCards.put(button, card);
             button.setFont(new Font("serif", Font.BOLD, 18));
             button.setBackground(colors[index]);

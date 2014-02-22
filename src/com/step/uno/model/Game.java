@@ -88,23 +88,23 @@ public class Game {
     }
 
     private void handleReverse(Card card) {
-        if (!card.sign.equals(Sign.Reverse)) return;
+        if (!card.sign.equals(Sign._Reverse)) return;
         isInAscendingOrder=!isInAscendingOrder;
     }
 
     private void handleSkip(Card card) {
-        if (!card.sign.equals(Sign.Skip)) return;
+        if (!card.sign.equals(Sign._Skip)) return;
         nextTurn();
     }
 
     private void handleDrawTwo(Card card) {
-        if (!card.sign.equals(Sign.DrawTwo)) return;
+        if (!card.sign.equals(Sign._DrawTwo)) return;
         draw2Run++;
     }
 
     private void handleWildCard(Card card, Colour newColour) {
         runningColour = card.colour.equals(Colour.Black) ? newColour : card.colour;
-        if (card.sign.equals(Sign.DrawFour)) applyDrawFour();
+        if (card.sign.equals(Sign._DrawFour)) applyDrawFour();
     }
 
     private void applyDrawFour() {
