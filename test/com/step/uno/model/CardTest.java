@@ -75,4 +75,5 @@ public class CardTest {
         Card actual = Card.createCard(Colour.Green,"_3" );
         assertTrue(expected.isCardEqual(actual, draw2Run));
     }
+
 }

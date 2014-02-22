@@ -72,6 +72,7 @@ public class Card implements Serializable {
         if (draw2Run != 0)
             if (card.sign.equals(Sign._DrawTwo))
                 return this.sign.equals(Sign._DrawTwo);
+            else return false;
         return this.sign.equals(card.sign) || card.colour.equals(this.colour);
     }
 
