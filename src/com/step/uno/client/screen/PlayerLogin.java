@@ -36,7 +36,7 @@ public class PlayerLogin extends JFrame implements JoinGameView {
         joinMasterPanel = new JPanel();
         setContentPane(joinMasterPanel);
         joinMasterPanel.setLayout(null);
-        joinMasterPanel.setBackground(Color.cyan);
+        joinMasterPanel.setBackground(Color.gray);
         setSize(600, 400);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

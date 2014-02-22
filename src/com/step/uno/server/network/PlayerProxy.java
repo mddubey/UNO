@@ -36,7 +36,6 @@ public class PlayerProxy implements MessageChannelListener {
     }
 
     private void onClientMessage(PlayCardAction playCard){
-        System.out.println("got a play");
         observer.onPlayerPlayed(player,playCard.card,playCard.newColour);
     }
 

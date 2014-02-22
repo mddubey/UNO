@@ -33,7 +33,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
     private JScrollPane cardsPane;
     LogDisplay log = new LogDisplay();
     private Colour[] colours = {Colour.Black, Colour.Blue, Colour.Green, Colour.Red, Colour.Yellow};
-    private Color[] colors = {Color.black, Color.blue, Color.green, Color.RED, Color.YELLOW};
+    private Color[] backgroundColours = {Color.black, new Color(100,100,255), new Color(100,255,100), new Color(255,100,100),  new Color(225,255,100)};
     private Color[] foregroundColor = {Color.WHITE, Color.WHITE, Color.BLACK, Color.BLACK, Color.BLACK};
     private boolean enable = true;
 
@@ -157,7 +157,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
 
     private void updateOpenPile(Card card) {
         int index = Arrays.asList(colours).indexOf(card.colour);
-        openPileCardPanel.setBackground(colors[index]);
+        openPileCardPanel.setBackground(backgroundColours[index]);
         openPile.setText(String.valueOf(card.sign).split("_")[1]);
         openPile.setForeground(foregroundColor[index]);
     }
@@ -208,13 +208,12 @@ public class PlayerScreen extends JFrame implements PlayerView {
     private void updatePlayerCards(List<Card> cards, boolean enable, final Card cardToPlay) {
         final Map<JButton, Card> myCards = new HashMap<>();
         for (final Card card : cards) {
-            System.out.println(cards.size());
             int index = Arrays.asList(colours).indexOf(card.colour);
             JButton button = new JButton(String.valueOf(card.sign).split("_")[1]);
             button.setEnabled(enable);
             myCards.put(button, card);
             button.setFont(new Font("serif", Font.BOLD, 18));
-            button.setBackground(colors[index]);
+            button.setBackground(backgroundColours[index]);
             button.setForeground(foregroundColor[index]);
             playerCardsPanel.add(button);
             button.addActionListener(new ActionListener() {

@@ -28,7 +28,6 @@ public class Player {
     }
 
     public void play(Card card) {
-        System.out.println(cards.indexOf(card));
         cards.remove(card);
     }
 
