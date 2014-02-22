@@ -59,6 +59,6 @@ public class GameMasterController implements MessageServerListener, MessageChann
 
     @Override
     public void onGameStart(Snapshot snapshot) {
-        factory.getServerView(numberOfPlayers,numberOfPacks).display(snapshot);
+//        factory.getServerView(numberOfPlayers,numberOfPacks).display(snapshot);
     }
 }
