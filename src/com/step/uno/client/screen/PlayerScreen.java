@@ -201,6 +201,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
         cardsPane = new JScrollPane(playerCardsPanel);
         cardsPane.setBounds(20, 600, 650, 100);
         masterPanel.add(cardsPane);
+        playerCardsPanel.validate();
 
     }
 

@@ -1,6 +1,9 @@
+package com.step.uno.controller;
+
 import com.step.communication.channel.MessageChannel;
 import com.step.communication.factory.CommunicationFactory;
 import com.step.communication.server.MessageServer;
+import com.step.uno.controller.StubFactory;
 import com.step.uno.server.network.GameMaster;
 import com.step.uno.server.screen.ServerScreen;
 import com.step.uno.server.controller.GameMasterController;
@@ -22,4 +25,3 @@ public class GameMasterControllerTest {
         verify(stub.gameMaster, times(1)).onNewConnection(channel);
     }
 }
-

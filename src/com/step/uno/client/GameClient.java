@@ -29,32 +29,34 @@ public class GameClient implements MessageChannelListener {
         channel.send(Introduction.create(playerName));
     }
 
-    public void play(Card card){
+    public void play(Card card) {
         channel.send(
                 new PlayCardAction(card));
     }
-    public void play(Card card, Colour newColour){
+
+    public void play(Card card, Colour newColour) {
         //dont allow WildDraw4 when running colour is present
         //dont allow colour change to last card when heading to last card
-        channel.send(new PlayCardAction(card,newColour));
+        channel.send(new PlayCardAction(card, newColour));
     }
-    public void informNoActionOnDrawnCard(){
+
+    public void informNoActionOnDrawnCard() {
         channel.send(new NoActionOnDrawnCard());
     }
 
-    public void draw(){
+    public void draw() {
         channel.send(new DrawCardAction());
     }
 
-    public void drawTwo(){
+    public void drawTwo() {
         channel.send(new DrawTwoCardAction());
     }
 
-    public void declareUno(){
+    public void declareUno() {
         channel.send(new DeclareUnoAction());
     }
 
-    public void catchUno(int playerIndex){
+    public void catchUno(int playerIndex) {
         channel.send(new CatchUnoAction(playerIndex));
     }
 
@@ -65,11 +67,11 @@ public class GameClient implements MessageChannelListener {
 
     @Override
     public void onMessage(MessageChannel client, Object message) {
-        if(message.getClass().equals(Snapshot.class)){
+        if (message.getClass().equals(Snapshot.class)) {
             observer.displaySnapShotOnView((Snapshot) message);
         }
 
-        if(message.getClass().equals(GameResult.class)){
+        if (message.getClass().equals(GameResult.class)) {
             //present result on to screen
         }
 

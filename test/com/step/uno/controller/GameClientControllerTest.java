@@ -1,3 +1,5 @@
+package com.step.uno.controller;
+
 import com.step.uno.client.controller.GameClientController;
 import com.step.uno.client.view.JoinGameView;
 import com.step.uno.client.view.PlayerView;
@@ -65,5 +67,6 @@ public class GameClientControllerTest {
     public void shouldBeAbleToInformThatOneCardHasDrawn() {
         controller.onDraw();
         verify(stub.gameClient, times(1)).draw();
+
     }
 }
