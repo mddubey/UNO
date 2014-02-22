@@ -63,6 +63,11 @@ public class Card implements Serializable {
         return true;
     }
 
+    public boolean isCardEqual(Card card) {
+        if (colour == card.colour || sign == card.sign) return true;
+        return false;
+    }
+
     @Override
     public int hashCode() {
         int result = colour != null ? colour.hashCode() : 0;

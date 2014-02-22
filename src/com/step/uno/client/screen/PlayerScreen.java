@@ -205,7 +205,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
 
     }
 
-    private void updatePlayerCards(List<Card> cards, boolean enable) {
+    private void updatePlayerCards(List<Card> cards, boolean enable, final Card cardToPlay) {
         final Map<JButton, Card> myCards = new HashMap<>();
         for (final Card card : cards) {
             System.out.println(cards.size());
@@ -220,10 +220,12 @@ public class PlayerScreen extends JFrame implements PlayerView {
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    dispose();
                     Object source = e.getSource();
                     if (myCards.containsKey(source))
-                        observer.onCardPlayed(myCards.get(source));
+                        if (myCards.get(source).isCardEqual(cardToPlay))
+                            observer.onCardPlayed(myCards.get(source));
+                        else
+                            JOptionPane.showMessageDialog(null,"You can not play this card");
                 }
             });
         }
@@ -237,7 +239,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
         else
             enable = true;
         showPlayerCards();
-        updatePlayerCards(Arrays.asList(myCards), enable);
+        updatePlayerCards(Arrays.asList(myCards), enable, snapshot.openCard);
         updateHint(snapshot.openCard);
         updateOpenPile(snapshot.openCard);
         this.observer = observer;
