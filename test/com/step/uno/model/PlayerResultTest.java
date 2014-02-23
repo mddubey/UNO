@@ -31,6 +31,5 @@ public class PlayerResultTest {
         PlayerResult playerResult1 = new PlayerResult("me", Arrays.asList(skipBlue), 20);
         PlayerResult playerResult2 = new PlayerResult("me1", Arrays.asList(skipBlue), 20);
         assertNotSame(playerResult1, playerResult2);
-
     }
 }
