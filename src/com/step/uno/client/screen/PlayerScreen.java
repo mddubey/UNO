@@ -3,10 +3,10 @@ package com.step.uno.client.screen;
 
 import com.step.uno.client.view.PlayerView;
 import com.step.uno.messages.Snapshot;
+import com.step.uno.messages.TurnLog;
 import com.step.uno.model.Card;
 import com.step.uno.model.Colour;
 import com.step.uno.model.PlayerSummary;
-import com.step.uno.model.Sign;
 
 import javax.swing.*;
 import java.awt.*;
@@ -38,7 +38,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
     private Color[] foregroundColor = {Color.WHITE, Color.WHITE, Color.BLACK, Color.BLACK, Color.BLACK};
     private boolean enable = true;
     private Snapshot snapshot;
-
+    private JTextArea activityLog;
 
     public PlayerScreen(String playerName) {
         super(playerName);
@@ -53,13 +53,21 @@ public class PlayerScreen extends JFrame implements PlayerView {
         addCenterPanel();
         createDrawButton();
         log.createLog(770, 10, 300, 720);
-        masterPanel.add(log.getLog());
+        JScrollPane log1 = log.getLog();
+        activityLog = new JTextArea("");
+        log1.add(activityLog);
+        masterPanel.add(log1);
         showUNOButton();
         showOpenedPileCard();
         showCurrentHint();
         showPlayerCards();
         showContinueButton();
         quit();
+    }
+
+    private void addTextToActivityLog(TurnLog log) {
+        activityLog.append(log.playerName + " has played "
+                + log.cardPlayed.sign + " with " + String.valueOf(log.cardPlayed.colour));
     }
 
     private void showUNOButton() {
@@ -219,7 +227,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
 
     }
 
-    private void updatePlayerCards(List<Card> cards, boolean enable, final Card cardToPlay, final int draw2Run) {
+    private void updatePlayerCards(List<Card> cards, boolean enable, final Snapshot snapshot) {
         final Map<JButton, Card> myCards = new HashMap<>();
         for (final Card card : cards) {
             int index = Arrays.asList(colours).indexOf(card.colour);
@@ -235,7 +243,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
                 public void actionPerformed(ActionEvent e) {
                     Object source = e.getSource();
                     if (myCards.containsKey(source))
-                       if (myCards.get(source).isCardEqual(cardToPlay,draw2Run)) {
+                       if (myCards.get(source).canFallow(snapshot)) {
                             observer.onCardPlayed(myCards.get(source));
                             continueAction.setEnabled(false);
                             drawButton.setEnabled(false );
@@ -254,7 +262,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
         Card[] myCards = snapshot.myCards;
         drawButton.setEnabled((snapshot.disableDraw != null) ? snapshot.disableDraw : enable);
         showPlayerCards();
-        updatePlayerCards(Arrays.asList(myCards), enable, snapshot.openCard, snapshot.draw2Run);
+        updatePlayerCards(Arrays.asList(myCards), enable, snapshot);
         updateHint(snapshot.openCard);
         updateOpenPile(snapshot.openCard);
         this.observer = observer;
@@ -262,9 +270,12 @@ public class PlayerScreen extends JFrame implements PlayerView {
 
         PlayerSummary[] playerSummaries = snapshot.playerSummaries;
         createCatchButtons(Arrays.asList(playerSummaries), snapshot.currentPlayerIndex, snapshot.isInAscendingOrder);
-
+        if (snapshot.log.playerName == null)
+            addTextToActivityLog(snapshot.log);
+        activityLog.setVisible(true);
         centerPanel.setVisible(true);
         setVisible(true);
+
     }
 
     public void showDisconnected() {

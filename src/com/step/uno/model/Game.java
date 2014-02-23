@@ -2,6 +2,7 @@ package com.step.uno.model;
 
 import com.step.uno.messages.GameResult;
 import com.step.uno.messages.Snapshot;
+import com.step.uno.messages.TurnLog;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,6 +16,8 @@ public class Game {
     private boolean isInAscendingOrder = true;
     private Colour runningColour;
     private int draw2Run=0;
+    private Card card;
+    private Player player;
 
     public Game(int packs, List<Player> givenPlayers) {
         players = new ArrayList<>(givenPlayers);
@@ -74,11 +77,14 @@ public class Game {
         snapshot.isInAscendingOrder = this.isInAscendingOrder;
         snapshot.runningColour = runningColour;
         snapshot.draw2Run = draw2Run;
+        snapshot.log = new TurnLog(player.name,card);
     }
 
     public void playCard(Player player, Card card, Colour newColour) {
         //handle action of card
-        player.play(card);
+        this.player = player;
+        this.card = card;
+        player.play(this.card);
         openDeck.add(card);
         handleReverse(card);
         handleSkip(card);
