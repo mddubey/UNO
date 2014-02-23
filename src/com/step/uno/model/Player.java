@@ -52,8 +52,4 @@ public class Player {
         for (Card card : cards) total += card.sign.points;
         return total;
     }
-
-    public List<Card> getCards() {
-        return cards;
-    }
 }

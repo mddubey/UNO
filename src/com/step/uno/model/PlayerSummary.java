@@ -13,4 +13,20 @@ public class PlayerSummary implements Serializable {
         this.cardsInHand = cardsInHand;
         this.declaredUno = declaredUno;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof PlayerSummary)) return false;
+
+        PlayerSummary that = (PlayerSummary) o;
+
+        if (cardsInHand != that.cardsInHand) return false;
+        if (declaredUno != that.declaredUno) return false;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+
+        return true;
+    }
+
+
 }

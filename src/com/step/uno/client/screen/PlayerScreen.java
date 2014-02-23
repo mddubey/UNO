@@ -259,7 +259,6 @@ public class PlayerScreen extends JFrame implements PlayerView {
         updateOpenPile(snapshot.openCard);
         this.observer = observer;
 
-
         PlayerSummary[] playerSummaries = snapshot.playerSummaries;
         createCatchButtons(Arrays.asList(playerSummaries), snapshot.currentPlayerIndex, snapshot.isInAscendingOrder);
 
