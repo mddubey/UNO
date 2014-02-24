@@ -6,6 +6,7 @@ import com.step.communication.factory.CommunicationFactory;
 import com.step.communication.server.MessageServerListener;
 import com.step.uno.messages.GameSnapshot;
 import com.step.uno.messages.Snapshot;
+import com.step.uno.model.Player;
 import com.step.uno.server.GameMasterObserver;
 import com.step.uno.server.network.GameMaster;
 
@@ -61,4 +62,6 @@ public class GameMasterController implements MessageServerListener, MessageChann
     public void onGameStart(Snapshot snapshot) {
 //        factory.getServerView(numberOfPlayers,numberOfPacks).display(snapshot);
     }
+
+
 }

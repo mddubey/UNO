@@ -136,7 +136,6 @@ public class ServerScreen extends JFrame implements ServerView {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                new GameOverScreen();
             }
         });
         quit.setBounds(60, 600, 120, 70);

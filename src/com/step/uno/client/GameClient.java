@@ -35,13 +35,7 @@ public class GameClient implements MessageChannelListener {
     }
 
     public void play(Card card, Colour newColour) {
-        //dont allow WildDraw4 when running colour is present
-        //dont allow colour change to last card when heading to last card
         channel.send(new PlayCardAction(card, newColour));
-    }
-
-    public void informNoActionOnDrawnCard() {
-        channel.send(new NoActionOnDrawnCard());
     }
 
     public void draw() {
@@ -72,14 +66,11 @@ public class GameClient implements MessageChannelListener {
         }
 
         if (message.getClass().equals(GameResult.class)) {
-            //present result on to screen
+            observer.showResults((GameResult)message);
         }
 
         if(message.getClass().equals(WaitingForDrawnCardAction.class)){
             observer.decideActionAfterDraw();
-            //add new card to screen
-            //wait for 5 seconds to play that card
-            //send no NoActionOnDrawnCard message
         }
     }
 

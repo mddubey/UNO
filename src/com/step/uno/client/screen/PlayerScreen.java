@@ -1,12 +1,14 @@
 package com.step.uno.client.screen;
 
-
+import com.step.uno.client.view.GameOverView;
 import com.step.uno.client.view.PlayerView;
+import com.step.uno.messages.GameResult;
 import com.step.uno.messages.Snapshot;
 import com.step.uno.messages.TurnLog;
 import com.step.uno.model.Card;
 import com.step.uno.model.Colour;
 import com.step.uno.model.PlayerSummary;
+import com.step.uno.server.screen.GameOverScreen;
 
 import javax.swing.*;
 import java.awt.*;
@@ -38,7 +40,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
     private Color[] foregroundColor = {Color.WHITE, Color.WHITE, Color.BLACK, Color.BLACK, Color.BLACK};
     private boolean enable = true;
     private Snapshot snapshot;
-    private JTextArea activityLog;
+    private JLabel activityLog;
 
     public PlayerScreen(String playerName) {
         super(playerName);
@@ -53,10 +55,14 @@ public class PlayerScreen extends JFrame implements PlayerView {
         addCenterPanel();
         createDrawButton();
         log.createLog(770, 10, 300, 720);
+
         JScrollPane log1 = log.getLog();
-        activityLog = new JTextArea("");
+        activityLog = new JLabel("samiksha");
         log1.add(activityLog);
+
+        activityLog.setVisible(true);
         masterPanel.add(log1);
+
         showUNOButton();
         showOpenedPileCard();
         showCurrentHint();
@@ -66,7 +72,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
     }
 
     private void addTextToActivityLog(TurnLog log) {
-        activityLog.append(log.playerName + " has played "
+        activityLog.setText(log.playerName + " has played "
                 + log.cardPlayed.sign + " with " + String.valueOf(log.cardPlayed.colour));
     }
 
@@ -239,6 +245,12 @@ public class PlayerScreen extends JFrame implements PlayerView {
 
     public void showWarningMessage() {
         JOptionPane.showMessageDialog(null, "You can not play this card");
+    }
+
+    @Override
+    public GameOverView switchToGameOverView(GameResult result) {
+        GameOverView view = new GameOverScreen(result);
+        return view;
     }
 
     private JButton getPlayerButtons(boolean enable, Map<JButton, Card> myCards, Card card) {

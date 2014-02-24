@@ -8,6 +8,7 @@ import com.step.uno.client.screen.PlayerViewObserver;
 import com.step.uno.client.view.JoinGameView;
 import com.step.uno.client.view.PlayerView;
 import com.step.uno.client.view.WaitingView;
+import com.step.uno.messages.GameResult;
 import com.step.uno.messages.Snapshot;
 import com.step.uno.model.Card;
 
@@ -61,6 +62,12 @@ public class GameClientController implements GameClientObserver, PlayerViewObser
     @Override
     public void decideActionAfterDraw() {
 //        playerView.
+    }
+
+    @Override
+    public void showResults(GameResult result) {
+        playerView.setVisible(false);
+        playerView.switchToGameOverView(result);
     }
 
     @Override

@@ -1,30 +1,34 @@
 package com.step.uno.server.screen;
 
+import com.step.uno.client.view.GameOverView;
+import com.step.uno.messages.GameResult;
+import com.step.uno.model.PlayerResult;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class GameOverScreen extends JFrame {
+public class GameOverScreen extends JFrame implements GameOverView {
     private JLabel gameOverLabel;
     private JPanel masterPanel;
     private JTable scoreCard;
     private JButton playAgain, quit;
 
-    public GameOverScreen() {
+    public GameOverScreen(GameResult result) {
         setSize(600, 600);
         setTitle("Game Result");
         setLocation(50, 300);
-        addToPanel();
+        addToPanel(result);
     }
 
-    public void addToPanel() {
+    private void addToPanel(GameResult result) {
         masterPanel = new JPanel();
         this.add(masterPanel);
         masterPanel.setLayout(null);
         masterPanel.setBackground(Color.GRAY);
         addLabelForGameOver();
-        addTableForDisplay();
+        addTableForDisplay(result);
         addPlayAgainButton();
         addButtonForQuit();
         setLocationRelativeTo(null);
@@ -43,6 +47,12 @@ public class GameOverScreen extends JFrame {
         });
         masterPanel.add(quit);
         quit.setBounds(320, 350, 200, 60);
+        quit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
     }
 
     private void addPlayAgainButton() {
@@ -52,13 +62,21 @@ public class GameOverScreen extends JFrame {
         masterPanel.add(playAgain);
     }
 
-    private void addTableForDisplay() {
+    private void addTableForDisplay(GameResult result) {
         String ColumnName[] = {"NAME", "CARDS", "TOTAL"};
-        String data[][] = {{"SAMIKSHA", "2", "3"}, {"MANALI", "2", "3"},
-                {"GURU", "2", "3"}, {"MD", "2", "3"}, {"KASHISH", "2", "3"}};
+        PlayerResult[] players = result.players;
+        String data[][] = new String[players.length][3];
+
+        for (int j = 0; j < players.length; j++) {
+            for (int i = 0; i < 1; i++) {
+                data[j][i] = players[j].name;
+                data[j][i + 1] = String.valueOf(players[j].points);
+                data[j][i + 2] = String.valueOf(players[j].cards.length);
+            }
+        }
         scoreCard = new JTable(data, ColumnName);
         scoreCard.setBounds(40, 120, 520, 200);
-        scoreCard.setLayout(new GridLayout(5, 3));
+        scoreCard.setLayout(new GridLayout(data.length, 3));
         scoreCard.setBackground(Color.lightGray);
         scoreCard.setBorder(BorderFactory.createLineBorder(Color.black));
         scoreCard.setFont(new Font("serif", Font.BOLD, 20));
