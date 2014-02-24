@@ -43,7 +43,13 @@ public class GameClientController implements GameClientObserver, PlayerViewObser
         if (snapshot.currentPlayerIndex != snapshot.myPlayerIndex) enable = false;
         else
             enable = true;
-        playerView.update(snapshot,this,enable);
+        String direction = decideDirectionOfArrow(snapshot.isInAscendingOrder);
+        playerView.update(snapshot, this, enable, direction);
+    }
+      
+    private String decideDirectionOfArrow(boolean isInAscendingOrder) {
+        if (isInAscendingOrder == false) return "<=";
+        else return "=>";
     }
 
     @Override
@@ -58,8 +64,10 @@ public class GameClientController implements GameClientObserver, PlayerViewObser
     }
 
     @Override
-    public void onCardPlayed(Card card) {
-        gameClient.play(card);
+    public void onCardPlayed(Card card, Snapshot snapshot) {
+        if (card.canFallow(snapshot))
+            gameClient.play(card);
+        else playerView.showWarningMessage();
     }
 
     @Override

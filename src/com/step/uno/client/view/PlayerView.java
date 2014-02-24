@@ -6,5 +6,7 @@ import com.step.uno.messages.Snapshot;
 public interface PlayerView {
     void showDisconnected();
 
-    void update(Snapshot snapshot, PlayerViewObserver observer,boolean enable);
+    void update(Snapshot snapshot, PlayerViewObserver observer, boolean enable, String direction);
+
+    void showWarningMessage();
 }

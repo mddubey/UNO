@@ -34,7 +34,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
     private JScrollPane cardsPane;
     LogDisplay log = new LogDisplay();
     private Colour[] colours = {Colour.Black, Colour.Blue, Colour.Green, Colour.Red, Colour.Yellow};
-    private Color[] backgroundColours = {Color.black, new Color(100,100,255), new Color(100,255,100), new Color(255,100,100),  new Color(225,255,100)};
+    private Color[] backgroundColours = {Color.black, new Color(100, 100, 255), new Color(100, 255, 100), new Color(255, 100, 100), new Color(225, 255, 100)};
     private Color[] foregroundColor = {Color.WHITE, Color.WHITE, Color.BLACK, Color.BLACK, Color.BLACK};
     private boolean enable = true;
     private Snapshot snapshot;
@@ -95,7 +95,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
         masterPanel.add(playersPanel);
     }
 
-    private void createCatchButtons(List<PlayerSummary> playerSummaries, int currentPlayerIndex, boolean isInAscendingOrder) {
+    private void createCatchButtons(List<PlayerSummary> playerSummaries, int currentPlayerIndex, boolean isInAscendingOrder, String direction) {
         if (catchButtons.size() == 0) {
             for (PlayerSummary playerSummary : playerSummaries) {
                 JButton catchButton = new JButton();
@@ -104,29 +104,22 @@ public class PlayerScreen extends JFrame implements PlayerView {
                 catchButton.setFont(new Font("serif", Font.BOLD, 30));
             }
             imageLable = new ArrayList<>();
-            JLabel e;
-            for (PlayerSummary playerSummary : playerSummaries) {
-                e = new JLabel("",JLabel.CENTER);
-                if(isInAscendingOrder == false) {
-                    e.setText("<=");
-                }
-                else{
-                    e.setText("=>");
-                }
-                imageLable.add(e);
-            }
+            for (PlayerSummary playerSummary : playerSummaries)
+                imageLable.add(new JLabel("", JLabel.CENTER));
         }
         for (int i = 0; i < catchButtons.size(); i++) {
             catchButtons.get(i).setText(playerSummaries.get(i).name + " : " + playerSummaries.get(i).cardsInHand);
             imageLable.get(i).setVisible(false);
         }
-
+        imageLable.get(currentPlayerIndex).setText(direction);
         imageLable.get(currentPlayerIndex).setVisible(true);
+
         for (JLabel label : imageLable) {
             label.setFont(new Font("serif", Font.BOLD, 30));
             playersPanel.add(label);
         }
     }
+
 
     private void addCenterPanel() {
         centerPanel = new JPanel();
@@ -204,7 +197,6 @@ public class PlayerScreen extends JFrame implements PlayerView {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-//                new GameOverScreen();
             }
         });
         quit.setBounds(60, 500, 120, 70);
@@ -230,26 +222,14 @@ public class PlayerScreen extends JFrame implements PlayerView {
     private void updatePlayerCards(List<Card> cards, boolean enable, final Snapshot snapshot) {
         final Map<JButton, Card> myCards = new HashMap<>();
         for (final Card card : cards) {
-            int index = Arrays.asList(colours).indexOf(card.colour);
-            JButton button = new JButton(String.valueOf(card.sign).split("_")[1]);
-            button.setEnabled(enable);
-            myCards.put(button, card);
-            button.setFont(new Font("serif", Font.BOLD, 18));
-            button.setBackground(backgroundColours[index]);
-            button.setForeground(foregroundColor[index]);
-            playerCardsPanel.add(button);
+            JButton button = getPlayerButtons(enable, myCards, card);
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     Object source = e.getSource();
-                    if (myCards.containsKey(source))
-                       if (myCards.get(source).canFallow(snapshot)) {
-                            observer.onCardPlayed(myCards.get(source));
-                            continueAction.setEnabled(false);
-                            drawButton.setEnabled(false );
-                        }
-                        else
-                            JOptionPane.showMessageDialog(null,"You can not play this card");
+                    observer.onCardPlayed(myCards.get(source), snapshot);
+                    continueAction.setEnabled(false);
+                    drawButton.setEnabled(false);
                 }
             });
         }
@@ -257,7 +237,23 @@ public class PlayerScreen extends JFrame implements PlayerView {
         masterPanel.add(cardsPane);
     }
 
-    public void update(Snapshot snapshot, PlayerViewObserver observer,boolean enable) {
+    public void showWarningMessage() {
+        JOptionPane.showMessageDialog(null, "You can not play this card");
+    }
+
+    private JButton getPlayerButtons(boolean enable, Map<JButton, Card> myCards, Card card) {
+        int index = Arrays.asList(colours).indexOf(card.colour);
+        JButton button = new JButton(String.valueOf(card.sign).split("_")[1]);
+        button.setEnabled(enable);
+        myCards.put(button, card);
+        button.setFont(new Font("serif", Font.BOLD, 18));
+        button.setBackground(backgroundColours[index]);
+        button.setForeground(foregroundColor[index]);
+        playerCardsPanel.add(button);
+        return button;
+    }
+
+    public void update(Snapshot snapshot, PlayerViewObserver observer, boolean enable, String direction) {
         this.snapshot = snapshot;
         Card[] myCards = snapshot.myCards;
         drawButton.setEnabled((snapshot.disableDraw != null) ? snapshot.disableDraw : enable);
@@ -268,7 +264,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
         this.observer = observer;
 
         PlayerSummary[] playerSummaries = snapshot.playerSummaries;
-        createCatchButtons(Arrays.asList(playerSummaries), snapshot.currentPlayerIndex, snapshot.isInAscendingOrder);
+        createCatchButtons(Arrays.asList(playerSummaries), snapshot.currentPlayerIndex, snapshot.isInAscendingOrder, direction);
         if (snapshot.log.playerName == null)
             addTextToActivityLog(snapshot.log);
         activityLog.setVisible(true);

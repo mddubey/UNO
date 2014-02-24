@@ -5,6 +5,8 @@ import com.step.uno.client.view.JoinGameView;
 import com.step.uno.client.view.PlayerView;
 import com.step.uno.messages.Snapshot;
 import com.step.uno.model.Card;
+import com.step.uno.model.Colour;
+import com.step.uno.model.Sign;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -55,7 +57,7 @@ public class GameClientControllerTest {
         Snapshot snapshot = new Snapshot();
         controller.displaySnapShotOnView(snapshot, anyString());
         verify(stub.waitingView, times(1)).showVisible(false);
-        verify(playerView, times(1)).update(snapshot, controller, true);
+        verify(playerView, times(1)).update(snapshot, controller, true, "<=");
     }
 
     @Test
@@ -65,13 +67,17 @@ public class GameClientControllerTest {
         snapshot.myPlayerIndex = 1;
         controller.displaySnapShotOnView(snapshot, anyString());
 
-        verify(playerView, times(1)).update(snapshot, controller,false);
+        verify(playerView, times(1)).update(snapshot, controller,false, "<=");
     }
 
     @Test
     public void shouldBeAbleToInformThatCardHasPlayed() {
         Card card = new Card();
-        controller.onCardPlayed(card);
+        card.colour = Colour.Black;
+        card.sign = Sign._0;
+        Snapshot snapshot = new Snapshot();
+        snapshot.openCard = card;
+        controller.onCardPlayed(card, snapshot);
         verify(stub.gameClient, times(1)).play(card);
     }
 
