@@ -59,8 +59,6 @@ public class PlayerProxy implements MessageChannelListener {
         observer.onNoActionOnDrawnCard(player);
     }
 
-
-
     @Override
     public void onMessage(MessageChannel client, Object message) {
         try {

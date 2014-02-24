@@ -4,7 +4,6 @@ import com.step.uno.client.view.GameOverView;
 import com.step.uno.client.view.PlayerView;
 import com.step.uno.messages.GameResult;
 import com.step.uno.messages.Snapshot;
-import com.step.uno.messages.TurnLog;
 import com.step.uno.model.Card;
 import com.step.uno.model.Colour;
 import com.step.uno.model.PlayerSummary;
@@ -22,11 +21,13 @@ class ActivityLogPane extends JScrollPane {
 
     ActivityLogPane() {
         getViewport().add(activityLog);
+        activityLog.setFont(new Font("serif",Font.BOLD,20));
+        activityLog.setEditable(false);
     }
 
-    public void append(TurnLog log) {
-        activityLog.append(log.playerName + " has played "
-                + log.cardPlayed.sign + " with " + String.valueOf(log.cardPlayed.colour));
+    public void append(String currentTurnLog) {
+        String log = activityLog.getText();
+        activityLog.setText(currentTurnLog + log);
     }
 }
 
@@ -36,7 +37,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
     private JPanel playerCardsPanel;
     private JPanel centerPanel;
     private JPanel openPileCardPanel;
-    private JButton UNOButton, quit;
+    private JButton unoButton, quit;
     private JButton drawButton;
     private JLabel openPile;
     private JTextArea hintToUser;
@@ -76,9 +77,9 @@ public class PlayerScreen extends JFrame implements PlayerView {
     }
 
     private void showUNOButton() {
-        UNOButton = new JButton("UNO");
-        UNOButton.setBounds(680, 600, 70, 50);
-        masterPanel.add(UNOButton);
+        unoButton = new JButton("UNO");
+        unoButton.setBounds(680, 600, 70, 50);
+        masterPanel.add(unoButton);
     }
 
     private void setJFrame() {
@@ -282,8 +283,8 @@ public class PlayerScreen extends JFrame implements PlayerView {
         if (catchButtons.size() == 0)
             createCatchButtons(Arrays.asList(playerSummaries));
         updateCatchButtons(Arrays.asList(playerSummaries), snapshot.currentPlayerIndex, snapshot.isInAscendingOrder, direction);
-        if (snapshot.log.playerName == null)
-            log.append(snapshot.log);
+//        if (snapshot.log.playerName == null)
+        log.append(snapshot.currentTurnLog);
         log.setVisible(true);
         centerPanel.setVisible(true);
         setVisible(true);

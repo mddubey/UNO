@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
@@ -99,8 +100,43 @@ public class GameTest {
     }
 
     @Test
+    public void afterPlayingACardCurrentTurnLogShouldGetUpdated() {
+        Card drawTwo = Card.createCard(Colour.Yellow, "_DrawTwo");
+        Game game = new Game(1, players);
+        game.initialize();
+        game.playCard(players.get(0), drawTwo , Colour.Yellow);
+        Snapshot snapshot = new Snapshot();
+        game.populate(snapshot, players.get(0));
+        assertEquals("me played a Yellow _DrawTwo card\n",snapshot.currentTurnLog);
+    }
+
+    @Test
+    public void afterDrawingACardCurrentTurnLogShouldGetUpdated() {
+        Card drawTwo = Card.createCard(Colour.Yellow, "_DrawTwo");
+        Game game = new Game(1, players);
+        game.initialize();
+        game.drawCard(players.get(0));
+        Snapshot snapshot = new Snapshot();
+        game.populate(snapshot, players.get(0));
+        assertEquals("me drew a card \n",snapshot.currentTurnLog);
+    }
+
+    @Test
+    public void afterInitializingGenerateSnapshotShouldHaveACurrentTurnLog() {
+        Card drawTwo = Card.createCard(Colour.Yellow, "_DrawTwo");
+        Game game = new Game(1, players);
+        game.initialize();
+        Snapshot snapshot = new Snapshot();
+        game.populate(snapshot, players.get(0));
+
+        String expected = "Game starts with";
+        assertTrue(snapshot.currentTurnLog.startsWith(expected));
+    }
+
+    @Test
     public void onDrawTwoAPlayerShouldTakeCardAsManyAsNumberOfDrawTwoCounts() {
-        List<Player> mockPlayers = Arrays.asList(mock(Player.class), mock(Player.class));
+        List<Player> mockPlayers =
+                Arrays.asList(mock(Player.class), mock(Player.class));
 
         Game game = new Game(1, mockPlayers);
         game.playCard(mockPlayers.get(0), Card.createCard(Colour.Blue, "_DrawTwo"), Colour.Blue);

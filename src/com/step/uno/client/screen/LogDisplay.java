@@ -15,15 +15,15 @@ public class LogDisplay {
     private JScrollPane log;
 
     public void createLog(int x, int y, int width, int height) {
-        List<Player> players = Arrays.asList(new Player("sa"),new Player("ma"));
-        List<Card> cards = Arrays.asList(Card.createCard(Colour.Blue,"_0"),Card.createCard(Colour.Green,"_1"));
+        List<Player> players = Arrays.asList(new Player("sa"), new Player("ma"));
+        List<Card> cards = Arrays.asList(Card.createCard(Colour.Blue, "_0"), Card.createCard(Colour.Green, "_1"));
         log = new JScrollPane();
         log.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         log.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         log.setBounds(x, y, width, height);
     }
 
-        public JScrollPane getLog() {
+    public JScrollPane getLog() {
         return log;
     }
 }

@@ -63,7 +63,7 @@ public class GameOverScreen extends JFrame implements GameOverView {
     }
 
     private void addTableForDisplay(GameResult result) {
-        String ColumnName[] = {"NAME", "CARDS", "TOTAL"};
+        String columnName[] = {"NAME", "CARDS", "TOTAL"};
         PlayerResult[] players = result.players;
         String data[][] = new String[players.length][3];
 
@@ -74,7 +74,9 @@ public class GameOverScreen extends JFrame implements GameOverView {
                 data[j][i + 2] = String.valueOf(players[j].cards.length);
             }
         }
-        scoreCard = new JTable(data, ColumnName);
+        scoreCard = new JTable(data, columnName);
+        scoreCard.getTableHeader().setVisible(true);
+        System.out.println(scoreCard.getTableHeader().toString());
         scoreCard.setBounds(40, 120, 520, 200);
         scoreCard.setLayout(new GridLayout(data.length, 3));
         scoreCard.setBackground(Color.lightGray);
@@ -92,4 +94,5 @@ public class GameOverScreen extends JFrame implements GameOverView {
         gameOverLabel.setFont(new Font("serif", Font.BOLD, 50));
         masterPanel.add(gameOverLabel);
     }
+
 }

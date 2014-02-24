@@ -15,6 +15,6 @@ public class Snapshot implements Serializable {
     public int myPlayerIndex;
     public Colour runningColour;
     public int draw2Run;
-    public Boolean disableDraw =null;
-    public TurnLog log;
+    public Boolean disableDraw = null;
+    public String currentTurnLog;
 }

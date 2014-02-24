@@ -2,7 +2,6 @@ package com.step.uno.model;
 
 import com.step.uno.messages.GameResult;
 import com.step.uno.messages.Snapshot;
-import com.step.uno.messages.TurnLog;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,6 +17,7 @@ public class Game {
     private int draw2Run = 0;
     private Card card;
     private Player player;
+    private List<String> log = new ArrayList<>();
 
     public Game(int packs, List<Player> givenPlayers) {
         players = new ArrayList<>(givenPlayers);
@@ -33,7 +33,13 @@ public class Game {
                 player.take(draw());
             }
         }
-        openDeck.add(draw());
+        Card drawnCard = draw();
+        openDeck.add(drawnCard);
+        updateLogAfterInitilize(drawnCard);
+    }
+
+    private void updateLogAfterInitilize(Card card) {
+        log.add("Game starts with " + card.colour + " " + card.sign + "\n");
     }
 
     private Card draw() {
@@ -57,11 +63,10 @@ public class Game {
         snapshot.isInAscendingOrder = this.isInAscendingOrder;
         snapshot.runningColour = runningColour;
         snapshot.draw2Run = draw2Run;
-        snapshot.log = new TurnLog(player.name, card);
+        snapshot.currentTurnLog = this.log.get(log.size() - 1);
     }
 
     public void playCard(Player player, Card card, Colour newColour) {
-        //handle action of card
         this.player = player;
         this.card = card;
         player.play(this.card);
@@ -71,6 +76,15 @@ public class Game {
         handleDrawTwo(card);
         handleWildCard(card, newColour);
         nextTurn();
+        updateLogAfterPlay(player, card);
+    }
+
+    private void updateLogAfterDraw(Player player) {
+        log.add(player.name + " drew a card \n");
+    }
+
+    private void updateLogAfterPlay(Player player, Card card) {
+        log.add(player.name + " played a " + card.colour + " " + card.sign + " card" + "\n");
     }
 
     private void handleReverse(Card card) {
@@ -102,16 +116,15 @@ public class Game {
     }
 
     private void nextTurn() {
-        //handle reverse and skip
         int increment = isInAscendingOrder ? 1 : -1;
         currentPlayerIndex = currentPlayerIndex + increment + players.size();
         currentPlayerIndex %= players.size();
     }
 
     public Card drawCard(Player player) {
-        //Can play the same card in that turn
         Card newCard = draw();
         player.take(newCard);
+        updateLogAfterDraw(player);
         return newCard;
     }
 
@@ -143,15 +156,6 @@ public class Game {
 
     public void moveForwardAsPlayerTookNoActionOnDrawnCard() {
         nextTurn();
-    }
-
-    private boolean handleDraw4(Snapshot snapshot, Card card) {
-        Colour runningColor = snapshot.runningColour;
-        for (Card myCard : snapshot.myCards) {
-            if (myCard.colour.equals(runningColor))
-                return false;
-        }
-        return true;
     }
 }
 
