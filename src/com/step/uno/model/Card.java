@@ -1,5 +1,7 @@
 package com.step.uno.model;
 
+import com.step.uno.messages.Snapshot;
+
 import java.awt.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -63,16 +65,24 @@ public class Card implements Serializable {
         return true;
     }
 
-    public boolean isCardEqual(Card card, int draw2Run) {
+    public boolean canFallow(Snapshot snapshot) {
         if (this.sign.equals(Sign._Wild)) return true;
         if (this.sign.equals(Sign._DrawFour))
+            return handleDraw4(snapshot);
+        if (snapshot.openCard.colour.equals(Colour.Black))
             return true;
-        if (card.colour.equals(Colour.Black))
-            return true;
-        if (draw2Run != 0)
-            if (card.sign.equals(Sign._DrawTwo))
+        if (snapshot.draw2Run != 0)
+            if (snapshot.openCard.sign.equals(Sign._DrawTwo))
                 return this.sign.equals(Sign._DrawTwo);
-        return this.sign.equals(card.sign) || card.colour.equals(this.colour);
+            else return false;
+        return this.sign.equals(snapshot.openCard.sign) || snapshot.openCard.colour.equals(this.colour);
+    }
+    private boolean handleDraw4(Snapshot snapshot) {
+        for (Card myCard : snapshot.myCards) {
+            if(myCard.colour.equals(snapshot.runningColour))
+                return false;
+        }
+        return true;
     }
 
     @Override
@@ -80,14 +90,6 @@ public class Card implements Serializable {
         int result = colour != null ? colour.hashCode() : 0;
         result = 31 * result + (sign != null ? sign.hashCode() : 0);
         return result;
-    }
-
-    public int getCardPoints() {
-        return cardPoints;
-    }
-
-    public Color getColor() {
-        return color;
     }
 
 }
