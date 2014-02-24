@@ -29,11 +29,11 @@ public class Deck {
     }
 
     public Card lookAtLast() {
-        return cards.get(cards.size()-1);
+        return cards.get(cards.size() - 1);
     }
 
     public boolean isEmpty() {
-        return cards.size()==0;
+        return cards.size() == 0;
     }
 
     public List<Card> drawAllButLast() {

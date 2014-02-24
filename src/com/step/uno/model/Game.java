@@ -15,7 +15,7 @@ public class Game {
     private final Deck openDeck;
     private boolean isInAscendingOrder = true;
     private Colour runningColour;
-    private int draw2Run=0;
+    private int draw2Run = 0;
     private Card card;
     private Player player;
 
@@ -35,8 +35,9 @@ public class Game {
         }
         openDeck.add(draw());
     }
-    private Card draw(){
-        if(closedDeck.isEmpty()){
+
+    private Card draw() {
+        if (closedDeck.isEmpty()) {
             closedDeck.addAll(openDeck.drawAllButLast());
             closedDeck.shuffle();
         }
@@ -56,7 +57,7 @@ public class Game {
         snapshot.isInAscendingOrder = this.isInAscendingOrder;
         snapshot.runningColour = runningColour;
         snapshot.draw2Run = draw2Run;
-        snapshot.log = new TurnLog(player.name,card);
+        snapshot.log = new TurnLog(player.name, card);
     }
 
     public void playCard(Player player, Card card, Colour newColour) {
@@ -74,7 +75,7 @@ public class Game {
 
     private void handleReverse(Card card) {
         if (!card.sign.equals(Sign._Reverse)) return;
-        isInAscendingOrder=!isInAscendingOrder;
+        isInAscendingOrder = !isInAscendingOrder;
     }
 
     private void handleSkip(Card card) {
@@ -102,7 +103,7 @@ public class Game {
 
     private void nextTurn() {
         //handle reverse and skip
-        int increment = isInAscendingOrder?1:-1;
+        int increment = isInAscendingOrder ? 1 : -1;
         currentPlayerIndex = currentPlayerIndex + increment + players.size();
         currentPlayerIndex %= players.size();
     }
@@ -147,7 +148,7 @@ public class Game {
     private boolean handleDraw4(Snapshot snapshot, Card card) {
         Colour runningColor = snapshot.runningColour;
         for (Card myCard : snapshot.myCards) {
-            if(myCard.colour.equals(runningColor))
+            if (myCard.colour.equals(runningColor))
                 return false;
         }
         return true;

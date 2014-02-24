@@ -36,7 +36,7 @@ idea {
 
 distZip {
     into(project.name + "/bin" ) {
-        from './startClient.sh'
+        from './player.sh'
         include '*'
     }
 }
