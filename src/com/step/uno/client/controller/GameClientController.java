@@ -72,7 +72,7 @@ public class GameClientController implements GameClientObserver, PlayerViewObser
 
     @Override
     public void onCardPlayed(Card card, Snapshot snapshot) {
-        if (card.canFallow(snapshot))
+        if (card.canFollow(snapshot))
             gameClient.play(card);
         else playerView.showWarningMessage();
     }

@@ -1,10 +1,13 @@
 package com.step.uno.model;
 
 import com.step.uno.messages.Snapshot;
+import junit.framework.Assert;
 import org.junit.Test;
 
 import static junit.framework.Assert.*;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertTrue;
 
 public class CardTest {
     int draw2Run = 0;
@@ -33,10 +36,10 @@ public class CardTest {
 
     @Test
     public void shouldTellPlayingCardIsSameWithOpenPileCardWhenColorsAreEqual() {
-        Card actual = Card.createCard(Colour.Blue, "_2");
+        Card openPileCard = Card.createCard(Colour.Blue, "_2");
         snapshot.openCard = Card.createCard(Colour.Blue, "_3");
         snapshot.draw2Run = draw2Run;
-        assertTrue(actual.canFallow(snapshot));
+        assertTrue(openPileCard.canFollow(snapshot));
     }
 
     @Test
@@ -44,7 +47,7 @@ public class CardTest {
         Card actual = Card.createCard(Colour.Green, "_2");
         snapshot.openCard = Card.createCard(Colour.Blue, "_2");
         snapshot.draw2Run = draw2Run;
-        assertTrue(actual.canFallow(snapshot));
+        assertTrue(actual.canFollow(snapshot));
     }
 
     @Test
@@ -52,7 +55,7 @@ public class CardTest {
         Card actual = Card.createCard(Colour.Blue, "_2");
         snapshot.openCard = Card.createCard(Colour.Blue, "_2");
         snapshot.draw2Run = draw2Run;
-        assertTrue(actual.canFallow(snapshot));
+        assertTrue(actual.canFollow(snapshot));
     }
 
     @Test
@@ -60,7 +63,7 @@ public class CardTest {
         Card actual = Card.createCard(Colour.Green, "_3");
         snapshot.openCard = Card.createCard(Colour.Blue, "_2");
         snapshot.draw2Run = draw2Run;
-        assertFalse(actual.canFallow(snapshot));
+        assertFalse(actual.canFollow(snapshot));
     }
 
     @Test
@@ -68,22 +71,30 @@ public class CardTest {
         Card expected = Card.createCard(Colour.Black, "_Wild");
         snapshot.openCard = Card.createCard(Colour.Blue, "_2");
         snapshot.draw2Run = draw2Run;
-        assertTrue(expected.canFallow(snapshot));
+        assertTrue(expected.canFollow(snapshot));
     }
 
     @Test
     public void shouldTellDrawTwoIsPlayableOnCardWithSameSign() {
         Card expected = Card.createCard(Colour.Green, "_DrawTwo");
         snapshot.openCard = Card.createCard(Colour.Blue, "_DrawTwo");
-        snapshot.draw2Run = draw2Run;
-        assertTrue(expected.canFallow(snapshot));
+        snapshot.draw2Run = 2;
+        assertTrue(expected.canFollow(snapshot));
     }
 
     @Test
     public void shouldTellDrawTwoIsPlayableOnCardWithSameSignOrSameColor() {
         Card expected = Card.createCard(Colour.Green, "_DrawTwo");
         snapshot.openCard = Card.createCard(Colour.Green, "_3");
-        snapshot.draw2Run = draw2Run;
-        assertTrue(expected.canFallow(snapshot));
+        snapshot.draw2Run = 0;
+        assertTrue(expected.canFollow(snapshot));
+    }
+
+    @Test
+    public void shouldTellNoCardOtherThanDrawTwoCanBePlayedOnADrawTwo(){
+        Card cardToPlay = Card.createCard(Colour.Black, "_Wild");
+        snapshot.openCard = Card.createCard(Colour.Green, "_DrawTwo");
+        snapshot.draw2Run = 2;
+        assertFalse(cardToPlay.canFollow(snapshot));
     }
 }

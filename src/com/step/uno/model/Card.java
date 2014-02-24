@@ -65,16 +65,18 @@ public class Card implements Serializable {
         return true;
     }
 
-    public boolean canFallow(Snapshot snapshot) {
-        if (this.sign.equals(Sign._Wild)) return true;
-        if (this.sign.equals(Sign._DrawFour))
-            return handleDraw4(snapshot);
-        if (snapshot.openCard.colour.equals(Colour.Black))
-            return true;
+    public boolean canFollow(Snapshot snapshot) {
         if (snapshot.draw2Run != 0)
             if (snapshot.openCard.sign.equals(Sign._DrawTwo))
                 return this.sign.equals(Sign._DrawTwo);
             else return false;
+        if (this.sign.equals(Sign._Wild)) return true;
+        if (this.sign.equals(Sign._DrawFour)) {
+            return handleDraw4(snapshot);
+        }
+        if (snapshot.openCard.colour.equals(Colour.Black)) {
+            return true;
+        }
         return this.sign.equals(snapshot.openCard.sign) || snapshot.openCard.colour.equals(this.colour);
     }
 
