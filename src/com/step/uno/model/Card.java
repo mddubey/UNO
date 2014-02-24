@@ -77,9 +77,10 @@ public class Card implements Serializable {
             else return false;
         return this.sign.equals(snapshot.openCard.sign) || snapshot.openCard.colour.equals(this.colour);
     }
+
     private boolean handleDraw4(Snapshot snapshot) {
         for (Card myCard : snapshot.myCards) {
-            if(myCard.colour.equals(snapshot.runningColour))
+            if (myCard.colour.equals(snapshot.runningColour))
                 return false;
         }
         return true;

@@ -8,11 +8,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 public class GameTest {
 
@@ -109,16 +106,16 @@ public class GameTest {
         game.playCard(mockPlayers.get(0), Card.createCard(Colour.Blue, "_DrawTwo"), Colour.Blue);
 
         game.drawTwoCards(mockPlayers.get(1));
-        verify(mockPlayers.get(1),times(2)).take(any(Card.class));
+        verify(mockPlayers.get(1), times(2)).take(any(Card.class));
     }
 
     @Test
-    public void onPlayingADrawFourNextPlayerShouldTakeFourCards(){
+    public void onPlayingADrawFourNextPlayerShouldTakeFourCards() {
         List<Player> mockPlayers = Arrays.asList(mock(Player.class), mock(Player.class));
 
         Game game = new Game(1, mockPlayers);
         game.playCard(mockPlayers.get(0), Card.createCard(Colour.Black, "_DrawFour"), Colour.Blue);
 
-        verify(mockPlayers.get(1),times(4)).take(any(Card.class));
+        verify(mockPlayers.get(1), times(4)).take(any(Card.class));
     }
 }
