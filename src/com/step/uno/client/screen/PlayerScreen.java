@@ -17,6 +17,19 @@ import java.awt.event.ActionListener;
 import java.util.*;
 import java.util.List;
 
+class ActivityLogPane extends JScrollPane {
+    private JTextArea activityLog = new JTextArea();
+
+    ActivityLogPane() {
+        getViewport().add(activityLog);
+    }
+
+    public void append(TurnLog log) {
+        activityLog.append(log.playerName + " has played "
+                + log.cardPlayed.sign + " with " + String.valueOf(log.cardPlayed.colour));
+    }
+}
+
 public class PlayerScreen extends JFrame implements PlayerView {
     private JPanel masterPanel;
     private JPanel playersPanel;
@@ -34,13 +47,11 @@ public class PlayerScreen extends JFrame implements PlayerView {
     private JButton continueAction = new JButton("Continue");
 
     private JScrollPane cardsPane;
-    LogDisplay log = new LogDisplay();
+    ActivityLogPane log = new ActivityLogPane();
     private Colour[] colours = {Colour.Black, Colour.Blue, Colour.Green, Colour.Red, Colour.Yellow};
     private Color[] backgroundColours = {Color.black, new Color(100, 100, 255), new Color(100, 255, 100), new Color(255, 100, 100), new Color(225, 255, 100)};
     private Color[] foregroundColor = {Color.WHITE, Color.WHITE, Color.BLACK, Color.BLACK, Color.BLACK};
-    private boolean enable = true;
     private Snapshot snapshot;
-    private JLabel activityLog;
 
     public PlayerScreen(String playerName) {
         super(playerName);
@@ -54,26 +65,14 @@ public class PlayerScreen extends JFrame implements PlayerView {
         addPlayerPanel();
         addCenterPanel();
         createDrawButton();
-        log.createLog(770, 10, 300, 720);
-
-        JScrollPane log1 = log.getLog();
-        activityLog = new JLabel("samiksha");
-        log1.add(activityLog);
-
-        activityLog.setVisible(true);
-        masterPanel.add(log1);
-
+        log.setBounds(770, 10, 300, 720);
+        masterPanel.add(log);
         showUNOButton();
         showOpenedPileCard();
         showCurrentHint();
         showPlayerCards();
         showContinueButton();
         quit();
-    }
-
-    private void addTextToActivityLog(TurnLog log) {
-        activityLog.setText(log.playerName + " has played "
-                + log.cardPlayed.sign + " with " + String.valueOf(log.cardPlayed.colour));
     }
 
     private void showUNOButton() {
@@ -101,18 +100,18 @@ public class PlayerScreen extends JFrame implements PlayerView {
         masterPanel.add(playersPanel);
     }
 
-    private void createCatchButtons(List<PlayerSummary> playerSummaries, int currentPlayerIndex, boolean isInAscendingOrder, String direction) {
-        if (catchButtons.size() == 0) {
-            for (PlayerSummary playerSummary : playerSummaries) {
-                JButton catchButton = new JButton();
-                catchButtons.add(catchButton);
-                playersPanel.add(catchButton);
-                catchButton.setFont(new Font("serif", Font.BOLD, 30));
-            }
-            imageLable = new ArrayList<>();
-            for (PlayerSummary playerSummary : playerSummaries)
-                imageLable.add(new JLabel("", JLabel.CENTER));
+    private void createCatchButtons(List<PlayerSummary> playerSummaries) {
+        imageLable = new ArrayList<>();
+        for (int i = 0; i < playerSummaries.size(); i++) {
+            JButton catchButton = new JButton();
+            catchButtons.add(catchButton);
+            playersPanel.add(catchButton);
+            catchButton.setFont(new Font("serif", Font.BOLD, 30));
+            imageLable.add(new JLabel("", JLabel.CENTER));
         }
+    }
+
+    private void updateCatchButtons(List<PlayerSummary> playerSummaries, int currentPlayerIndex, boolean isInAscendingOrder, String direction) {
         for (int i = 0; i < catchButtons.size(); i++) {
             catchButtons.get(i).setText(playerSummaries.get(i).name + " : " + playerSummaries.get(i).cardsInHand);
             imageLable.get(i).setVisible(false);
@@ -215,8 +214,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
         playerCardsPanel.removeAll();
         playerCardsPanel.setLayout(new GridLayout(1, 5));
         playerCardsPanel.setBackground(Color.white);
-        cardsPane = new
-                JScrollPane(playerCardsPanel);
+        cardsPane = new JScrollPane(playerCardsPanel);
 
         cardsPane = new JScrollPane(playerCardsPanel);
         cardsPane.setBounds(20, 600, 650, 100);
@@ -232,10 +230,9 @@ public class PlayerScreen extends JFrame implements PlayerView {
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    Object source = e.getSource();
                     drawButton.setEnabled(false);
                     continueAction.setEnabled(false);
-                    observer.onCardPlayed(myCards.get(source), snapshot);
+                    observer.onCardPlayed(myCards.get(e.getSource()), snapshot);
                 }
             });
         }
@@ -282,10 +279,12 @@ public class PlayerScreen extends JFrame implements PlayerView {
         this.observer = observer;
 
         PlayerSummary[] playerSummaries = snapshot.playerSummaries;
-        createCatchButtons(Arrays.asList(playerSummaries), snapshot.currentPlayerIndex, snapshot.isInAscendingOrder, direction);
+        if (catchButtons.size() == 0)
+            createCatchButtons(Arrays.asList(playerSummaries));
+        updateCatchButtons(Arrays.asList(playerSummaries), snapshot.currentPlayerIndex, snapshot.isInAscendingOrder, direction);
         if (snapshot.log.playerName == null)
-            addTextToActivityLog(snapshot.log);
-        activityLog.setVisible(true);
+            log.append(snapshot.log);
+        log.setVisible(true);
         centerPanel.setVisible(true);
         setVisible(true);
 
