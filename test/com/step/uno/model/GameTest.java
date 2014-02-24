@@ -107,7 +107,7 @@ public class GameTest {
         game.playCard(players.get(0), drawTwo , Colour.Yellow);
         Snapshot snapshot = new Snapshot();
         game.populate(snapshot, players.get(0));
-        assertEquals("me played a Yellow _DrawTwo card\n",snapshot.currentTurnLog);
+        assertEquals("me played a Yellow DrawTwo card\n",snapshot.currentTurnLog);
     }
 
     @Test

@@ -29,7 +29,7 @@ public class GameOverScreen extends JFrame implements GameOverView {
         masterPanel.setBackground(Color.GRAY);
         addLabelForGameOver();
         addTableForDisplay(result);
-        addPlayAgainButton();
+//        addPlayAgainButton();
         addButtonForQuit();
         setLocationRelativeTo(null);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

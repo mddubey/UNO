@@ -5,18 +5,21 @@ import com.step.communication.factory.CommunicationFactory;
 import com.step.uno.client.GameClient;
 import com.step.uno.client.GameClientObserver;
 import com.step.uno.client.screen.PlayerViewObserver;
+import com.step.uno.client.view.ColourChooserView;
 import com.step.uno.client.view.JoinGameView;
 import com.step.uno.client.view.PlayerView;
 import com.step.uno.client.view.WaitingView;
 import com.step.uno.messages.GameResult;
 import com.step.uno.messages.Snapshot;
 import com.step.uno.model.Card;
+import com.step.uno.model.Colour;
 
 public class GameClientController implements GameClientObserver, PlayerViewObserver {
     private CommunicationFactory factory;
     private JoinGameView playerLoginView;
     private WaitingView waitingView;
     private PlayerView playerView;
+    private ColourChooserView chooserView;
     private GameClient gameClient;
 
 
@@ -24,6 +27,7 @@ public class GameClientController implements GameClientObserver, PlayerViewObser
         this.factory = factory;
         gameClient = factory.createGameClient(this);
         waitingView = factory.getWaitingView();
+        chooserView = factory.getColourChooserView();
     }
 
     public void join(String serverAddress, String playerName) {
@@ -72,9 +76,17 @@ public class GameClientController implements GameClientObserver, PlayerViewObser
 
     @Override
     public void onCardPlayed(Card card, Snapshot snapshot) {
-        if (card.canFollow(snapshot))
-            gameClient.play(card);
-        else playerView.showWarningMessage();
+        if (!card.canFollow(snapshot)) {
+            System.out.println(playerView);
+            playerView.showWarningMessage();
+            return;
+        }
+        if (card.isWild()) {
+            Colour newColour = chooserView.showVisible();
+            gameClient.play(card, newColour);
+            return;
+        }
+        gameClient.play(card);
     }
 
     @Override
@@ -82,10 +94,8 @@ public class GameClientController implements GameClientObserver, PlayerViewObser
         if (draw2Run > 0) {
             gameClient.drawTwo();
             playerView.disableContinueAfterDraw2();
-        }
-        else
+        } else
             gameClient.draw();
-
     }
 
     @Override

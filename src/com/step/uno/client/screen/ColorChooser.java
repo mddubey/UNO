@@ -1,18 +1,25 @@
 package com.step.uno.client.screen;
 
-import javax.swing.*;
+import com.step.uno.client.view.ColourChooserView;
+import com.step.uno.model.Colour;
 
-public class ColorChooser {
-    public String choseColor() {
+import javax.swing.*;
+import java.util.Arrays;
+
+public class ColorChooser implements ColourChooserView {
+    public Colour chooseColor() {
         String[] possibleValues = {"RED", "BLUE", "YELLOW", "GREEN"};
+        Colour[] colours = {Colour.Red, Colour.Blue, Colour.Yellow, Colour.Green};
+
         String selectedValue = (String) JOptionPane.showInputDialog(null,
                 "Choose color", "COLOR",
                 JOptionPane.QUESTION_MESSAGE, null,
                 possibleValues, possibleValues[0]);
-        return selectedValue;
+        return Arrays.asList(colours).get(Arrays.asList(possibleValues).indexOf(selectedValue));
     }
 
-    public static void main(String[] args) {
-        System.out.println(new ColorChooser().choseColor());
+    @Override
+    public Colour showVisible() {
+        return this.chooseColor();
     }
 }
