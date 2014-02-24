@@ -233,9 +233,9 @@ public class PlayerScreen extends JFrame implements PlayerView {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     Object source = e.getSource();
-                    observer.onCardPlayed(myCards.get(source), snapshot);
-                    continueAction.setEnabled(false);
                     drawButton.setEnabled(false);
+                    continueAction.setEnabled(false);
+                    observer.onCardPlayed(myCards.get(source), snapshot);
                 }
             });
         }
@@ -244,6 +244,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
     }
 
     public void showWarningMessage() {
+        drawButton.setEnabled(true);
         JOptionPane.showMessageDialog(null, "You can not play this card");
     }
 
@@ -251,6 +252,11 @@ public class PlayerScreen extends JFrame implements PlayerView {
     public GameOverView switchToGameOverView(GameResult result) {
         GameOverView view = new GameOverScreen(result);
         return view;
+    }
+
+    @Override
+    public void disableContinueAfterDraw2() {
+        continueAction.setEnabled(false);
     }
 
     private JButton getPlayerButtons(boolean enable, Map<JButton, Card> myCards, Card card) {

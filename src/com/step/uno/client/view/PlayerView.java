@@ -14,4 +14,6 @@ public interface PlayerView {
     GameOverView switchToGameOverView(GameResult result);
 
     void setVisible(boolean enable);
+
+    public void disableContinueAfterDraw2();
 }

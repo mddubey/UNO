@@ -47,7 +47,7 @@ public class GameClientController implements GameClientObserver, PlayerViewObser
         String direction = decideDirectionOfArrow(snapshot.isInAscendingOrder);
         playerView.update(snapshot, this, enable, direction);
     }
-      
+
     private String decideDirectionOfArrow(boolean isInAscendingOrder) {
         if (isInAscendingOrder == false) return "<=";
         else return "=>";
@@ -78,11 +78,14 @@ public class GameClientController implements GameClientObserver, PlayerViewObser
     }
 
     @Override
-    public void onDraw(int count) {
-        if(count > 0)
-        gameClient.drawTwo();
+    public void onDraw(int draw2Run) {
+        if (draw2Run > 0) {
+            gameClient.drawTwo();
+            playerView.disableContinueAfterDraw2();
+        }
         else
             gameClient.draw();
+
     }
 
     @Override
