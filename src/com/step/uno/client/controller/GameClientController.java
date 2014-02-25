@@ -91,6 +91,7 @@ public class GameClientController implements GameClientObserver, PlayerViewObser
         if (card.isWild()) {
             this.card = card;
             chooserView.showVisible(true);
+            playerView.setEnable(false);
             return;
         }
         gameClient.play(card);
@@ -114,6 +115,7 @@ public class GameClientController implements GameClientObserver, PlayerViewObser
     public void onNewColour(Colour colour) {
         gameClient.play(card, colour);
         chooserView.showVisible(false);
+        playerView.setEnable(true);
     }
 
     public void onDeclaredUno(int length) {

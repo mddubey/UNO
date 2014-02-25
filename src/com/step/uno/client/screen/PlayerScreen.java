@@ -78,7 +78,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
 
     private void showUNOButton() {
         unoButton = new JButton("UNO");
-        unoButton.setBounds(680, 600, 70, 50);
+        unoButton.setBounds(600, 500, 70, 50);
         unoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -103,7 +103,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
     private void addPlayerPanel() {
         playersPanel = new JPanel();
         playersPanel.setBounds(30, 30, 700, 100);
-        playersPanel.setLayout(new GridLayout(2, 5));
+        playersPanel.setLayout(new GridLayout(2, 0));
         masterPanel.add(playersPanel);
     }
 
@@ -160,7 +160,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
                 observer.onDraw(snapshot.draw2Run);
             }
         });
-        drawButton.setBounds(5, 5, 120, 100);
+        drawButton.setBounds(5, 5, 100, 70);
         centerPanel.add(drawButton);
     }
 
@@ -181,11 +181,11 @@ public class PlayerScreen extends JFrame implements PlayerView {
     private void showOpenedPileCard() {
         openPileCardPanel = new JPanel();
         openPileCardPanel.setLayout(null);
-        openPileCardPanel.setBounds(5, 110, 120, 100);
+        openPileCardPanel.setBounds(5, 100, 100, 70);
         centerPanel.add(openPileCardPanel);
         openPile = new JLabel("", JLabel.CENTER);
         openPile.setFont(new Font("Times new Roman", Font.BOLD, 18));
-        openPile.setBounds(5, 0, 100, 90);
+        openPile.setBounds(5, 0, 90, 70);
         openPileCardPanel.add(openPile);
         openPileCardPanel.setVisible(true);
     }
@@ -228,8 +228,8 @@ public class PlayerScreen extends JFrame implements PlayerView {
         masterPanel.remove(cardsPane);
         playerCardsPanel = new JPanel();
         playerCardsPanel.removeAll();
-        playerCardsPanel.setLayout(new GridLayout(1, 5));
         cardsPane = new JScrollPane(playerCardsPanel);
+        cardsPane.setPreferredSize(new Dimension(800, 200));
         masterPanel.add(cardsPane);
         playerCardsPanel.validate();
 
@@ -270,6 +270,11 @@ public class PlayerScreen extends JFrame implements PlayerView {
     }
 
     @Override
+    public void setEnable(boolean enable) {
+        setEnabled(enable);
+    }
+
+    @Override
     public void disableContinueAfterDraw2() {
         continueAction.setEnabled(false);
     }
@@ -285,13 +290,13 @@ public class PlayerScreen extends JFrame implements PlayerView {
             }
 
         }
-    }
-
+}
     private JButton getPlayerButtons(boolean enable, Map<JButton, Card> myCards, Card card) {
         int index = Arrays.asList(colours).indexOf(card.colour);
         JButton button = new JButton(card.sign.getValue());
         button.setEnabled(enable);
         myCards.put(button, card);
+        button.setPreferredSize(new Dimension(100,75));
         button.setFont(new Font("serif", Font.BOLD, 18));
         button.setBackground(backgroundColours[index]);
         button.setForeground(foregroundColor[index]);

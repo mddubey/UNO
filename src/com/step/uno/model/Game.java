@@ -56,7 +56,7 @@ public class Game {
     }
 
     private void updateLogAfterInitialize(Card card) {
-        log.add("Game starts with " + card.colour + " " + getSign(card) + " " + getTime() + "\n");
+        log.add(getTime() + " " +" Game starts with " + card.colour + " " + getSign(card) + "\n");
     }
 
     private String getSign(Card card) {
@@ -106,11 +106,11 @@ public class Game {
     }
 
     private void updateLogAfterDraw(Player player) {
-        log.add(player.name + " drew a card " + getTime() + "\n");
+        log.add(getTime() +" " + player.name + " drew a card " + "\n");
     }
 
     private void updateLogAfterPlay(Player player, Card card) {
-        log.add(player.name + " played a " + card.colour + " " + getSign(card) + " " + getTime() + "\n");
+        log.add(getTime() + " "+player.name + " played a " + card.colour + " " + getSign(card) + "\n");
     }
 
     private void handleReverse(Card card) {

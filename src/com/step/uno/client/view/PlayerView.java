@@ -15,6 +15,8 @@ public interface PlayerView {
 
     void setVisible(boolean enable);
 
+    void setEnable(boolean enable);
+
     public void disableContinueAfterDraw2();
 
     void hasDeclaredUno(String playerName);
