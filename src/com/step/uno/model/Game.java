@@ -2,7 +2,6 @@ package com.step.uno.model;
 
 import com.step.uno.messages.GameResult;
 import com.step.uno.messages.Snapshot;
-import com.sun.org.apache.bcel.internal.generic.DREM;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -42,7 +41,7 @@ public class Game {
         handleSkip(drawnCard);
         handleDrawTwo(drawnCard);
 
-        updateLogAfterInitilize(drawnCard);
+        updateLogAfterInitialize(drawnCard);
     }
 
     private Card drawCardButWild() {
@@ -55,7 +54,7 @@ public class Game {
         return drawnCard;
     }
 
-    private void updateLogAfterInitilize(Card card) {
+    private void updateLogAfterInitialize(Card card) {
         log.add("Game starts with " + card.colour + " " + getSign(card) + "\n");
     }
 
