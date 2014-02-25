@@ -38,7 +38,6 @@ public class Game {
 
         Card drawnCard = drawCardButWild();
         openDeck.add(drawnCard);
-
         handleReverse(drawnCard);
         handleSkip(drawnCard);
         handleDrawTwo(drawnCard);
@@ -157,14 +156,18 @@ public class Game {
 
     public void declareUno(Player player) {
         player.declareUno();
+        log.add(player.name + " has declared uno\n");
     }
 
-    public void catchUno(Player player, int playerIndex) {
+    public void catchUno(int playerIndex) {
         Player caughtPlayer = players.get(playerIndex);
         if (caughtPlayer.checkUno()) {
             caughtPlayer.take(draw());
             caughtPlayer.take(draw());
+            this.log.add(caughtPlayer.name + " has been catched " + getTime() + "\n");
         }
+        else
+            this.log.add("catch was not valid on " + caughtPlayer.name + " " + getTime() + "\n");
     }
 
     public void populate(GameResult result) {

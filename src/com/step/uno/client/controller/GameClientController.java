@@ -117,10 +117,16 @@ public class GameClientController implements GameClientObserver, PlayerViewObser
         chooserView.showVisible(false);
         playerView.setEnable(true);
     }
+
     public void onDeclaredUno(int length) {
         if (length == 1)
             gameClient.declareUno();
         else
             playerView.showWarningMessage("Sorry!! You have more than 1 card");
+    }
+
+    @Override
+    public void onCatchUnoAction(int catchPlayerIndex) {
+        gameClient.catchUno(catchPlayerIndex);
     }
 }

@@ -89,8 +89,11 @@ public class GameMaster implements MessageServerListener, PlayerProxyObserver {
     private void sendResult() {
         GameResult result = new GameResult();
         game.populate(result);
-        for (PlayerProxy proxy : proxies)
+        for (PlayerProxy proxy : proxies){
+
             proxy.sendResult(result);
+
+        }
     }
 
     @Override
@@ -117,8 +120,8 @@ public class GameMaster implements MessageServerListener, PlayerProxyObserver {
     }
 
     @Override
-    public void onPlayerCaughtUno(Player player, int playerIndex) {
-        game.catchUno(player, playerIndex);
+    public void onPlayerCaughtUno(int playerIndex) {
+        game.catchUno(playerIndex);
         sendSnapshot();
     }
 

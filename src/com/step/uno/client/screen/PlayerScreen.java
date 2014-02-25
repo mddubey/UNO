@@ -7,7 +7,6 @@ import com.step.uno.messages.Snapshot;
 import com.step.uno.model.Card;
 import com.step.uno.model.Colour;
 import com.step.uno.model.PlayerSummary;
-import com.step.uno.server.screen.GameOverScreen;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,7 +20,7 @@ class ActivityLogPane extends JScrollPane {
 
     ActivityLogPane() {
         getViewport().add(activityLog);
-        activityLog.setFont(new Font("serif",Font.BOLD,20));
+        activityLog.setFont(new Font("serif", Font.BOLD, 20));
         activityLog.setEditable(false);
     }
 
@@ -53,6 +52,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
     private Color[] backgroundColours = {Color.black, new Color(100, 100, 255), new Color(100, 255, 100), new Color(255, 100, 100), new Color(225, 255, 100)};
     private Color[] foregroundColor = {Color.WHITE, Color.WHITE, Color.BLACK, Color.BLACK, Color.BLACK};
     private Snapshot snapshot;
+    private boolean hasDrawnOneCard = false;
 
     public PlayerScreen(String playerName) {
         super(playerName);
@@ -112,6 +112,12 @@ public class PlayerScreen extends JFrame implements PlayerView {
         for (int i = 0; i < playerSummaries.size(); i++) {
             JButton catchButton = new JButton();
             catchButtons.add(catchButton);
+            catchButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    observer.onCatchUnoAction(catchButtons.indexOf(e.getSource()));
+                }
+            });
             playersPanel.add(catchButton);
             catchButton.setFont(new Font("serif", Font.BOLD, 30));
             imageLable.add(new JLabel("", JLabel.CENTER));
@@ -122,7 +128,9 @@ public class PlayerScreen extends JFrame implements PlayerView {
         for (int i = 0; i < catchButtons.size(); i++) {
             catchButtons.get(i).setText(playerSummaries.get(i).name + " : " + playerSummaries.get(i).cardsInHand);
             imageLable.get(i).setVisible(false);
+            catchButtons.get(i).setBackground(Color.white);
         }
+
         imageLable.get(currentPlayerIndex).setText(direction);
         imageLable.get(currentPlayerIndex).setVisible(true);
 
@@ -148,6 +156,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
             public void actionPerformed(ActionEvent e) {
                 continueAction.setEnabled(true);
                 drawButton.setEnabled(false);
+                hasDrawnOneCard = true;
                 observer.onDraw(snapshot.draw2Run);
             }
         });
@@ -236,6 +245,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
                     drawButton.setEnabled(false);
                     continueAction.setEnabled(false);
                     observer.onCardPlayed(myCards.get(e.getSource()), snapshot);
+                    hasDrawnOneCard = false;
                 }
             });
         }
@@ -244,7 +254,12 @@ public class PlayerScreen extends JFrame implements PlayerView {
     }
 
     public void showWarningMessage(String message) {
-        drawButton.setEnabled(true);
+        if (hasDrawnOneCard) {
+            continueAction.setEnabled(true);
+            drawButton.setEnabled(false);
+        }
+        else
+            drawButton.setEnabled(true);
         JOptionPane.showMessageDialog(null, message);
     }
 
@@ -268,9 +283,9 @@ public class PlayerScreen extends JFrame implements PlayerView {
     public void hasDeclaredUno(String playerName) {
         for (JButton catchButton : catchButtons) {
             String buttonText = catchButton.getText();
-            if(buttonText.contains(playerName)) {
+            if (buttonText.contains(playerName)) {
                 catchButton.setBackground(Color.LIGHT_GRAY);
-                catchButton.setText(buttonText.replaceAll("  UNO","") + "  UNO");
+                catchButton.setText(buttonText.replaceAll("  UNO", "") + "  UNO");
             }
 
         }
@@ -302,7 +317,6 @@ public class PlayerScreen extends JFrame implements PlayerView {
         if (catchButtons.size() == 0)
             createCatchButtons(Arrays.asList(playerSummaries));
         updateCatchButtons(Arrays.asList(playerSummaries), snapshot.currentPlayerIndex, snapshot.isInAscendingOrder, direction);
-//        if (snapshot.log.playerName == null)
         log.append(snapshot.currentTurnLog);
         log.setVisible(true);
         centerPanel.setVisible(true);
