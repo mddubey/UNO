@@ -35,9 +35,25 @@ public class Game {
                 player.take(draw());
             }
         }
-        Card openCard = draw();
-        openDeck.add(openCard);
-        updateLogAfterInitialize(openCard);
+
+        Card drawnCard = drawCardButWild();
+        openDeck.add(drawnCard);
+
+        handleReverse(drawnCard);
+        handleSkip(drawnCard);
+        handleDrawTwo(drawnCard);
+
+        updateLogAfterInitialize(drawnCard);
+    }
+
+    private Card drawCardButWild() {
+        Card drawnCard = draw();
+        if (drawnCard.isWild() || drawnCard.isDrawFour()) {
+            closedDeck.add(drawnCard);
+            closedDeck.shuffle();
+            return drawCardButWild();
+        }
+        return drawnCard;
     }
 
     private void updateLogAfterInitialize(Card card) {
