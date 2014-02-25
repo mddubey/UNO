@@ -9,6 +9,7 @@ import com.step.uno.client.view.ColourChooserView;
 import com.step.uno.client.view.JoinGameView;
 import com.step.uno.client.view.PlayerView;
 import com.step.uno.client.view.WaitingView;
+import com.step.uno.messages.DeclareUnoAction;
 import com.step.uno.messages.GameResult;
 import com.step.uno.messages.Snapshot;
 import com.step.uno.model.Card;
@@ -75,10 +76,15 @@ public class GameClientController implements GameClientObserver, PlayerViewObser
     }
 
     @Override
+    public void showPlayerDeclaredUno(DeclareUnoAction message) {
+        playerView.hasDeclaredUno(message.playerName);
+    }
+
+    @Override
     public void onCardPlayed(Card card, Snapshot snapshot) {
         if (!card.canFollow(snapshot)) {
             System.out.println(playerView);
-            playerView.showWarningMessage();
+            playerView.showWarningMessage("You can not play this card");
             return;
         }
         if (card.isWild()) {
@@ -101,5 +107,13 @@ public class GameClientController implements GameClientObserver, PlayerViewObser
     @Override
     public void onNoAction() {
         gameClient.noAction();
+    }
+
+    @Override
+    public void onDeclaredUno(int length) {
+        if (length == 1)
+            gameClient.declareUno();
+        else
+            playerView.showWarningMessage("Sorry!! You have more than 1 card");
     }
 }
