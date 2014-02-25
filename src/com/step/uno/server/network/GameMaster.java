@@ -117,8 +117,8 @@ public class GameMaster implements MessageServerListener, PlayerProxyObserver {
     }
 
     @Override
-    public void onPlayerCaughtUno(Player player, int playerIndex) {
-        game.catchUno(player, playerIndex);
+    public void onPlayerCaughtUno(int playerIndex) {
+        game.catchUno(playerIndex);
         sendSnapshot();
     }
 

@@ -136,7 +136,7 @@ public class Game {
         player.declareUno();
     }
 
-    public void catchUno(Player player, int playerIndex) {
+    public void catchUno(int playerIndex) {
         Player caughtPlayer = players.get(playerIndex);
         if (caughtPlayer.checkUno()) {
             caughtPlayer.take(draw());

@@ -116,4 +116,9 @@ public class GameClientController implements GameClientObserver, PlayerViewObser
         else
             playerView.showWarningMessage("Sorry!! You have more than 1 card");
     }
+
+    @Override
+    public void onCatchUnoAction(int catchPlayerIndex) {
+        gameClient.catchUno(catchPlayerIndex);
+    }
 }

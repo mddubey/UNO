@@ -10,4 +10,6 @@ public interface PlayerViewObserver {
     void onNoAction();
 
     void onDeclaredUno(int length);
+
+    void onCatchUnoAction(int catchPlayerIndex);
 }

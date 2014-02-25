@@ -52,7 +52,7 @@ public class PlayerProxy implements MessageChannelListener {
     }
 
     private void onClientMessage(CatchUnoAction catchUno){
-        observer.onPlayerCaughtUno(player, catchUno.playerIndex);
+        observer.onPlayerCaughtUno(catchUno.playerIndex);
     }
 
     private void onClientMessage(NoActionOnDrawnCard noAction){

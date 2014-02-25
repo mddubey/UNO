@@ -112,6 +112,12 @@ public class PlayerScreen extends JFrame implements PlayerView {
         for (int i = 0; i < playerSummaries.size(); i++) {
             JButton catchButton = new JButton();
             catchButtons.add(catchButton);
+            catchButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    observer.onCatchUnoAction(catchButtons.indexOf(e.getSource()));
+                }
+            });
             playersPanel.add(catchButton);
             catchButton.setFont(new Font("serif", Font.BOLD, 30));
             imageLable.add(new JLabel("", JLabel.CENTER));
