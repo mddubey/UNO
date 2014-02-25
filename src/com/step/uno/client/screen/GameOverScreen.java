@@ -13,6 +13,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class GameOverScreen extends JFrame implements GameOverView {
@@ -41,6 +42,7 @@ public class GameOverScreen extends JFrame implements GameOverView {
     }
 
     private void addIndividualPlayersResult(GameResult result) {
+        Arrays.sort(result.players);
         PlayerResult[] players = result.players;
         JPanel finalPanel = new JPanel();
         finalPanel.setPreferredSize(new Dimension(600, 700));
@@ -119,24 +121,6 @@ public class GameOverScreen extends JFrame implements GameOverView {
         masterPanel.add(gameOverLabel, BorderLayout.NORTH);
     }
 
-    public static void main(String[] args) {
-        List<Card> cards = new ArrayList<>();
-        cards.add(Card.createCard(Colour.Black, "_3"));
-        cards.add((Card.createCard(Colour.Green, "_8")));
-        cards.add(Card.createCard(Colour.Black, "_3"));
-        cards.add((Card.createCard(Colour.Green, "_8")));
-        cards.add(Card.createCard(Colour.Black, "_3"));
-        cards.add((Card.createCard(Colour.Green, "_8")));
-        cards.add(Card.createCard(Colour.Black, "_3"));
-        cards.add((Card.createCard(Colour.Green, "_8")));
-        cards.add(Card.createCard(Colour.Black, "_3"));
-        cards.add((Card.createCard(Colour.Green, "_8")));
-        PlayerResult playerResult1 = new PlayerResult("tanbir", cards, 10);
-        PlayerResult playerResult2 = new PlayerResult("shital", cards, 0);
-
-        GameResult results = new GameResult();
-        results.players = new PlayerResult[]{playerResult1, playerResult2};
-        new GameOverScreen(results);
-    }
+   
 
 }
