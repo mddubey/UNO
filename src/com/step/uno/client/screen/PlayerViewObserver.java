@@ -8,4 +8,6 @@ public interface PlayerViewObserver {
     public void onDraw(int count);
 
     void onNoAction();
+
+    void onDeclaredUno(int length);
 }
