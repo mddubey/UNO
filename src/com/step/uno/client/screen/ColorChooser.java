@@ -47,6 +47,7 @@ public class ColorChooser implements ColourChooserView, ActionListener {
 
         dialog.setSize(200, 200);
         dialog.setBounds(600,350,200,200);
+        dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
     }
 
     @Override
