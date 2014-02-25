@@ -5,6 +5,8 @@ import com.step.communication.factory.CommunicationFactory;
 import com.step.communication.server.MessageServer;
 import com.step.uno.client.GameClient;
 import com.step.uno.client.GameClientObserver;
+import com.step.uno.client.screen.ColorChooser;
+import com.step.uno.client.view.ColourChooserView;
 import com.step.uno.client.view.WaitingView;
 import com.step.uno.server.GameMasterObserver;
 import com.step.uno.server.network.GameMaster;
@@ -19,7 +21,7 @@ public class StubFactory extends CommunicationFactory {
     public final ServerScreen serverScreen = mock(ServerScreen.class);
     public final GameMaster gameMaster = mock(GameMaster.class);
     public WaitingView waitingView = mock(WaitingView.class);
-
+    public ColourChooserView view = mock(ColorChooser.class);
 
     @Override
     public MessageChannel connectTo(String serverAddress, MessageChannelListener observer) {
@@ -49,5 +51,10 @@ public class StubFactory extends CommunicationFactory {
     @Override
     public WaitingView getWaitingView() {
         return waitingView;
+    }
+
+    @Override
+    public ColourChooserView getColourChooserView() {
+        return view;
     }
 }

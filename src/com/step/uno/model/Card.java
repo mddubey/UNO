@@ -70,17 +70,21 @@ public class Card implements Serializable {
             if (snapshot.openCard.sign.equals(Sign._DrawTwo))
                 return this.sign.equals(Sign._DrawTwo);
             else return false;
-        if (this.sign.equals(Sign._Wild)) return true;
         if (this.sign.equals(Sign._DrawFour)) {
             return handleDraw4(snapshot);
         }
+        if(snapshot.openCard.isWild()) {
+            System.out.println(this.colour.equals(snapshot.runningColour));
+            return this.colour.equals(snapshot.runningColour);
+        }
+        if (this.sign.equals(Sign._Wild)) return true;
         if (snapshot.openCard.colour.equals(Colour.Black)) {
             return true;
         }
         return this.sign.equals(snapshot.openCard.sign) || snapshot.openCard.colour.equals(this.colour);
     }
 
-    private boolean handleDraw4(Snapshot snapshot) {
+    public boolean handleDraw4(Snapshot snapshot) {
         for (Card myCard : snapshot.myCards) {
             if (myCard.colour.equals(snapshot.runningColour))
                 return false;
@@ -95,6 +99,13 @@ public class Card implements Serializable {
         return result;
     }
 
+    public boolean isWild() {
+        return this.colour.equals(Colour.Black);
+    }
+
+    public boolean isDrawFour() {
+        return this.sign.equals(Sign._DrawFour);
+    }
 }
 
 

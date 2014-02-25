@@ -4,6 +4,7 @@ import com.step.communication.channel.MessageChannel;
 import com.step.communication.factory.CommunicationFactory;
 import com.step.communication.server.MessageServer;
 import com.step.communication.server.MessageServerListener;
+import com.step.uno.messages.DeclareUnoAction;
 import com.step.uno.messages.GameResult;
 import com.step.uno.messages.Snapshot;
 import com.step.uno.model.Card;
@@ -106,7 +107,13 @@ public class GameMaster implements MessageServerListener, PlayerProxyObserver {
     @Override
     public void onPlayerDeclaredUno(Player player) {
         game.declareUno(player);
-        sendSnapshot();
+        sendDeclareUnoAction(new DeclareUnoAction(player.name));
+    }
+
+    private void sendDeclareUnoAction(DeclareUnoAction declareUnoAction) {
+        for (PlayerProxy proxy : proxies) {
+            proxy.sendDeclareUnoAction(declareUnoAction);
+        }
     }
 
     @Override

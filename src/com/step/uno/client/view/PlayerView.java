@@ -9,11 +9,13 @@ public interface PlayerView {
 
     void update(Snapshot snapshot, PlayerViewObserver observer, boolean enable, String direction);
 
-    void showWarningMessage();
+    void showWarningMessage(String message);
 
     GameOverView switchToGameOverView(GameResult result);
 
     void setVisible(boolean enable);
 
     public void disableContinueAfterDraw2();
+
+    void hasDeclaredUno(String playerName);
 }
