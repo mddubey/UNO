@@ -39,9 +39,9 @@ public class Game {
         Card drawnCard = drawCardButWild();
         openDeck.add(drawnCard);
 
-        currentPlayerIndex = players.size() - 1;
-        playCard(players.get(players.size() - 1),drawnCard,drawnCard.colour);
-        log.remove(0);
+        handleReverse(drawnCard);
+        handleSkip(drawnCard);
+        handleDrawTwo(drawnCard);
 
         updateLogAfterInitialize(drawnCard);
     }

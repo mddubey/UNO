@@ -22,7 +22,7 @@ public class GameTest {
         game.initialize();
         PlayerSummary playerSummary = givenPlayers.get(0).generateSummary();
 
-        assertEquals(playerSummary.cardsInHand, 7);
+        assertEquals(7, playerSummary.cardsInHand);
     }
 
     @Test
