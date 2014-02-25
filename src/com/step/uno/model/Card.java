@@ -74,7 +74,6 @@ public class Card implements Serializable {
             return handleDraw4(snapshot);
         }
         if(snapshot.openCard.isWild()) {
-            System.out.println(this.colour.equals(snapshot.runningColour));
             return this.colour.equals(snapshot.runningColour);
         }
         if (this.sign.equals(Sign._Wild)) return true;

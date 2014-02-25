@@ -195,7 +195,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
     private void updateOpenPile(Card card) {
         int index = Arrays.asList(colours).indexOf(card.colour);
         openPileCardPanel.setBackground(backgroundColours[index]);
-        openPile.setText(String.valueOf(card.sign).split("_")[1]);
+        openPile.setText(card.sign.getValue());
         openPile.setForeground(foregroundColor[index]);
     }
 
@@ -286,6 +286,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
         for (JButton catchButton : catchButtons) {
             String buttonText = catchButton.getText();
             if (buttonText.contains(playerName)) {
+
                 catchButton.setBackground(Color.LIGHT_GRAY);
                 catchButton.setText(buttonText.replaceAll("  UNO", "") + "  UNO");
             }
@@ -295,7 +296,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
 
     private JButton getPlayerButtons(boolean enable, Map<JButton, Card> myCards, Card card) {
         int index = Arrays.asList(colours).indexOf(card.colour);
-        JButton button = new JButton(String.valueOf(card.sign).split("_")[1]);
+        JButton button = new JButton(card.sign.getValue());
         button.setEnabled(enable);
         myCards.put(button, card);
         button.setPreferredSize(new Dimension(100, 75));
@@ -304,6 +305,11 @@ public class PlayerScreen extends JFrame implements PlayerView {
         button.setForeground(foregroundColor[index]);
         playerCardsPanel.add(button);
         return button;
+    }
+
+    @Override
+    public void showDisconnected() {
+
     }
 
     public void update(Snapshot snapshot, PlayerViewObserver observer, boolean enable, String direction) {
@@ -327,7 +333,4 @@ public class PlayerScreen extends JFrame implements PlayerView {
 
     }
 
-    public void showDisconnected() {
-
-    }
 }

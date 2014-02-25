@@ -49,7 +49,7 @@ public class Player {
 
     public int calculatePoints() {
         int total = 0;
-        for (Card card : cards) total += card.sign.points;
+        for (Card card : cards) total += card.sign.getPoint();
         return total;
     }
 }

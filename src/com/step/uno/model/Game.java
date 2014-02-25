@@ -38,6 +38,7 @@ public class Game {
 
         Card drawnCard = drawCardButWild();
         openDeck.add(drawnCard);
+
         handleReverse(drawnCard);
         handleSkip(drawnCard);
         handleDrawTwo(drawnCard);
