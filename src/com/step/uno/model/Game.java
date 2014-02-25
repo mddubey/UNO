@@ -2,6 +2,7 @@ package com.step.uno.model;
 
 import com.step.uno.messages.GameResult;
 import com.step.uno.messages.Snapshot;
+import com.sun.org.apache.bcel.internal.generic.DREM;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -33,9 +34,25 @@ public class Game {
                 player.take(draw());
             }
         }
-        Card drawnCard = draw();
+
+        Card drawnCard = drawCardButWild();
         openDeck.add(drawnCard);
+
+        handleReverse(drawnCard);
+        handleSkip(drawnCard);
+        handleDrawTwo(drawnCard);
+
         updateLogAfterInitilize(drawnCard);
+    }
+
+    private Card drawCardButWild() {
+        Card drawnCard = draw();
+        if (drawnCard.isWild() || drawnCard.isDrawFour()) {
+            closedDeck.add(drawnCard);
+            closedDeck.shuffle();
+            return drawCardButWild();
+        }
+        return drawnCard;
     }
 
     private void updateLogAfterInitilize(Card card) {
@@ -43,7 +60,7 @@ public class Game {
     }
 
     private String getSign(Card card) {
-        return card.sign.toString().substring(1,card.sign.toString().length());
+        return card.sign.toString().substring(1, card.sign.toString().length());
     }
 
     private Card draw() {
