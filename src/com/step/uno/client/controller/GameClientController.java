@@ -49,7 +49,7 @@ public class GameClientController implements GameClientObserver, PlayerViewObser
     }
 
     private String decideDirectionOfArrow(boolean isInAscendingOrder) {
-        if (isInAscendingOrder == false) return "<=";
+        if (!isInAscendingOrder) return "<=";
         else return "=>";
     }
 

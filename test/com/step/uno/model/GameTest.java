@@ -107,18 +107,17 @@ public class GameTest {
         game.playCard(players.get(0), drawTwo , Colour.Yellow);
         Snapshot snapshot = new Snapshot();
         game.populate(snapshot, players.get(0));
-        assertEquals("me played a Yellow _DrawTwo card\n",snapshot.currentTurnLog);
+        assertTrue(snapshot.currentTurnLog.startsWith("me played a Yellow DrawTwo"));
     }
 
     @Test
     public void afterDrawingACardCurrentTurnLogShouldGetUpdated() {
-        Card drawTwo = Card.createCard(Colour.Yellow, "_DrawTwo");
         Game game = new Game(1, players);
         game.initialize();
         game.drawCard(players.get(0));
         Snapshot snapshot = new Snapshot();
         game.populate(snapshot, players.get(0));
-        assertEquals("me drew a card \n",snapshot.currentTurnLog);
+        assertTrue(snapshot.currentTurnLog.startsWith("me drew a card"));
     }
 
     @Test
