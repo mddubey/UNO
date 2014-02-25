@@ -23,4 +23,5 @@ public enum Sign implements Serializable{
     Sign(int v) {
         this.points = v;
     }
+
 }
