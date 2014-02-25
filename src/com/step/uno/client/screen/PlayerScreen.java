@@ -187,7 +187,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
         centerPanel.add(openPileCardPanel);
         openPile = new JLabel("", JLabel.CENTER);
         openPile.setFont(new Font("Times new Roman", Font.BOLD, 18));
-        openPile.setBounds(0, 0, 90, 70);
+        openPile.setBounds(15, 50, 90, 70);
         openPileCardPanel.add(openPile);
         openPileCardPanel.setVisible(true);
     }
