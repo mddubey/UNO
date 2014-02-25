@@ -75,7 +75,7 @@ public class GameOverScreen extends JFrame implements GameOverView {
             }
         }
         scoreCard = new JTable(data, columnName);
-        scoreCard.getTableHeader().setVisible(true);
+        
         System.out.println(scoreCard.getTableHeader().toString());
         scoreCard.setBounds(40, 120, 520, 200);
         scoreCard.setLayout(new GridLayout(data.length, 3));
