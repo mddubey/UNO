@@ -186,7 +186,7 @@ public class Game {
     }
 
     public void moveForwardAsPlayerTookNoActionOnDrawnCard(Player player) {
-        log.add(getTime() + "no action played by " + player.name + "\n");
+        log.add(getTime() + " no action played by " + player.name + "\n");
         nextTurn();
     }
 }
