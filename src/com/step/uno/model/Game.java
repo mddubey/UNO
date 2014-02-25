@@ -35,10 +35,10 @@ public class Game {
         }
         Card drawnCard = draw();
         openDeck.add(drawnCard);
-        updateLogAfterInitilize(drawnCard);
+        updateLogAfterInitialize(drawnCard);
     }
 
-    private void updateLogAfterInitilize(Card card) {
+    private void updateLogAfterInitialize(Card card) {
         log.add("Game starts with " + card.colour + " " + getSign(card) + "\n");
     }
 
@@ -67,6 +67,7 @@ public class Game {
         snapshot.isInAscendingOrder = this.isInAscendingOrder;
         snapshot.runningColour = runningColour;
         snapshot.draw2Run = draw2Run;
+        System.out.println(this.log.get(log.size() - 1));
         snapshot.currentTurnLog = this.log.get(log.size() - 1);
     }
 
@@ -134,6 +135,7 @@ public class Game {
 
     public void declareUno(Player player) {
         player.declareUno();
+        log.add(player.name + " has declared uno\n");
     }
 
     public void catchUno(int playerIndex) {
@@ -141,7 +143,10 @@ public class Game {
         if (caughtPlayer.checkUno()) {
             caughtPlayer.take(draw());
             caughtPlayer.take(draw());
+            this.log.add(caughtPlayer.name + " has been catched\n");
         }
+        else
+            this.log.add("catch was not valid on " + caughtPlayer.name + "\n");
     }
 
     public void populate(GameResult result) {

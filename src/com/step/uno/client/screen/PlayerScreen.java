@@ -21,7 +21,7 @@ class ActivityLogPane extends JScrollPane {
 
     ActivityLogPane() {
         getViewport().add(activityLog);
-        activityLog.setFont(new Font("serif",Font.BOLD,20));
+        activityLog.setFont(new Font("serif", Font.BOLD, 20));
         activityLog.setEditable(false);
     }
 
@@ -128,7 +128,9 @@ public class PlayerScreen extends JFrame implements PlayerView {
         for (int i = 0; i < catchButtons.size(); i++) {
             catchButtons.get(i).setText(playerSummaries.get(i).name + " : " + playerSummaries.get(i).cardsInHand);
             imageLable.get(i).setVisible(false);
+            catchButtons.get(i).setBackground(Color.white);
         }
+
         imageLable.get(currentPlayerIndex).setText(direction);
         imageLable.get(currentPlayerIndex).setVisible(true);
 
@@ -273,9 +275,9 @@ public class PlayerScreen extends JFrame implements PlayerView {
     public void hasDeclaredUno(String playerName) {
         for (JButton catchButton : catchButtons) {
             String buttonText = catchButton.getText();
-            if(buttonText.contains(playerName)) {
+            if (buttonText.contains(playerName)) {
                 catchButton.setBackground(Color.LIGHT_GRAY);
-                catchButton.setText(buttonText.replaceAll("  UNO","") + "  UNO");
+                catchButton.setText(buttonText.replaceAll("  UNO", "") + "  UNO");
             }
 
         }
@@ -307,7 +309,6 @@ public class PlayerScreen extends JFrame implements PlayerView {
         if (catchButtons.size() == 0)
             createCatchButtons(Arrays.asList(playerSummaries));
         updateCatchButtons(Arrays.asList(playerSummaries), snapshot.currentPlayerIndex, snapshot.isInAscendingOrder, direction);
-//        if (snapshot.log.playerName == null)
         log.append(snapshot.currentTurnLog);
         log.setVisible(true);
         centerPanel.setVisible(true);
