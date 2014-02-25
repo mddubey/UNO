@@ -89,7 +89,6 @@ public class Game {
         snapshot.isInAscendingOrder = this.isInAscendingOrder;
         snapshot.runningColour = runningColour;
         snapshot.draw2Run = draw2Run;
-        System.out.println(this.log.get(log.size() - 1));
         snapshot.currentTurnLog = this.log.get(log.size() - 1);
     }
 

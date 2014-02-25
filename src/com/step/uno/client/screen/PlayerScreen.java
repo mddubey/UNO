@@ -53,6 +53,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
     private Color[] backgroundColours = {Color.black, new Color(100, 100, 255), new Color(100, 255, 100), new Color(255, 100, 100), new Color(225, 255, 100)};
     private Color[] foregroundColor = {Color.WHITE, Color.WHITE, Color.BLACK, Color.BLACK, Color.BLACK};
     private Snapshot snapshot;
+    private boolean hasDrawnOneCard = false;
 
     public PlayerScreen(String playerName) {
         super(playerName);
@@ -156,6 +157,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
             public void actionPerformed(ActionEvent e) {
                 continueAction.setEnabled(true);
                 drawButton.setEnabled(false);
+                hasDrawnOneCard = true;
                 observer.onDraw(snapshot.draw2Run);
             }
         });
@@ -227,7 +229,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
         masterPanel.remove(cardsPane);
         playerCardsPanel = new JPanel();
         playerCardsPanel.removeAll();
-        playerCardsPanel.setLayout(new GridLayout(1,5));
+        playerCardsPanel.setLayout(new GridLayout(1, 5));
         cardsPane = new JScrollPane(playerCardsPanel);
         masterPanel.add(cardsPane);
         playerCardsPanel.validate();
@@ -244,6 +246,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
                     drawButton.setEnabled(false);
                     continueAction.setEnabled(false);
                     observer.onCardPlayed(myCards.get(e.getSource()), snapshot);
+                    hasDrawnOneCard = false;
                 }
             });
         }
@@ -252,7 +255,12 @@ public class PlayerScreen extends JFrame implements PlayerView {
     }
 
     public void showWarningMessage(String message) {
-        drawButton.setEnabled(true);
+        if (hasDrawnOneCard) {
+            continueAction.setEnabled(true);
+            drawButton.setEnabled(false);
+        }
+        else
+            drawButton.setEnabled(true);
         JOptionPane.showMessageDialog(null, message);
     }
 
