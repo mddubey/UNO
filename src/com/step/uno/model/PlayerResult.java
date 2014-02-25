@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
-public class PlayerResult implements Serializable {
+public class PlayerResult implements Serializable,Comparable {
     public String name;
     public Card[] cards;
     public int points;
@@ -27,5 +27,11 @@ public class PlayerResult implements Serializable {
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
 
         return true;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        PlayerResult result = (PlayerResult) o;
+        return this.points - result.points;
     }
 }
