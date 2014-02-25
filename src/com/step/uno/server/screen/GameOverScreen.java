@@ -32,7 +32,6 @@ public class GameOverScreen extends JFrame implements GameOverView {
         masterPanel.setBackground(Color.GRAY);
         addLabelForGameOver();
         addTableForDisplay(result);
-//        addPlayAgainButton();
         addButtonForQuit();
         setLocationRelativeTo(null);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -58,13 +57,6 @@ public class GameOverScreen extends JFrame implements GameOverView {
         });
     }
 
-    private void addPlayAgainButton() {
-        playAgain = new JButton("Play Again");
-        playAgain.setBorder(BorderFactory.createLineBorder(Color.GREEN));
-        playAgain.setBounds(60, 350, 200, 60);
-        masterPanel.add(playAgain);
-    }
-
     private void addTableForDisplay(GameResult result) {
         String columnName[] = {"NAME", "CARDS", "TOTAL"};
         PlayerResult[] players = result.players;
@@ -79,7 +71,6 @@ public class GameOverScreen extends JFrame implements GameOverView {
         }
         scoreCard = new JTable(data, columnName);
         
-        System.out.println(scoreCard.getTableHeader().toString());
         scoreCard.setBounds(40, 120, 520, 200);
         scoreCard.setLayout(new GridLayout(data.length, 3));
         scoreCard.setBackground(Color.lightGray);

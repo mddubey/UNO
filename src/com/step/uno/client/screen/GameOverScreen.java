@@ -120,7 +120,4 @@ public class GameOverScreen extends JFrame implements GameOverView {
         gameOverLabel.setFont(new Font("serif", Font.BOLD, 50));
         masterPanel.add(gameOverLabel, BorderLayout.NORTH);
     }
-
-   
-
 }

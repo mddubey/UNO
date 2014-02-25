@@ -209,7 +209,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
     }
 
     private void updateHint(Card card) {
-        hintToUser.setText("Play a " + String.valueOf(card.sign).split("_")[1] + " or " + card.colour);
+        hintToUser.setText("Play a " + String.valueOf(card.sign).split("_")[1] + " or " + this.snapshot.runningColour);
     }
 
     public void quit() {
@@ -304,6 +304,11 @@ public class PlayerScreen extends JFrame implements PlayerView {
         return button;
     }
 
+    @Override
+    public void showDisconnected() {
+
+    }
+
     public void update(Snapshot snapshot, PlayerViewObserver observer, boolean enable, String direction) {
         this.snapshot = snapshot;
         Card[] myCards = snapshot.myCards;
@@ -325,7 +330,4 @@ public class PlayerScreen extends JFrame implements PlayerView {
 
     }
 
-    public void showDisconnected() {
-
-    }
 }
