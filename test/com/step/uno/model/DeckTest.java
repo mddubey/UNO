@@ -39,7 +39,7 @@ public class DeckTest {
     @Test
     public void shouldGiveLastCard()  {
         deck = new Deck(cards.toArray(new Card[]{}));
-        assertThat(deck.lookAtLast(),is(cards.get(0)));
+        assertEquals(deck.lookAtLast(),cards.get(0));
     }
 
     @Test
