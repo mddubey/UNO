@@ -194,7 +194,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
     private void updateOpenPile(Card card) {
         int index = Arrays.asList(colours).indexOf(card.colour);
         openPileCardPanel.setBackground(backgroundColours[index]);
-        openPile.setText(String.valueOf(card.sign).split("_")[1]);
+        openPile.setText(card.sign.getValue());
         openPile.setForeground(foregroundColor[index]);
     }
 
@@ -280,6 +280,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
         for (JButton catchButton : catchButtons) {
             String buttonText = catchButton.getText();
             if (buttonText.contains(playerName)) {
+
                 catchButton.setBackground(Color.LIGHT_GRAY);
                 catchButton.setText(buttonText.replaceAll("  UNO", "") + "  UNO");
             }
@@ -289,7 +290,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
 
     private JButton getPlayerButtons(boolean enable, Map<JButton, Card> myCards, Card card) {
         int index = Arrays.asList(colours).indexOf(card.colour);
-        JButton button = new JButton(String.valueOf(card.sign).split("_")[1]);
+        JButton button = new JButton(card.sign.getValue());
         button.setEnabled(enable);
         myCards.put(button, card);
         button.setFont(new Font("serif", Font.BOLD, 18));
