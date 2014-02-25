@@ -6,6 +6,7 @@ import com.step.communication.server.MessageServer;
 import com.step.uno.client.GameClient;
 import com.step.uno.client.GameClientObserver;
 import com.step.uno.client.screen.ColorChooser;
+import com.step.uno.client.screen.ColorChooserObserver;
 import com.step.uno.client.screen.WaitingScreen;
 import com.step.uno.client.view.ColourChooserView;
 import com.step.uno.client.view.WaitingView;
@@ -78,7 +79,7 @@ public class CommunicationFactory {
         return new WaitingScreen();
     }
 
-    public ColourChooserView getColourChooserView() {
-        return new ColorChooser();
+    public ColourChooserView getColourChooserView(ColorChooserObserver observer) {
+        return new ColorChooser(observer);
     }
 }

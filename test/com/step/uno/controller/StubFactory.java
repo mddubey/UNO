@@ -6,6 +6,7 @@ import com.step.communication.server.MessageServer;
 import com.step.uno.client.GameClient;
 import com.step.uno.client.GameClientObserver;
 import com.step.uno.client.screen.ColorChooser;
+import com.step.uno.client.screen.ColorChooserObserver;
 import com.step.uno.client.view.ColourChooserView;
 import com.step.uno.client.view.WaitingView;
 import com.step.uno.server.GameMasterObserver;
@@ -54,7 +55,7 @@ public class StubFactory extends CommunicationFactory {
     }
 
     @Override
-    public ColourChooserView getColourChooserView() {
+    public ColourChooserView getColourChooserView(ColorChooserObserver observer) {
         return view;
     }
 }

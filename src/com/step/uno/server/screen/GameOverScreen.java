@@ -2,12 +2,15 @@ package com.step.uno.server.screen;
 
 import com.step.uno.client.view.GameOverView;
 import com.step.uno.messages.GameResult;
+import com.step.uno.model.Card;
+import com.step.uno.model.Colour;
 import com.step.uno.model.PlayerResult;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 public class GameOverScreen extends JFrame implements GameOverView {
     private JLabel gameOverLabel;
