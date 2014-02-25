@@ -133,7 +133,7 @@ public class GameMaster implements MessageServerListener, PlayerProxyObserver {
 
     @Override
     public void onNoActionOnDrawnCard(Player player) {
-        game.moveForwardAsPlayerTookNoActionOnDrawnCard();
+        game.moveForwardAsPlayerTookNoActionOnDrawnCard(player);
         sendSnapshot();
     }
 }

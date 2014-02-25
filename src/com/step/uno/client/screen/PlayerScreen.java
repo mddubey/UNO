@@ -54,10 +54,12 @@ public class PlayerScreen extends JFrame implements PlayerView {
     private Snapshot snapshot;
     private boolean hasDrawnOneCard = false;
 
+
     public PlayerScreen(String playerName) {
         super(playerName);
         generateUI();
         setVisible(true);
+        setMaximizedBounds(new Rectangle(800, 800));
     }
 
     private void generateUI() {
@@ -209,7 +211,8 @@ public class PlayerScreen extends JFrame implements PlayerView {
     }
 
     private void updateHint(Card card) {
-        hintToUser.setText("Play a " + String.valueOf(card.sign).split("_")[1] + " or " + card.colour);
+        Colour colour = (snapshot.runningColour == null) ? card.colour : snapshot.runningColour;
+        hintToUser.setText("Play a " + String.valueOf(card.sign).split("_")[1] + " or " + colour);
     }
 
     public void quit() {
@@ -257,8 +260,7 @@ public class PlayerScreen extends JFrame implements PlayerView {
         if (hasDrawnOneCard) {
             continueAction.setEnabled(true);
             drawButton.setEnabled(false);
-        }
-        else
+        } else
             drawButton.setEnabled(true);
         JOptionPane.showMessageDialog(null, message);
     }
@@ -289,13 +291,14 @@ public class PlayerScreen extends JFrame implements PlayerView {
             }
 
         }
-}
+    }
+
     private JButton getPlayerButtons(boolean enable, Map<JButton, Card> myCards, Card card) {
         int index = Arrays.asList(colours).indexOf(card.colour);
         JButton button = new JButton(String.valueOf(card.sign).split("_")[1]);
         button.setEnabled(enable);
         myCards.put(button, card);
-        button.setPreferredSize(new Dimension(100,75));
+        button.setPreferredSize(new Dimension(100, 75));
         button.setFont(new Font("serif", Font.BOLD, 18));
         button.setBackground(backgroundColours[index]);
         button.setForeground(foregroundColor[index]);

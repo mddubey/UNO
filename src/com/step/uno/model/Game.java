@@ -164,10 +164,10 @@ public class Game {
         if (caughtPlayer.checkUno()) {
             caughtPlayer.take(draw());
             caughtPlayer.take(draw());
-            this.log.add(caughtPlayer.name + " has been catched " + getTime() + "\n");
+            this.log.add(getTime() + " " + caughtPlayer.name + " has been catched " + "\n");
         }
         else
-            this.log.add("catch was not valid on " + caughtPlayer.name + " " + getTime() + "\n");
+            this.log.add(getTime() + " catch was not valid on " + caughtPlayer.name + " " + "\n");
     }
 
     public void populate(GameResult result) {
@@ -184,7 +184,8 @@ public class Game {
         nextTurn();
     }
 
-    public void moveForwardAsPlayerTookNoActionOnDrawnCard() {
+    public void moveForwardAsPlayerTookNoActionOnDrawnCard(Player player) {
+        log.add(getTime() + "no action played by " + player.name + "\n");
         nextTurn();
     }
 }
