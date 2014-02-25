@@ -6,7 +6,6 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
 public class DeckTest {
@@ -39,7 +38,7 @@ public class DeckTest {
     @Test
     public void shouldGiveLastCard()  {
         deck = new Deck(cards.toArray(new Card[]{}));
-        assertEquals(deck.lookAtLast(),cards.get(0));
+        assertEquals(deck.lookAtLast(), cards.get(0));
     }
 
     @Test
