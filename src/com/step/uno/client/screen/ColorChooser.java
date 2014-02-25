@@ -16,7 +16,7 @@ public class ColorChooser implements ColourChooserView, ActionListener {
     private JButton blueButton;
     private JDialog dialog;
     Color buttonColor;
-    Color[] colors = {Color.RED, Color.GREEN, Color.YELLOW, Color.BLUE};
+    Color[] colors = {new Color(255, 100, 100), new Color(100, 255, 100), new Color(225, 255, 100), new Color(100, 100, 255)};
     private Colour[] colours = {Colour.Red, Colour.Green, Colour.Yellow, Colour.Blue};
     private ColorChooserObserver observer;
 
