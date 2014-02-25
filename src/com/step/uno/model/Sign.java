@@ -35,4 +35,5 @@ public enum Sign implements Serializable{
     public int getPoint() {
         return point;
     }
+
 }

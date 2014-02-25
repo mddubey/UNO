@@ -7,7 +7,6 @@ import com.step.uno.messages.Snapshot;
 import com.step.uno.model.Card;
 import com.step.uno.model.Colour;
 import com.step.uno.model.PlayerSummary;
-import com.step.uno.server.screen.GameOverScreen;
 
 import javax.swing.*;
 import java.awt.*;
