@@ -4,6 +4,7 @@ import com.step.communication.channel.MessageChannel;
 import com.step.communication.factory.CommunicationFactory;
 import com.step.uno.client.GameClient;
 import com.step.uno.client.GameClientObserver;
+import com.step.uno.client.screen.ColorChooserObserver;
 import com.step.uno.client.screen.PlayerViewObserver;
 import com.step.uno.client.view.ColourChooserView;
 import com.step.uno.client.view.JoinGameView;
@@ -15,20 +16,21 @@ import com.step.uno.messages.Snapshot;
 import com.step.uno.model.Card;
 import com.step.uno.model.Colour;
 
-public class GameClientController implements GameClientObserver, PlayerViewObserver {
+public class GameClientController implements GameClientObserver, PlayerViewObserver, ColorChooserObserver {
     private CommunicationFactory factory;
     private JoinGameView playerLoginView;
     private WaitingView waitingView;
     private PlayerView playerView;
     private ColourChooserView chooserView;
     private GameClient gameClient;
+    private Card card;
 
 
     public GameClientController(CommunicationFactory factory) {
         this.factory = factory;
         gameClient = factory.createGameClient(this);
         waitingView = factory.getWaitingView();
-        chooserView = factory.getColourChooserView();
+        chooserView = factory.getColourChooserView(this);
     }
 
     public void join(String serverAddress, String playerName) {
@@ -54,7 +56,7 @@ public class GameClientController implements GameClientObserver, PlayerViewObser
     }
 
     private String decideDirectionOfArrow(boolean isInAscendingOrder) {
-        if (isInAscendingOrder == false) return "<=";
+        if (!isInAscendingOrder) return "<=";
         else return "=>";
     }
 
@@ -83,13 +85,12 @@ public class GameClientController implements GameClientObserver, PlayerViewObser
     @Override
     public void onCardPlayed(Card card, Snapshot snapshot) {
         if (!card.canFollow(snapshot)) {
-            System.out.println(playerView);
             playerView.showWarningMessage("You can not play this card");
             return;
         }
         if (card.isWild()) {
-            Colour newColour = chooserView.showVisible();
-            gameClient.play(card, newColour);
+            this.card = card;
+            chooserView.showVisible(true);
             return;
         }
         gameClient.play(card);
@@ -110,6 +111,11 @@ public class GameClientController implements GameClientObserver, PlayerViewObser
     }
 
     @Override
+    public void onNewColour(Colour colour) {
+        gameClient.play(card, colour);
+        chooserView.showVisible(false);
+    }
+
     public void onDeclaredUno(int length) {
         if (length == 1)
             gameClient.declareUno();

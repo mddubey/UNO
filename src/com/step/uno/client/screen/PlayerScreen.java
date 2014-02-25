@@ -227,12 +227,8 @@ public class PlayerScreen extends JFrame implements PlayerView {
         masterPanel.remove(cardsPane);
         playerCardsPanel = new JPanel();
         playerCardsPanel.removeAll();
-        playerCardsPanel.setLayout(new GridLayout(1, 5));
-        playerCardsPanel.setBackground(Color.white);
+        playerCardsPanel.setLayout(new GridLayout(1,5));
         cardsPane = new JScrollPane(playerCardsPanel);
-
-        cardsPane = new JScrollPane(playerCardsPanel);
-        cardsPane.setBounds(20, 600, 650, 100);
         masterPanel.add(cardsPane);
         playerCardsPanel.validate();
 
