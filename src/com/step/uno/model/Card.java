@@ -86,7 +86,7 @@ public class Card implements Serializable {
 
     public boolean handleDraw4(Snapshot snapshot) {
         for (Card myCard : snapshot.myCards) {
-            if (myCard.colour.equals(snapshot.runningColour))
+            if (myCard.colour.equals(snapshot.runningColour) || myCard.colour.equals(snapshot.openCard.sign))
                 return false;
         }
         return true;

@@ -1,6 +1,7 @@
 package com.step.uno.client;
 
 import com.step.communication.channel.MessageChannel;
+import com.step.uno.messages.DeclareUnoAction;
 import com.step.uno.messages.GameResult;
 import com.step.uno.messages.Snapshot;
 
@@ -12,4 +13,6 @@ public interface GameClientObserver {
     void decideActionAfterDraw();
 
     void showResults(GameResult message);
+
+    void showPlayerDeclaredUno(DeclareUnoAction message);
 }

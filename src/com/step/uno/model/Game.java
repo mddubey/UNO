@@ -3,8 +3,10 @@ package com.step.uno.model;
 import com.step.uno.messages.GameResult;
 import com.step.uno.messages.Snapshot;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 public class Game {
@@ -33,17 +35,37 @@ public class Game {
                 player.take(draw());
             }
         }
-        Card drawnCard = draw();
+
+        Card drawnCard = drawCardButWild();
         openDeck.add(drawnCard);
-        updateLogAfterInitilize(drawnCard);
+        handleReverse(drawnCard);
+        handleSkip(drawnCard);
+        handleDrawTwo(drawnCard);
+
+        updateLogAfterInitialize(drawnCard);
     }
 
-    private void updateLogAfterInitilize(Card card) {
-        log.add("Game starts with " + card.colour + " " + getSign(card) + "\n");
+    private Card drawCardButWild() {
+        Card drawnCard = draw();
+        if (drawnCard.isWild() || drawnCard.isDrawFour()) {
+            closedDeck.add(drawnCard);
+            closedDeck.shuffle();
+            return drawCardButWild();
+        }
+        return drawnCard;
+    }
+
+    private void updateLogAfterInitialize(Card card) {
+        log.add("Game starts with " + card.colour + " " + getSign(card) + " " + getTime() + "\n");
     }
 
     private String getSign(Card card) {
-        return card.sign.toString().substring(1,card.sign.toString().length());
+        return card.sign.toString().split("_")[1];
+    }
+
+    private String getTime() {
+        SimpleDateFormat format = new SimpleDateFormat("hh:mm:ss");
+        return format.format(new Date());
     }
 
     private Card draw() {
@@ -84,11 +106,11 @@ public class Game {
     }
 
     private void updateLogAfterDraw(Player player) {
-        log.add(player.name + " drew a card \n");
+        log.add(player.name + " drew a card " + getTime() + "\n");
     }
 
     private void updateLogAfterPlay(Player player, Card card) {
-        log.add(player.name + " played a " + card.colour + " " + getSign(card) + " card" + "\n");
+        log.add(player.name + " played a " + card.colour + " " + getSign(card) + " " + getTime() + "\n");
     }
 
     private void handleReverse(Card card) {
@@ -134,14 +156,18 @@ public class Game {
 
     public void declareUno(Player player) {
         player.declareUno();
+        log.add(player.name + " has declared uno\n");
     }
 
-    public void catchUno(Player player, int playerIndex) {
+    public void catchUno(int playerIndex) {
         Player caughtPlayer = players.get(playerIndex);
         if (caughtPlayer.checkUno()) {
             caughtPlayer.take(draw());
             caughtPlayer.take(draw());
+            this.log.add(caughtPlayer.name + " has been catched " + getTime() + "\n");
         }
+        else
+            this.log.add("catch was not valid on " + caughtPlayer.name + " " + getTime() + "\n");
     }
 
     public void populate(GameResult result) {

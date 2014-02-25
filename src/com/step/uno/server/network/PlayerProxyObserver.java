@@ -13,7 +13,7 @@ public interface PlayerProxyObserver{
 
     void onPlayerDeclaredUno(Player player);
 
-    void onPlayerCaughtUno(Player player, int playerIndex);
+    void onPlayerCaughtUno(int playerIndex);
 
     void onPlayerDrewTwoCards(Player player);
 
