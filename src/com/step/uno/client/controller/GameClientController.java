@@ -10,6 +10,7 @@ import com.step.uno.client.view.ColourChooserView;
 import com.step.uno.client.view.JoinGameView;
 import com.step.uno.client.view.PlayerView;
 import com.step.uno.client.view.WaitingView;
+import com.step.uno.messages.DeclareUnoAction;
 import com.step.uno.messages.GameResult;
 import com.step.uno.messages.Snapshot;
 import com.step.uno.model.Card;
@@ -55,7 +56,7 @@ public class GameClientController implements GameClientObserver, PlayerViewObser
     }
 
     private String decideDirectionOfArrow(boolean isInAscendingOrder) {
-        if (isInAscendingOrder == false) return "<=";
+        if (!isInAscendingOrder) return "<=";
         else return "=>";
     }
 
@@ -77,9 +78,14 @@ public class GameClientController implements GameClientObserver, PlayerViewObser
     }
 
     @Override
+    public void showPlayerDeclaredUno(DeclareUnoAction message) {
+        playerView.hasDeclaredUno(message.playerName);
+    }
+
+    @Override
     public void onCardPlayed(Card card, Snapshot snapshot) {
         if (!card.canFollow(snapshot)) {
-            playerView.showWarningMessage();
+            playerView.showWarningMessage("You can not play this card");
             return;
         }
         if (card.isWild()) {
@@ -108,5 +114,11 @@ public class GameClientController implements GameClientObserver, PlayerViewObser
     public void onNewColour(Colour colour) {
         gameClient.play(card, colour);
         chooserView.showVisible(false);
+    }
+    public void onDeclaredUno(int length) {
+        if (length == 1)
+            gameClient.declareUno();
+        else
+            playerView.showWarningMessage("Sorry!! You have more than 1 card");
     }
 }

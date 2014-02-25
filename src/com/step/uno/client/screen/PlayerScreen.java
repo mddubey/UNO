@@ -79,6 +79,12 @@ public class PlayerScreen extends JFrame implements PlayerView {
     private void showUNOButton() {
         unoButton = new JButton("UNO");
         unoButton.setBounds(680, 600, 70, 50);
+        unoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                observer.onDeclaredUno(snapshot.myCards.length);
+            }
+        });
         masterPanel.add(unoButton);
     }
 
@@ -237,9 +243,9 @@ public class PlayerScreen extends JFrame implements PlayerView {
         masterPanel.add(cardsPane);
     }
 
-    public void showWarningMessage() {
+    public void showWarningMessage(String message) {
         drawButton.setEnabled(true);
-        JOptionPane.showMessageDialog(null, "You can not play this card");
+        JOptionPane.showMessageDialog(null, message);
     }
 
     @Override
@@ -251,6 +257,18 @@ public class PlayerScreen extends JFrame implements PlayerView {
     @Override
     public void disableContinueAfterDraw2() {
         continueAction.setEnabled(false);
+    }
+
+    @Override
+    public void hasDeclaredUno(String playerName) {
+        for (JButton catchButton : catchButtons) {
+            String buttonText = catchButton.getText();
+            if(buttonText.contains(playerName)) {
+                catchButton.setBackground(Color.LIGHT_GRAY);
+                catchButton.setText(buttonText.replaceAll("  UNO","") + "  UNO");
+            }
+
+        }
     }
 
     private JButton getPlayerButtons(boolean enable, Map<JButton, Card> myCards, Card card) {

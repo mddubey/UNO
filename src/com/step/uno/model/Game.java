@@ -3,8 +3,10 @@ package com.step.uno.model;
 import com.step.uno.messages.GameResult;
 import com.step.uno.messages.Snapshot;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 public class Game {
@@ -33,17 +35,22 @@ public class Game {
                 player.take(draw());
             }
         }
-        Card drawnCard = draw();
-        openDeck.add(drawnCard);
-        updateLogAfterInitilize(drawnCard);
+        Card openCard = draw();
+        openDeck.add(openCard);
+        updateLogAfterInitialize(openCard);
     }
 
-    private void updateLogAfterInitilize(Card card) {
-        log.add("Game starts with " + card.colour + " " + getSign(card) + "\n");
+    private void updateLogAfterInitialize(Card card) {
+        log.add("Game starts with " + card.colour + " " + getSign(card) + " " + getTime() + "\n");
     }
 
     private String getSign(Card card) {
-        return card.sign.toString().substring(1,card.sign.toString().length());
+        return card.sign.toString().split("_")[1];
+    }
+
+    private String getTime() {
+        SimpleDateFormat format = new SimpleDateFormat("hh:mm:ss");
+        return format.format(new Date());
     }
 
     private Card draw() {
@@ -84,11 +91,11 @@ public class Game {
     }
 
     private void updateLogAfterDraw(Player player) {
-        log.add(player.name + " drew a card \n");
+        log.add(player.name + " drew a card " + getTime() + "\n");
     }
 
     private void updateLogAfterPlay(Player player, Card card) {
-        log.add(player.name + " played a " + card.colour + " " + getSign(card) + " card" + "\n");
+        log.add(player.name + " played a " + card.colour + " " + getSign(card) + " " + getTime() + "\n");
     }
 
     private void handleReverse(Card card) {

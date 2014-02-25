@@ -100,4 +100,8 @@ public class PlayerProxy implements MessageChannelListener {
         game.populate(snapshot,player);
         channel.send(snapshot);
     }
+
+    public void sendDeclareUnoAction(DeclareUnoAction declareUnoAction) {
+        channel.send(declareUnoAction);
+    }
 }

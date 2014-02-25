@@ -69,6 +69,10 @@ public class GameClient implements MessageChannelListener {
             observer.showResults((GameResult)message);
         }
 
+        if (message.getClass().equals(DeclareUnoAction.class)) {
+            observer.showPlayerDeclaredUno((DeclareUnoAction)message);
+        }
+
         if(message.getClass().equals(WaitingForDrawnCardAction.class)){
             observer.decideActionAfterDraw();
         }
